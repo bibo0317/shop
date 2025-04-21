@@ -199,17 +199,31 @@
       };
 
 
-      fetch("https://docs.google.com/forms/d/1t7FXBZjS3ECuiP3qPRwwZz68SQJcYDRV00bqaObIMi4/formResponse", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(postData).toString()
-      }).then(() => {
-        window.location.href = "myshipdone.html";
-      }).catch(() => {
-        window.location.href = "error.html";
-      });
-    }
+  function submitOrder() {
+    const formData = new FormData();
+    formData.append("entry.2051379311", email);
+    formData.append("entry.367789986", name);
+    formData.append("entry.1201921157", product);
+    formData.append("entry.2032813703", amount);
+    formData.append("entry.682580967", total);
+    formData.append("entry.462462103", money);
+    formData.append("entry.1849184559", bank);
+    formData.append("entry.200595228", time);
+    formData.append("entry.1308233084", realname);
+    formData.append("entry.1341157619", phone);
+    formData.append("entry.2117699031", store);
+
+    fetch("https://docs.google.com/forms/d/1t7FXBZjS3ECuiP3qPRwwZz68SQJcYDRV00bqaObIMi4/formResponse", {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    }).then(() => {
+      window.location.href = "myshipdone.html";
+    }).catch(() => {
+      window.location.href = "error.html";
+    });
+  }
+
   </script>
 </body>
 </html>
