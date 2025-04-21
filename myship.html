@@ -185,22 +185,21 @@
       const total = parseFloat(amount) + parseInt(insurance);
 
       const postData = {
-        "entry.127058472": email,
-        "entry.1545052603": name,
-        "entry.641278478": product,
-        "entry.1421162233": amount,
-        "entry.1991271275": insurance,
-        "entry.311613342": total,
-        "entry.1250034292": money,
-        "entry.680889385": bank,
-        "entry.456764888": time,
-        "entry.225385382": realname,
-        "entry.1435269479": phone,
-// 缺一個 entry，要補上 store 的欄位 ID！
-
+        "entry.2051379311": email,
+        "entry.367789986": name,
+        "entry.1201921157": product,
+        "entry.2032813703": amount,
+        "entry.682580967": total,
+        "entry.462462103": money,
+        "entry.1849184559": bank,
+        "entry.200595228": time,
+        "entry.1308233084": realname,
+        "entry.1341157619": phone,
+        "entry.2117699031": store
       };
 
-      fetch("https://docs.google.com/forms/d/1SoF6VVTELw1CPVo5yjEE6Ugi5VDlk4VR0N1DlyPjdcA/formResponse", {
+
+      fetch("https://docs.google.com/forms/d/1t7FXBZjS3ECuiP3qPRwwZz68SQJcYDRV00bqaObIMi4/formResponse", {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
