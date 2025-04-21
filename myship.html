@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>送出訂單</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background: #f3f3f3;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-top: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .submit-btn {
+      background: linear-gradient(45deg, #6e46ae, #d7a9f9);
+      color: white;
+      font-size: 16px;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+    }
+    .payment-notice {
+      background: #a798bd;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 15px;
+    }
+    .summary {
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="payment-notice">
+      <p>💰付款須知：匯款/無卡帳號:</p>
+      <p>（822）901566584648</p>
+      <p>請先完成付款後再送出表單，若表單送出後未收到款項，將不列入此次訂單。</p>
+      <p>無卡:請填寫確切日期時間並無卡至百位數，剩餘二補</p>
+    </div>
+
+    <div class="form-group">
+      <label for="email">*Gmail信箱（只需輸入帳號，會自動補上 @gmail.com）</label>
+      <input type="text" id="email" placeholder="xxxxx" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">*社群內您的姓名</label>
+      <input type="text" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="product">*購買的所有商品</label>
+      <input type="text" id="product" required>
+    </div>
+
+    <div class="form-group">
+      <label for="amount">*需二補金額</label>
+      <input type="text" id="amount" required oninput="updateShipping()">
+    </div>
+
+    <div class="form-group">
+      <label for="insurance">保值金額（選擇區間）</label>
+      <select id="insurance" onchange="updateShipping()">
+        <option value="75">NT$1–1,000（運費$55＋包材$20）</option>
+        <option value="85">NT$1,001–2,000（運費$65＋包材$20）</option>
+        <option value="95">NT$2,001–3,000（運費$75＋包材$20）</option>
+        <option value="105">NT$3,001–4,000（運費$85＋包材$20）</option>
+        <option value="115">NT$4,001–5,000（運費$95＋包材$20）</option>
+      </select>
+    </div>
+
+    <div class="summary" id="shipping-cost-text">需匯款總金額(已含運費及包材費)：$0</div>
+
+    <div class="form-group">
+      <label for="money">您匯款的金額</label>
+      <input type="text" id="money" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bank">匯款銀行＋末五碼</label>
+      <input type="text" id="bank" required>
+    </div>
+
+    <div class="form-group">
+      <label for="time">無卡：填寫確切日期時間</label>
+      <input type="text" id="time">
+    </div>
+
+    <div class="payment-notice">
+      <p>⚠️ 以下訊息請確認填寫無誤再送出</p>
+      <p>若填寫錯誤造成無法領貨我方不負責</p>
+      <p>若因買家填寫不當，退回造成我方損失需要買家賠償</p>
+    </div>
+
+    <div class="form-group">
+      <label for="realname">*真實姓名</label>
+      <input type="text" id="realname" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">*手機號碼</label>
+      <input type="text" id="phone" required>
+    </div>
+
+    <div class="form-group">
+      <label for="store">*取貨門市名稱</label>
+      <input type="text" id="store" required>
+    </div>
+
+    <button class="submit-btn" onclick="submitOrder()">送出訂單</button>
+  </div>
+
+  <script>
+    function updateShipping() {
+      const fee = parseInt(document.getElementById("insurance").value) || 0;
+      const amount = parseFloat(document.getElementById("amount").value) || 0;
+      const total = fee + amount;
+      document.getElementById("shipping-cost-text").innerText = `需匯款總金額(已含運費及包材費)：$${total}`;
+    }
+
+    function submitOrder() {
+      let emailInput = document.getElementById("email").value.trim();
+      if (!emailInput.includes("@")) emailInput += "@gmail.com";
+      const email = emailInput;
+      document.getElementById("email").value = email;
+
+      if (!email.endsWith("@gmail.com")) {
+        alert("只接受 Gmail 帳號，請重新確認您的 Email！");
+        return;
+      }
+
+      const name = document.getElementById("name").value.trim();
+      const product = document.getElementById("product").value.trim();
+      const amount = document.getElementById("amount").value.trim();
+      const insurance = document.getElementById("insurance").value;
+      const money = document.getElementById("money").value.trim();
+      const realname = document.getElementById("realname").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const store = document.getElementById("store").value.trim();
+      const bank = document.getElementById("bank").value.trim();
+      const time = document.getElementById("time").value.trim();
+
+      if (!email || !name || !amount || !product || !realname || !phone || !store) {
+        alert("請填寫所有必填欄位！");
+        return;
+      }
+
+      if (!/^\d+(\.\d+)?$/.test(amount)) {
+        alert("匯款金額格式錯誤，只能填寫數字！");
+        return;
+      }
+
+      const total = parseFloat(amount) + parseInt(insurance);
+
+      const postData = {
+        "entry.1298133702": email,
+        "entry.1881498664": name,
+        "entry.2131951684": product,
+        "entry.765318707": amount,
+        "entry.1633528865": insurance,
+        "entry.1482634034": total,
+        "entry.150460189": money,
+        "entry.632708818": bank,
+        "entry.72958849": time,
+        "entry.849772642": realname,
+        "entry.2033715020": phone,
+        "entry.573199161": store
+      };
+
+      fetch("https://docs.google.com/forms/d/1SoF6VVTELw1CPVo5yjEE6Ugi5VDlk4VR0N1DlyPjdcA/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(postData).toString()
+      }).then(() => {
+        window.location.href = "../myshipdone.html";
+      }).catch(() => {
+        window.location.href = "../error.html";
+      });
+    }
+  </script>
+</body>
+</html>
