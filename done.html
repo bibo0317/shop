@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>訂單已送出</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; padding: 40px; line-height: 1.8; }
+    h1 { text-align: center; }
+    .summary { max-width: 600px; margin: auto;font-size: 20px }
+    .label { font-weight: bold; }
+    #capture-area { padding: 20px; border: 1px dashed #ccc; margin-top: 20px; }
+    .item { display: flex; align-items: center; margin-top: 10px; }
+    .item img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; margin-right: 10px; }
+    .item-text { font-weight: 400; font-size: 20px;margin-left: 10px; }
+    #download-btn { margin-top: 20px; background: #6e46ae; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 16px; display: block; margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body>
+  <h1>✅ 訂單已成功送出</h1>
+  <p style="text-align:center;">感謝您的購買，Arwen 會盡快處理您的訂單 🙏</p>
+
+  <div class="summary" id="capture-area">
+    <p><span class="label">總金額：</span><span id="total">未計算</span></p>
+    <p><span class="label">購買明細：</span></p>
+    <div id="items"></div>
+  </div>
+
+  <button id="download-btn">下載訂單明細圖片</button>
+
+  <script>
+    const total = localStorage.getItem("order-total") || "未計算";
+    const summary = localStorage.getItem("order-summary") || "";
+    document.getElementById("total").textContent = total;
+
+    const itemsContainer = document.getElementById("items");
+    const itemMap = {
+      "立牌": "image/item1.png",
+      "娃娃": "image/item2.png"
+    };
+
+    if (summary) {
+      const entries = summary.split(" / ");
+      entries.forEach(entry => {
+        const [title, detail] = entry.split(": ");
+        const imgSrc = itemMap[title.trim()] || "image/default.png";
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `<img src="${imgSrc}" alt="${title}"><div class="item-text">${title} - ${detail}</div>`;
+        itemsContainer.appendChild(div);
+      });
+    } else {
+      itemsContainer.innerHTML = "<p>無</p>";
+    }
+
+    document.getElementById("download-btn").addEventListener("click", () => {
+      html2canvas(document.getElementById("capture-area")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "訂單明細.png";
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    });
+  </script>
+</body>
+</html>
