@@ -2,7 +2,15 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
+<meta charset="UTF-8" />
+  <script>
+  // 設定截止時間（請根據需求修改）
+  const deadline = new Date("2025-05-01T12:00:00+08:00");
+
+  if (new Date() > deadline) {
+    window.location.href = "timesup.html";
+  }
+  </script>
 
   <title>Arwen 開團購物</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
