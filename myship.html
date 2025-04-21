@@ -142,70 +142,53 @@
     <button class="submit-btn" onclick="submitOrder()">送出訂單</button>
   </div>
 
-  <script>
-    function updateShipping() {
-      const fee = parseInt(document.getElementById("insurance").value) || 0;
-      const amount = parseFloat(document.getElementById("amount").value) || 0;
-      const total = fee + amount;
-      document.getElementById("shipping-cost-text").innerText = `需匯款總金額(已含運費及包材費)：$${total}`;
-    }
-
-    function submitOrder() {
-      let emailInput = document.getElementById("email").value.trim();
-      if (!emailInput.includes("@")) emailInput += "@gmail.com";
-      const email = emailInput;
-      document.getElementById("email").value = email;
-
-      if (!email.endsWith("@gmail.com")) {
-        alert("只接受 Gmail 帳號，請重新確認您的 Email！");
-        return;
-      }
-
-      const name = document.getElementById("name").value.trim();
-      const product = document.getElementById("product").value.trim();
-      const amount = document.getElementById("amount").value.trim();
-      const insurance = document.getElementById("insurance").value;
-      const money = document.getElementById("money").value.trim();
-      const realname = document.getElementById("realname").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const store = document.getElementById("store").value.trim();
-      const bank = document.getElementById("bank").value.trim();
-      const time = document.getElementById("time").value.trim();
-
-      if (!email || !name || !amount || !product || !realname || !phone || !store) {
-        alert("請填寫所有必填欄位！");
-        return;
-      }
-
-      if (!/^\d+(\.\d+)?$/.test(amount)) {
-        alert("匯款金額格式錯誤，只能填寫數字！");
-        return;
-      }
-
-      const total = parseFloat(amount) + parseInt(insurance);
-
-      const postData = {
-        "entry.2051379311": email,
-        "entry.367789986": name,
-        "entry.1201921157": product,
-        "entry.2032813703": amount,
-        "entry.682580967": total,
-        "entry.462462103": money,
-        "entry.1849184559": bank,
-        "entry.200595228": time,
-        "entry.1308233084": realname,
-        "entry.1341157619": phone,
-        "entry.2117699031": store
-      };
-
+ <script>
+  function updateShipping() {
+    const fee = parseInt(document.getElementById("insurance").value) || 0;
+    const amount = parseFloat(document.getElementById("amount").value) || 0;
+    const total = fee + amount;
+    document.getElementById("shipping-cost-text").innerText = `需匯款總金額(已含運費及包材費)：$${total}`;
+  }
 
   function submitOrder() {
+    let emailInput = document.getElementById("email").value.trim();
+    if (!emailInput.includes("@")) emailInput += "@gmail.com";
+    const email = emailInput;
+
+    if (!email.endsWith("@gmail.com")) {
+      alert("只接受 Gmail 帳號，請重新確認您的 Email！");
+      return;
+    }
+
+    const name = document.getElementById("name").value.trim();
+    const product = document.getElementById("product").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+    const insurance = parseInt(document.getElementById("insurance").value) || 0;
+    const money = document.getElementById("money").value.trim();
+    const realname = document.getElementById("realname").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const store = document.getElementById("store").value.trim();
+    const bank = document.getElementById("bank").value.trim();
+    const time = document.getElementById("time").value.trim();
+
+    const total = parseFloat(amount) + insurance;
+
+    // 驗證必填欄位
+    if (!email || !name || !product || !amount || !money || !realname || !phone || !store) {
+      alert("請填寫所有必填欄位！");
+      return;
+    }
+    if (!/^\d+(\.\d+)?$/.test(amount)) {
+      alert("匯款金額格式錯誤，只能填寫數字！");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("entry.2051379311", email);
     formData.append("entry.367789986", name);
     formData.append("entry.1201921157", product);
     formData.append("entry.2032813703", amount);
-    formData.append("entry.682580967", total);
+    formData.append("entry.682580967", total); // 總金額
     formData.append("entry.462462103", money);
     formData.append("entry.1849184559", bank);
     formData.append("entry.200595228", time);
@@ -223,7 +206,7 @@
       window.location.href = "error.html";
     });
   }
+</script>
 
-  </script>
 </body>
 </html>
