@@ -52,16 +52,45 @@
 <body>
     <!--需要更改的地方1-->
     <div class="product-wrapper">
-      <div class="product-card" data-price="250">
-        <img src="../image/songi.jpeg" alt="Songi手燈套">
-        <div class="product-title">Songi手燈套 - $250</div>
-        <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
+      <!-- 黃 系列 -->
+      <div class="product-card" data-price="190">
+        <img src="../image/winter/yellow.jpeg" alt="黃-雨傘">
+        <div class="product-title">黃-雨傘 - $190</div>
+        <div class="member-row" data-member="黃"><span class="member-name">黃</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
       </div>
-      <div class="product-card" data-price="240">
-        <img src="../image/songi.jpeg" alt="舊客優惠">
-        <div class="product-title">舊客優惠 - $240</div>
-        <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
+
+      <div class="product-card" data-price="150">
+        <img src="../image/winter/yellow.jpeg" alt="黃-手持風扇">
+        <div class="product-title">黃-手持風扇 - $150</div>
+        <div class="member-row" data-member="黃"><span class="member-name">黃</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
       </div>
+
+      <div class="product-card" data-price="180">
+        <img src="../image/winter/yellow.jpeg" alt="黃-冰霸杯">
+        <div class="product-title">黃-冰霸杯 - $180</div>
+        <div class="member-row" data-member="黃"><span class="member-name">黃</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
+      </div>
+
+      <!-- 藍 系列 -->
+      <div class="product-card" data-price="150">
+        <img src="../image/winter/blue.jpeg" alt="藍-護照保護套藍">
+        <div class="product-title">藍-護照保護套藍 - $150</div>
+        <div class="member-row" data-member="藍"><span class="member-name">藍</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
+      </div>
+
+      <div class="product-card" data-price="150">
+        <img src="../image/winter/blue.jpeg" alt="藍-護照保護套白">
+        <div class="product-title">藍-護照保護套白 - $150</div>
+        <div class="member-row" data-member="藍"><span class="member-name">藍</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
+      </div>
+
+      <div class="product-card" data-price="130">
+        <img src="../image/winter/blue.jpeg" alt="藍-大王扇">
+        <div class="product-title">藍-大王扇 - $130</div>
+        <div class="member-row" data-member="藍"><span class="member-name">藍</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
+      </div>
+    </div>
+
  
     </div>
     <!--需要更改的地方1end-->
@@ -84,7 +113,7 @@
       <div class="form-group"><label for="email">*Gmail信箱，僅填帳號即可，系統會自動補上@gmail.com，核對訂單用</label><input type="text" id="email" placeholder="xxxxx@gmail.com" required></div>
       <div class="form-group"><label for="name">*社群內您的姓名，填單後禁止改名，若因買家改名找不到人而造成損失我方不負責</label><input type="text" id="name" required></div>
       <div class="form-group"><label for="amount">*匯款/無卡金額，先匯款完才能送單</label><input type="text" id="amount" required></div>
-      <div class="form-group"><label for="bank">匯款這裡!匯款銀行+您的末五碼</label><input type="text" id="bank" required></div>
+      <div class="form-group"><label for="bank">匯款這裡!匯款銀行+您的末五碼 請勿備註任何東西</label><input type="text" id="bank" required></div>
       <div class="form-group"><label for="time">無卡這裡!填寫確切的日期時間</label><input type="text" id="time"></div>
       <div class="form-group"><label for="agree">*我知道商品皆默認瑕疵損，且需久等，我已看過下單須知並同意所有規則</label>
         <select id="agree" required><option value="">請選擇</option><option value="是">是</option></select>
@@ -175,18 +204,22 @@
       /* 需要更改的地方2 */
       const cards = document.querySelectorAll(".product-card");
       const productData = [
-        { name: "Songi手燈套", entry: "entry.321844649", card: cards[0] },
-        { name: "舊客優惠", entry: "entry.333100608", card: cards[1] },
+        { name: "黃-雨傘", entry: "entry.138083237", card: cards[0] },
+        { name: "黃-手持風扇", entry: "entry.1371042989", card: cards[1] },
+        { name: "黃-冰霸杯", entry: "entry.118780035", card: cards[2] },
+        { name: "藍-護照保護套藍", entry: "entry.2012445824", card: cards[3] },
+        { name: "藍-護照保護套白", entry: "entry.1522847621", card: cards[4] },
+        { name: "藍-大王扇", entry: "entry.922665584", card: cards[5] },
       ];
 
       const postData = {
-        "entry.1656775715": email,
-        "entry.1559560984": name,
-        "entry.235234967": amount,
-        "entry.1780671756": bank,
-        "entry.442220667": time,
-        "entry.1812547393": agree,
-        "entry.488345100": document.getElementById("total-price").innerText
+        "entry.927044004": email,
+        "entry.1500616324": name,
+        "entry.945856180": amount,
+        "entry.1706195975": bank,
+        "entry.553467530": time,
+        "entry.2042096207": agree,
+        "entry.1573401716": document.getElementById("total-price").innerText
       };
       /* 需要更改的地方2end */
 
@@ -202,7 +235,7 @@
       });
 
       /* 需要更改的地方3 */
-      fetch("https://docs.google.com/forms/d/1My29tDakly4UYafNS14vjfCmZwA0TxTfMDxxTfXwlys/formResponse", {
+      fetch("https://docs.google.com/forms/d/19Y1iEKpy5zZWH5L9O8CGWs2r2ztNuB5qgZ1lskfpEX8/formResponse", {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
