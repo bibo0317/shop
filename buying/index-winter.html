@@ -52,14 +52,14 @@
 <body>
     <!--需要更改的地方1-->
     <div class="product-wrapper">
-      <div class="product-card" data-price="480">
-        <img src="../image/just/card.jpg" alt="卡套">
-        <div class="product-title">卡套 - $480</div>
+      <div class="product-card" data-price="250">
+        <img src="../image/songi.jpeg" alt="Songi手燈套">
+        <div class="product-title">Songi手燈套 - $250</div>
         <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
       </div>
-      <div class="product-card" data-price="360">
-        <img src="../image/just/photo.jpg" alt="土豆照片集">
-        <div class="product-title">土豆照片集 - $360</div>
+      <div class="product-card" data-price="240">
+        <img src="../image/songi.jpeg" alt="舊客優惠">
+        <div class="product-title">舊客優惠 - $240</div>
         <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
       </div>
  
@@ -151,13 +151,8 @@
           alert("只接受 Gmail 帳號，請重新確認您的 Email！");
           return;
         }
-
+        
       const name = document.getElementById("name").value.trim();
-      const allowedNames = ["橘子🍊", "Winter🐶💕","Wennyu Su"];
-        if (!allowedNames.includes(name)) {
-          alert("您未喊單成功，無法填單！");
-          return;
-        }
       // 儲存使用者資料
       localStorage.setItem("savedEmail", email);
       localStorage.setItem("savedName", name);
@@ -167,6 +162,7 @@
           alert("匯款金額格式錯誤，只能填寫數字！");
           return;
         }
+        
       const bank = document.getElementById("bank").value.trim();
       const time = document.getElementById("time").value.trim();
       const agree = document.getElementById("agree").value;
@@ -179,18 +175,18 @@
       /* 需要更改的地方2 */
       const cards = document.querySelectorAll(".product-card");
       const productData = [
-        { name: "卡套", entry: "entry.1734548465", card: cards[0] },
-        { name: "照片集", entry: "entry.191357593", card: cards[1] },
+        { name: "Songi手燈套", entry: "entry.321844649", card: cards[0] },
+        { name: "舊客優惠", entry: "entry.333100608", card: cards[1] },
       ];
 
       const postData = {
-        "entry.1548543558": email,
-        "entry.1780546660": name,
-        "entry.518869998": amount,
-        "entry.866972426": bank,
-        "entry.916429886": time,
-        "entry.1548583910": agree,
-        "entry.563476702": document.getElementById("total-price").innerText
+        "entry.1656775715": email,
+        "entry.1559560984": name,
+        "entry.235234967": amount,
+        "entry.1780671756": bank,
+        "entry.442220667": time,
+        "entry.1812547393": agree,
+        "entry.488345100": document.getElementById("total-price").innerText
       };
       /* 需要更改的地方2end */
 
@@ -206,7 +202,7 @@
       });
 
       /* 需要更改的地方3 */
-      fetch("https://docs.google.com/forms/d/1uEupF0F_tFs6az6jorvHmfsqubDp9hXvKaYSjogTlbg/formResponse", {
+      fetch("https://docs.google.com/forms/d/1My29tDakly4UYafNS14vjfCmZwA0TxTfMDxxTfXwlys/formResponse", {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
