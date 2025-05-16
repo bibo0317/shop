@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>安可場週下單須知</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      line-height: 1.8;
+      padding: 20px;
+      background-color: #fefefe;
+    }
+    h1 {
+      text-align: center;
+      color: #d2649a;
+    }
+    .notice {
+      background-color: #fff3f8;
+      border: 1px solid #f5c2d7;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .checkbox-area {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .checkbox-area input {
+      margin-right: 8px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #d2649a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    button.enabled {
+      cursor: pointer;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <h1>安可場週下單須知</h1>
+  <div class="notice">
+    <p>下單前請詳閱以下規則：</p>
+    <ul>
+      <li>所有商品一經下單即無法取消或更改，請務必確認無誤。</li>
+      <li>請於 3 日內完成匯款，逾期視同放棄訂單。</li>
+      <li>若商品有瑕疵，請於收到商品後 3 日內私訊我們處理，逾期不受理。</li>
+      <li>出貨時間為下單後 7–10 個工作天（不含例假日）。</li>
+      <li>請確保收件資料填寫正確，如因填錯導致無法寄送，需自行承擔相關費用。</li>
+    </ul>
+  </div>
+
+  <form id="notice-form">
+    <div class="checkbox-area">
+      <label>
+        <input type="checkbox" id="agree-checkbox" />
+        我已詳細閱讀、已悉知並同意以上所有規則才進行下單
+      </label>
+      <br>
+      <button type="submit" id="next-btn" disabled>前往下一步</button>
+    </div>
+  </form>
+
+  <script>
+    const checkbox = document.getElementById("agree-checkbox");
+    const button = document.getElementById("next-btn");
+
+    checkbox.addEventListener("change", function () {
+      if (checkbox.checked) {
+        button.disabled = false;
+        button.classList.add("enabled");
+      } else {
+        button.disabled = true;
+        button.classList.remove("enabled");
+      }
+    });
+
+    document.getElementById("notice-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (checkbox.checked) {
+        window.location.href = "next.html"; // ← 改成你要跳轉的頁面
+      }
+    });
+  </script>
+</body>
+</html>
