@@ -86,8 +86,13 @@
     </div>
 
     <div class="form-group">
-      <label for="amount">*需二補金額</label>
-      <input type="text" id="amount" required oninput="updateShipping()">
+      <label for="material">*包材加購 硬卡套含卡膜💰3</label>
+      <input type="number" id="material" inputmode="numeric" pattern="\d*" min="0" step="1" required oninput="validateNumber(this)">
+    </div>
+
+    <div class="form-group">
+      <label for="amountExtra">*需二補金額</label>
+      <input type="number" id="amountExtra" inputmode="numeric" pattern="\d*" min="0" step="1" required oninput="validateNumber(this)">
     </div>
 
     <div class="form-group">
@@ -105,7 +110,7 @@
 
     <div class="form-group">
       <label for="money">您匯款的金額</label>
-      <input type="text" id="money" required>
+      <input type="number" id="money" inputmode="numeric" min="1" step="1" required oninput="validateMoney(this)">
     </div>
 
     <div class="form-group">
@@ -142,71 +147,86 @@
     <button class="submit-btn" onclick="submitOrder()">送出訂單</button>
   </div>
 
- <script>
-  function updateShipping() {
-    const fee = parseInt(document.getElementById("insurance").value) || 0;
-    const amount = parseFloat(document.getElementById("amount").value) || 0;
-    const total = fee + amount;
-    document.getElementById("shipping-cost-text").innerText = `需匯款總金額(已含運費及包材費)：$${total}`;
-  }
-
-  function submitOrder() {
-    let emailInput = document.getElementById("email").value.trim();
-    if (!emailInput.includes("@")) emailInput += "@gmail.com";
-    const email = emailInput;
-
-    if (!email.endsWith("@gmail.com")) {
-      alert("只接受 Gmail 帳號，請重新確認您的 Email！");
-      return;
+  <script>
+    function validateNumber(input) {
+      const value = input.value.trim();
+      if (!/^\d+$/.test(value)) {
+        alert("請填寫 0 或正整數，勿輸入小數、負數或文字！");
+        input.value = "";
+      } else {
+        updateShipping();
+      }
     }
 
-    const name = document.getElementById("name").value.trim();
-    const product = document.getElementById("product").value.trim();
-    const amount = document.getElementById("amount").value.trim();
-    const insurance = parseInt(document.getElementById("insurance").value) || 0;
-    const money = document.getElementById("money").value.trim();
-    const realname = document.getElementById("realname").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const store = document.getElementById("store").value.trim();
-    const bank = document.getElementById("bank").value.trim();
-    const time = document.getElementById("time").value.trim();
-
-    const total = parseFloat(amount) + insurance;
-
-    // 驗證必填欄位
-    if (!email || !name || !product || !amount || !money || !realname || !phone || !store) {
-      alert("請填寫所有必填欄位！");
-      return;
-    }
-    if (!/^\d+(\.\d+)?$/.test(amount)) {
-      alert("匯款金額格式錯誤，只能填寫數字！");
-      return;
+    function validateMoney(input) {
+      const value = input.value.trim();
+      if (!/^[1-9]\d*$/.test(value)) {
+        alert("請填寫正整數金額（至少為 1）！");
+        input.value = "";
+      }
     }
 
-    const formData = new FormData();
-    formData.append("entry.2051379311", email);
-    formData.append("entry.367789986", name);
-    formData.append("entry.1201921157", product);
-    formData.append("entry.2032813703", amount);
-    formData.append("entry.682580967", total); // 總金額
-    formData.append("entry.462462103", money);
-    formData.append("entry.1849184559", bank);
-    formData.append("entry.200595228", time);
-    formData.append("entry.1308233084", realname);
-    formData.append("entry.1341157619", phone);
-    formData.append("entry.2117699031", store);
+    function updateShipping() {
+      const insurance = parseInt(document.getElementById("insurance").value) || 0;
+      const amountExtra = parseInt(document.getElementById("amountExtra").value) || 0;
+      const materialQty = parseInt(document.getElementById("material").value) || 0;
+      const materialCost = materialQty * 3;
+      const total = insurance + amountExtra + materialCost;
+      document.getElementById("shipping-cost-text").innerText = `需匯款總金額(已含運費及包材費)：$${total}`;
+    }
 
-    fetch("https://docs.google.com/forms/d/1t7FXBZjS3ECuiP3qPRwwZz68SQJcYDRV00bqaObIMi4/formResponse", {
-      method: "POST",
-      mode: "no-cors",
-      body: formData
-    }).then(() => {
-      window.location.href = "myshipdone.html";
-    }).catch(() => {
-      window.location.href = "error.html";
-    });
-  }
-</script>
+    function submitOrder() {
+      let emailInput = document.getElementById("email").value.trim();
+      if (!emailInput.includes("@")) emailInput += "@gmail.com";
+      const email = emailInput;
 
+      if (!email.endsWith("@gmail.com")) {
+        alert("只接受 Gmail 帳號，請重新確認您的 Email！");
+        return;
+      }
+
+      const name = document.getElementById("name").value.trim();
+      const product = document.getElementById("product").value.trim();
+      const amountExtra = parseInt(document.getElementById("amountExtra").value) || 0;
+      const materialQty = parseInt(document.getElementById("material").value) || 0;
+      const materialCost = materialQty * 3;
+      const insurance = parseInt(document.getElementById("insurance").value) || 0;
+      const money = document.getElementById("money").value.trim();
+      const realname = document.getElementById("realname").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const store = document.getElementById("store").value.trim();
+      const bank = document.getElementById("bank").value.trim();
+      const time = document.getElementById("time").value.trim();
+      const total = amountExtra + insurance + materialCost;
+
+      if (!email || !name || !product || !money || !realname || !phone || !store) {
+        alert("請填寫所有必填欄位！");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("entry.2051379311", email);
+      formData.append("entry.367789986", name);
+      formData.append("entry.1201921157", product);
+      formData.append("entry.2032813703", amountExtra.toString());
+      formData.append("entry.682580967", total.toString());
+      formData.append("entry.462462103", money);
+      formData.append("entry.1849184559", bank);
+      formData.append("entry.200595228", time);
+      formData.append("entry.1308233084", realname);
+      formData.append("entry.1341157619", phone);
+      formData.append("entry.2117699031", store);
+
+      fetch("https://docs.google.com/forms/d/1t7FXBZjS3ECuiP3qPRwwZz68SQJcYDRV00bqaObIMi4/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+      }).then(() => {
+        window.location.href = "myshipdone.html";
+      }).catch(() => {
+        window.location.href = "error.html";
+      });
+    }
+  </script>
 </body>
 </html>
