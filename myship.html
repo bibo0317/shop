@@ -86,7 +86,7 @@
     </div>
 
     <div class="form-group">
-      <label for="material">*包材加購 硬卡套含卡膜💰3</label>
+      <label for="material">*包材加購:硬卡套含卡膜💰3，請填寫需要的數量</label>
       <input type="number" id="material" inputmode="numeric" pattern="\d*" min="0" step="1" required oninput="validateNumber(this)">
     </div>
 
@@ -116,11 +116,6 @@
     <div class="form-group">
       <label for="bank">匯款銀行＋末五碼</label>
       <input type="text" id="bank" required>
-    </div>
-
-    <div class="form-group">
-      <label for="time">無卡：填寫確切日期時間</label>
-      <input type="text" id="time">
     </div>
 
     <div class="payment-notice">
@@ -196,7 +191,6 @@
       const phone = document.getElementById("phone").value.trim();
       const store = document.getElementById("store").value.trim();
       const bank = document.getElementById("bank").value.trim();
-      const time = document.getElementById("time").value.trim();
       const total = amountExtra + insurance + materialCost;
 
       if (!email || !name || !product || !money || !realname || !phone || !store) {
@@ -212,7 +206,7 @@
       formData.append("entry.682580967", total.toString());
       formData.append("entry.462462103", money);
       formData.append("entry.1849184559", bank);
-      formData.append("entry.200595228", time);
+      formData.append("entry.200595228", materialQty);
       formData.append("entry.1308233084", realname);
       formData.append("entry.1341157619", phone);
       formData.append("entry.2117699031", store);
