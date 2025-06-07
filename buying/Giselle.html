@@ -59,10 +59,10 @@
 <body>
     <!--需要更改的地方1-->
     <div class="product-wrapper">
-      <div class="product-card" data-price="220">
-        <img src="../image/K-doll-bag/DB.jpg" alt="giselle伊周雜誌C版">
-        <div class="product-title">giselle伊周雜誌C版 - $650</div>
-        <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
+      <div class="product-card" data-price="750">
+        <img src="../image/g.jpeg" alt="giselle伊周雜誌A+B版">
+        <div class="product-title">giselle伊周雜誌A+B版 - $750</div>
+        <div class="member-row"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
       </div>
  
     </div>
@@ -125,7 +125,7 @@
         card.querySelectorAll(".member-row").forEach(row => {
           const member = row.dataset.member;
           const qty = parseInt(row.querySelector("input").value);
-          if (qty > 0) memberLines.push(`${member} x${qty}`);
+          if (qty > 0) summary.push(`${title} x${qty}`);
         });
         if (memberLines.length > 0) {
           summary.push(`${title}<br>${memberLines.join("<br>")}`);
@@ -172,17 +172,17 @@
       /* 需要更改的地方2 */
       const cards = document.querySelectorAll(".product-card");
       const productData = [
-        { name: "柚吧娃包", entry: "entry.1435832925", card: cards[0] },
+        { name: "柚吧娃包", entry: "entry.1415156390", card: cards[0] },
       ];
 
       const postData = {
-        "entry.1987137853": email,
-        "entry.195970410": name,
-        "entry.1644445805": amount,
-        "entry.1827276483": bank,
-        "entry.161339168": time,
-        "entry.1495098578": agree,
-        "entry.1094702615": document.getElementById("total-price").innerText
+        "entry.903733277": document.getElementById("total-price").innerText
+        "entry.695660348": email,
+        "entry.1447870072": name,
+        "entry.1246124118": amount,
+        "entry.1461622866": bank,
+        "entry.1257316473": time,
+        "entry.1845147827": agree,
       };
       /* 需要更改的地方2end */
 
@@ -198,7 +198,7 @@
       });
 
       /* 需要更改的地方3 */
-      fetch("https://docs.google.com/forms/d/1HI8zGlnStFJj3r9Clc8w-dWxI0sce2hU01rG9cIjcIo/formResponse", {
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSc6W554BUoC57s3KUZDVVO9ThwmlqX_AH7e6UDUEh83ykJ9pw/formResponse", {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
