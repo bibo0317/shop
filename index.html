@@ -69,7 +69,7 @@
         <img src="image/home/shop2.png" alt="寄交貨便保值" class="smaller">
         <h3>交貨便保值</h3>
         <p>保值運費需自行負擔</p>
-        <a href="myship.html">前往填單</a>
+        <a href="ship/myship.html">前往填單</a>
       </div>
     </div>
     
@@ -93,5 +93,42 @@
     </div>
 
   <div class="footer">© 2025 Arwen</div>
+<script>
+  // 與 giselle.html 一樣的截止時間
+  const giselleDeadline = new Date("2025-06-09T23:59:00+08:00");
+
+  function renderGiselleCountdown() {
+    const now = new Date();
+    const diff = giselleDeadline - now;
+
+    // 選取「此價格不須二補」的 <p> 元素
+    const target = document.querySelector(".group-card p");
+    if (!target) return;
+
+    // 找或建立 #giselle-countdown 元素
+    let countdownP = document.getElementById("giselle-countdown");
+    if (!countdownP) {
+      countdownP = document.createElement("p");
+      countdownP.id = "giselle-countdown";
+      target.parentNode.insertBefore(countdownP, target.nextSibling);
+    }
+
+    // 顯示倒數或已截止
+    if (diff <= 0) {
+      countdownP.innerText = "⛔ 已截止";
+    } else {
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      countdownP.innerText = `⏳ 截止倒數：${days} D ${hours} hr ${minutes} min ${seconds} s`;
+    }
+  }
+
+  // 每秒更新一次
+  setInterval(renderGiselleCountdown, 1000);
+  window.addEventListener("DOMContentLoaded", renderGiselleCountdown);
+</script>
+
 </body>
 </html>

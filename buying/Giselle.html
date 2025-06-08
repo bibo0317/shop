@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <script>
     // 設定截止時間（請根據需求修改）
-    const deadline = new Date("2025-06-08T16:00:00+08:00");
+    const deadline = new Date("2025-06-09T23:59:00+08:00");
 
     if (new Date() > deadline) {
-      window.location.href = "timesup.html";
+      window.location.href = "../timesup.html";
     }
 
     function updateCountdown() {
@@ -17,8 +17,12 @@
 
       if (diff <= 0) {
         countdownEl.innerText = "⛔ 已截止";
+        setTimeout(() => {
+          location.reload(); // 或改成：window.location.href = "timesup.html";
+        }, 500); // 等 0.5 秒讓文字顯示後再刷新或跳轉
         return;
       }
+
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
