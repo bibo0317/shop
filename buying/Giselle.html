@@ -2,43 +2,18 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <script>
-    // 設定截止時間（請根據需求修改）
-    const deadline = new Date("2025-06-09T23:59:00+08:00");
-
-    if (new Date() > deadline) {
-      window.location.href = "../timesup.html";
-    }
-
-    function updateCountdown() {
-      const countdownEl = document.getElementById("countdown");
-      const now = new Date();
-      const diff = deadline - now;
-
-      if (diff <= 0) {
-        countdownEl.innerText = "⛔ 已截止";
-        setTimeout(() => {
-          location.reload(); // 或改成：window.location.href = "timesup.html";
-        }, 500); // 等 0.5 秒讓文字顯示後再刷新或跳轉
-        return;
-      }
-
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      countdownEl.innerText = `⏳ 距離截止還有 ${days} 天 ${hours} 小時 ${minutes} 分 ${seconds} 秒`;
-    }
-
-    setInterval(updateCountdown, 1000);
-    window.addEventListener("DOMContentLoaded", updateCountdown);
-  </script>
-
   <title>Arwen 開團購物</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+
+  <script>
+    // ⏰ 設定截止時間，若已過期則自動跳轉
+    const deadline = new Date("2025-06-09T23:59:00+08:00");
+    if (new Date() > deadline) {
+      window.location.href = "../other/timesup.html";
+    }
+  </script>
+
   <style>
     @media (max-width: 480px) {
       .info-box {
@@ -76,18 +51,18 @@
     #checkout-section { margin-top: 30px; padding-top: 20px; border-top: 2px dashed #ccc; }
     #countdown { text-align: center; font-size: 18px; color: #b037f2; font-weight: bold; margin-top: 15px; }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
 
-  <!-- ⏳ 倒數區塊 -->
-  <div id="countdown"></div>
-
-  <!-- 產品區塊 -->
   <div class="product-wrapper">
     <div class="product-card" data-price="750">
-      <img src="../image/g.jpeg" alt="giselle伊周雜誌A+B版">
-      <div class="product-title">giselle伊周雜誌A+B版 - $750</div>
+      <img src="../image/g.jpg" alt="伊周雜誌A+B版">
+      <div class="product-title">伊周雜誌A+B版 - $750</div>
+      <div class="member-row"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
+    </div>
+    <div class="product-card" data-price="406">
+      <img src="../image/gd.jpg" alt="Jellkking吉娃">
+      <div class="product-title">Jellkking吉娃 - $406</div>
       <div class="member-row"><button class="qty-btn" onclick="updateQty(this, -1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this, 1)">+</button></div>
     </div>
   </div>
@@ -106,12 +81,12 @@
       <p>請先完成付款後再送出表單，若表單送出後未收到款項，將不列入此次訂單。</p>
       <p>無卡:請填寫確切日期時間並無卡至百位數，剩餘二補</p>
     </div>
-    <div class="form-group"><label for="email">*Gmail信箱，僅填帳號即可，系統會自動補上@gmail.com，核對訂單用</label><input type="text" id="email" placeholder="xxxxx@gmail.com" required></div>
-    <div class="form-group"><label for="name">*社群內您的姓名，填單後禁止改名，若因買家改名找不到人而造成損失我方不負責</label><input type="text" id="name" required></div>
-    <div class="form-group"><label for="amount">*匯款/無卡金額，先匯款完才能送單</label><input type="text" id="amount" required></div>
-    <div class="form-group"><label for="bank">匯款這裡!匯款銀行+您的末五碼</label><input type="text" id="bank" required></div>
-    <div class="form-group"><label for="time">無卡這裡!填寫確切的日期時間</label><input type="text" id="time"></div>
-    <div class="form-group"><label for="agree">*我知道商品皆默認瑕疵損，且需久等，我已看過下單須知並同意所有規則</label>
+    <div class="form-group"><label for="email">*Gmail信箱</label><input type="text" id="email" placeholder="xxxxx@gmail.com" required></div>
+    <div class="form-group"><label for="name">*社群內您的姓名</label><input type="text" id="name" required></div>
+    <div class="form-group"><label for="amount">*匯款/無卡金額</label><input type="text" id="amount" required></div>
+    <div class="form-group"><label for="bank">匯款銀行＋末五碼</label><input type="text" id="bank" required></div>
+    <div class="form-group"><label for="time">無卡時間</label><input type="text" id="time"></div>
+    <div class="form-group"><label for="agree">*我已詳閱所有規則</label>
       <select id="agree" required><option value="">請選擇</option><option value="是">是</option></select>
     </div>
     <div style="text-align: center;"><button class="submit-btn" onclick="submitOrder()">送出訂單</button></div>
@@ -152,7 +127,8 @@
         return;
       }
 
-      document.getElementById("order-summary-text").innerHTML = `<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
+      document.getElementById("order-summary-text").innerHTML =
+        `<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
       document.getElementById("checkout-section").style.display = "block";
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
@@ -183,9 +159,22 @@
         return;
       }
 
+      const whitelist = ["leon", "0.0ming", "yang", "sally", "地瓜馬鈴薯", "虞紹謙", "lulala", "aaaaeri", "hua li", "eason"];
+      const lowerName = name.toLowerCase();
+      const isWhitelisted = whitelist.includes(lowerName);
+
+      const magazineQty = parseInt(document.querySelectorAll(".product-card")[0].querySelector("input").value);
+      const dollQty = parseInt(document.querySelectorAll(".product-card")[1].querySelector("input").value);
+
+      if (!isWhitelisted && dollQty > 0 && magazineQty === 0) {
+        alert("購買吉娃前請先購買至少 1 本雜誌！");
+        return;
+      }
+
       const cards = document.querySelectorAll(".product-card");
       const productData = [
         { name: "giselle伊周雜誌A+B版", entry: "entry.1415156390", card: cards[0] },
+        { name: "Jellkking吉娃", entry: "entry.528492740", card: cards[1] }
       ];
 
       const postData = {
@@ -209,9 +198,9 @@
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(postData).toString()
       }).then(() => {
-        window.location.href = "../done.html";
+        window.location.href = "../other/done.html";
       }).catch(() => {
-        window.location.href = "../error.html";
+        window.location.href = "../other/error.html";
       });
     }
 

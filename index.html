@@ -15,11 +15,10 @@
     .group-card:hover { transform: translateY(-5px); }
     .group-card img { width: 80%; height: 200px; object-fit: cover; margin-top:20px;}
     .group-card h3 { margin: 10px 0; color: #333; font-size: 18px; }
-    .group-card p { padding: 0 10px 10px; font-size: 14px; color: #666; }
+    .group-card .countdown {font-size: 12px;color: #6e46ae; /* 紫色點綴 */font-weight: 500;margin: 6px 0;}
+    .group-card p {padding: 0 10px; font-size: 14px; color: #666;line-height: 1.4;margin: 4px 0;}
     .group-card a { display: block; background: #6e46ae; color: white; text-decoration: none; padding: 10px; border-radius: 0 0 10px 10px; }
     .smaller {max-height: 60px; width: auto; object-fit: contain;}
-
-
     .footer { text-align: center; font-size: 14px; color: #aaa; padding: 30px 0; }
   </style>
 </head>
@@ -27,6 +26,7 @@
   <header>
     <img src="image/home/head.jpg" alt="Arwen首頁" style="width: 100%; display: block;">
   </header>  
+
   <div class="section">
     <div class="section-title">📌 購物須知</div>
     <p>嚴禁第三方匯款！</p>
@@ -41,38 +41,38 @@
 
   <div class="section">
     <div class="section-title">🛍️ 開團中的商品</div>
-    <div class="group-list" class="smaller">
-      <div class="group-card" class="smaller">
-        <img src="image/g.jpeg" alt="giselle伊周雜誌A+B版">
+    <div class="group-list">
+      <div class="group-card">
+        <img src="image/g.jpg" alt="giselle伊周雜誌A+B版">
         <h3>giselle伊周雜誌A+B版</h3>
-        <p>此價格不須二補</p>
-        <a href="buying/Giselle.html">前往下單
-        </a>
+        <p class=>此雜誌價格不須二補 娃娃需二補</p>
+        <p class=>有購買雜誌可原價代購娃娃406/1</p>
+        <p class=>一本雜誌限購一隻娃娃</p>
+        <p class="countdown" data-deadline="2025-06-09T23:59:00+08:00">計算中...</p>
+        <a href="buying/Giselle.html" class="order-link" data-deadline="2025-06-09T23:59:00+08:00">前往下單</a>
       </div>
-
     </div>
-
   </div>
+
   <div class="section">
     <div class="section-title">🚚 出貨賣場</div>
     <p>若需使用賣貨便寄送服務，請先確認商品是否已到貨，以下方式擇一即可</p>
     <p>填單前請詳閱注意事項，如有問題請先私訊</p>
     <p>目前可下單之商品:</p>
-    <div class="group-list" class="smaller">
-      <div class="group-card" class="smaller">
+    <div class="group-list">
+      <div class="group-card">
         <img src="image/home/shop1.jpg" alt="賣貨便賣場下單" class="smaller">
         <h3>賣貨便賣場下單</h3>
         <p>默認商品運輸風險自行承擔</p>
         <a href="https://myship.7-11.com.tw/general/detail/GM2501030153717">前往填單</a>
       </div>
-      <div class="group-card" class="smaller">
+      <div class="group-card">
         <img src="image/home/shop2.png" alt="寄交貨便保值" class="smaller">
         <h3>交貨便保值</h3>
         <p>保值運費需自行負擔</p>
         <a href="ship/myship.html">前往填單</a>
       </div>
     </div>
-    
   </div>
   
   <div class="section">
@@ -90,45 +90,43 @@
       <a href="https://docs.google.com/spreadsheets/d/164ecrRct0M_K0HsfCd8-GYeUMcR1FoqXiEAR1FVk874/edit?usp=sharing" target="_blank">已完成之團務</a>
       可以於此查詢
     </p>
-    </div>
+  </div>
 
   <div class="footer">© 2025 Arwen</div>
-<script>
-  // 與 giselle.html 一樣的截止時間
-  const giselleDeadline = new Date("2025-06-09T23:59:00+08:00");
 
-  function renderGiselleCountdown() {
-    const now = new Date();
-    const diff = giselleDeadline - now;
+  <script>
+    function updateCountdown() {
+      const countdowns = document.querySelectorAll('.countdown');
+      const links = document.querySelectorAll('.order-link');
 
-    // 選取「此價格不須二補」的 <p> 元素
-    const target = document.querySelector(".group-card p");
-    if (!target) return;
+      countdowns.forEach(el => {
+        const deadline = new Date(el.dataset.deadline);
+        const now = new Date();
+        const diff = deadline - now;
 
-    // 找或建立 #giselle-countdown 元素
-    let countdownP = document.getElementById("giselle-countdown");
-    if (!countdownP) {
-      countdownP = document.createElement("p");
-      countdownP.id = "giselle-countdown";
-      target.parentNode.insertBefore(countdownP, target.nextSibling);
+        if (diff <= 0) {
+          el.textContent = '已截止';
+        } else {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+          el.textContent = `剩下 ${days} 天 ${hours} 時 ${minutes} 分 ${seconds} 秒`;
+        }
+      });
+
+      // 更新連結
+      links.forEach(link => {
+        const deadline = new Date(link.dataset.deadline);
+        const now = new Date();
+        if (now > deadline) {
+          link.href = "other/timesup.html";
+        }
+      });
     }
 
-    // 顯示倒數或已截止
-    if (diff <= 0) {
-      countdownP.innerText = "⛔ 已截止";
-    } else {
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      countdownP.innerText = `⏳ 截止倒數：${days} D ${hours} hr ${minutes} min ${seconds} s`;
-    }
-  }
-
-  // 每秒更新一次
-  setInterval(renderGiselleCountdown, 1000);
-  window.addEventListener("DOMContentLoaded", renderGiselleCountdown);
-</script>
-
+    setInterval(updateCountdown, 1000);
+    window.onload = updateCountdown;
+  </script>
 </body>
 </html>
