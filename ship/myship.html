@@ -166,9 +166,9 @@
     function updateShipping() {
       const insurance = parseInt(document.getElementById("insurance").value) || 0;
       const amountExtra = parseInt(document.getElementById("amountExtra").value) || 0;
-      const materialQty = parseInt(document.getElementById("material").value) || 0;
-      const materialCost = materialQty * 3;
-      const total = insurance + amountExtra + materialCost;
+      // const materialQty = parseInt(document.getElementById("material").value) || 0;
+      // const materialCost = materialQty * 3;
+      const total = insurance + amountExtra; //+ materialCost;
       document.getElementById("shipping-cost-text").innerText = `需匯款總金額(已含運費及包材費)：$${total}`;
     }
 
