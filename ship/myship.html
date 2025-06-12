@@ -85,10 +85,12 @@
       <input type="text" id="product" required>
     </div>
 
+    <!--包材加購
     <div class="form-group">
       <label for="material">*包材加購:硬卡套含卡膜💰3，請填寫需要的數量</label>
       <input type="number" id="material" inputmode="numeric" pattern="\d*" min="0" step="1" required oninput="validateNumber(this)">
     </div>
+    --> 
 
     <div class="form-group">
       <label for="amountExtra">*需二補金額</label>
@@ -98,11 +100,11 @@
     <div class="form-group">
       <label for="insurance">保值金額（選擇區間）</label>
       <select id="insurance" onchange="updateShipping()">
-        <option value="75">NT$1–1,000（運費$55＋包材$20）</option>
-        <option value="85">NT$1,001–2,000（運費$65＋包材$20）</option>
-        <option value="95">NT$2,001–3,000（運費$75＋包材$20）</option>
-        <option value="105">NT$3,001–4,000（運費$85＋包材$20）</option>
-        <option value="115">NT$4,001–5,000（運費$95＋包材$20）</option>
+        <option value="80">NT$1–1,000（運費$60＋包材$20）</option>
+        <option value="90">NT$1,001–2,000（運費$70＋包材$20）</option>
+        <option value="100">NT$2,001–3,000（運費$80＋包材$20）</option>
+        <option value="110">NT$3,001–4,000（運費$90＋包材$20）</option>
+        <option value="120">NT$4,001–5,000（運費$100＋包材$20）</option>
       </select>
     </div>
 
