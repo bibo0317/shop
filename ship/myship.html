@@ -85,12 +85,11 @@
       <input type="text" id="product" required>
     </div>
 
-    <!-- 包材加購
-    <div class="form-group">
+    <!-- 包材加購 -->
+    <!-- <div class="form-group">
       <label for="material">*包材加購:硬卡套含卡膜💰3，請填寫需要的數量</label>
       <input type="number" id="material" inputmode="numeric" pattern="\d*" min="0" step="1" required oninput="validateNumber(this)">
-    </div>
-    -->
+    </div> -->
 
     <div class="form-group">
       <label for="amountExtra">*需二補金額</label>
@@ -166,9 +165,7 @@
     function updateShipping() {
       const insurance = parseInt(document.getElementById("insurance").value) || 0;
       const amountExtra = parseInt(document.getElementById("amountExtra").value) || 0;
-      // const materialQty = parseInt(document.getElementById("material").value) || 0;
-      // const materialCost = materialQty * 3;
-      const total = insurance + amountExtra ;//+ materialCost;
+      const total = insurance + amountExtra;
       document.getElementById("shipping-cost-text").innerText = `需匯款總金額(已含運費及包材費)：$${total}`;
     }
 
@@ -185,15 +182,21 @@
       const name = document.getElementById("name").value.trim();
       const product = document.getElementById("product").value.trim();
       const amountExtra = parseInt(document.getElementById("amountExtra").value) || 0;
-      //const materialQty = parseInt(document.getElementById("material").value) || 0;
-      //const materialCost = materialQty * 3;
       const insurance = parseInt(document.getElementById("insurance").value) || 0;
+
+      let materialQty = 0;
+      const materialInput = document.getElementById("material");
+      if (materialInput) {
+        materialQty = parseInt(materialInput.value) || 0;
+      }
+      const materialCost = materialQty * 3;
+
+      const total = amountExtra + insurance + materialCost;
       const money = document.getElementById("money").value.trim();
       const realname = document.getElementById("realname").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const store = document.getElementById("store").value.trim();
       const bank = document.getElementById("bank").value.trim();
-      const total = amountExtra + insurance ;//+ materialCost;
 
       if (!email || !name || !product || !money || !realname || !phone || !store) {
         alert("請填寫所有必填欄位！");
@@ -223,6 +226,11 @@
         window.location.href = "ship/error.html";
       });
     }
+
+    // optional: 全站 JS 錯誤偵測提示
+    window.onerror = function(message, source, lineno, colno, error) {
+      alert("發生錯誤：" + message);
+    };
   </script>
 </body>
 </html>
