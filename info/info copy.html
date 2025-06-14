@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>安可場週下單須知</title>
+  <title>下單須知</title>
   <style>
     body {
       font-family: "Noto Sans TC", sans-serif;
@@ -53,30 +53,30 @@
   </style>
 </head>
 <body>
-  <h1>安可場週下單須知</h1>
+  <h1>下單須知</h1>
     <div class="notice">
     <p>下單前請詳細閱讀以下規則：</p>
-
+    <li><span style="color:red;"><strong>選擇賣貨便則默認運輸風險買家承擔，若寄丟我方不承擔任何責任，需寄保值交貨便者可以回上一頁選擇</strong></span></li>
     <p><strong>📦 基礎包材：</strong></p>
     <ul>
-        <li>使用<strong>硬紙板、氣泡紙、紙箱</strong>進行包裝</li>
-        <li>主要保護會因碰撞受傷/含小卡的商品，髮圈、大娃可能不會包上氣泡紙</li>
-        <li>隨機卡拆開湊套商品會附卡膜，其餘未拆商品不含卡膜</li>
+        <li>使用<strong>硬紙板、氣泡紙、飛機盒/紙箱</strong>進行包裝</li>
+        <!--<li>主要保護會因碰撞受傷/含小卡的商品</li>
+        <li>隨機卡拆開湊套商品會附卡膜，其餘未拆商品不含卡膜</li>-->
     </ul>
 
     <p><strong>📝 下單方式：</strong></p>
     <ul>
-        <li>請務必<span style="color:red;"><strong>所有購買商品請填寫完整</span style="color:red;"></strong></li>
+        <li>請務必<span style="color:red;"><strong>下單基礎包材費20+所有購買商品、正確填寫社群名及email</span style="color:red;"></strong>，買幾個就下幾個</li>
         <li><strong><a href="https://docs.google.com/spreadsheets/d/10IDD52K6McryY0QyyBmTyr9jchfGNRRcBsN6kcV4DvM/edit?usp=sharing" target="_blank">您購買的商品</strong></a>
       可以於此查詢</li>
-        <li>若有填寫的商品少寄，<strong>需由買家負擔額外運費</strong>。</li>
-        <li><span style="color:red;"><strong>若下單社群名字，我方將以裸寄方式出貨，且不負責商品損傷</strong></span>。</li>
-        <li>購買商品若包含<strong>大娃等體積較大</strong>的品項，<strong>可能需分開寄送</strong>，請留意群組通知。</li>
+        <li>若有未下單的商品少寄，<strong>需由買家負擔額外運費</strong></li>
+        <li><span style="color:red;"><strong>若未下單基礎包材費20，我方將以裸寄方式出貨，且不負責商品損傷</strong></span></li>
+        <li>購買商品若包含<strong>體積較大</strong>的品項，<strong>可能需分開寄送</strong>，請留意群組通知</li>
     </ul>
 
     <p><strong>📦 包材加購：</strong></p>
     <ul>
-        <li><strong>所有商品默認不拆開，只有下單硬卡套才會額外包裝小卡</strong></li>
+        <li><strong>所有商品默認不拆開，只有下單硬卡套才會額外包裝小卡</strong>，含卡膜+標籤貼+硬卡套</li>
         <li>若不全拆，請於備註中清楚標示「哪些要拆」</li>
         <li>若無備註且下單卡套數量 < 總卡數，將從含本體金額最高的開始配卡套</li>
         <li><span style="color:red;"><strong>額外包裝仍默認廠損，若小卡有損恕不提供退換</strong></span>
@@ -121,7 +121,7 @@
     document.getElementById("notice-form").addEventListener("submit", function (e) {
       e.preventDefault();
       if (checkbox.checked) {
-      window.location.href = "myship.html"; // ✅ 勾選時跳轉
+      window.location.href = "../ship/myship.html"; // ✅ 勾選時跳轉
     } else {
       alert("請勾選已閱讀購物須知");
     }
