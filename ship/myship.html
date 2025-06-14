@@ -35,7 +35,7 @@
     }
     .submit-btn {
       background: linear-gradient(45deg, #6e46ae, #d7a9f9);
-      color: white;
+      color: #fff;
       font-size: 16px;
       padding: 10px 30px;
       border: none;
@@ -46,7 +46,7 @@
     }
     .payment-notice {
       background: #a798bd;
-      color: white;
+      color: #fff;
       padding: 10px;
       border-radius: 10px;
       text-align: center;
@@ -86,10 +86,10 @@
     </div>
 
     <!-- 包材加購 -->
-    <!-- <div class="form-group">
-      <label for="material">*包材加購:硬卡套含卡膜💰3，請填寫需要的數量</label>
-      <input type="number" id="material" inputmode="numeric" pattern="\d*" min="0" step="1" required oninput="validateNumber(this)">
-    </div> -->
+    <div class="form-group">
+      <label for="material">包材加購：硬卡套含卡膜💰3 / 個，請填寫需要的數量（如無需求填 0）</label>
+      <input type="number" id="material" inputmode="numeric" pattern="\d*" min="0" step="1" value="0" oninput="validateNumber(this)" required>
+    </div>
 
     <div class="form-group">
       <label for="amountExtra">*需二補金額</label>
@@ -144,14 +144,14 @@
   </div>
 
   <script>
+    // ------------- 驗證與金額計算 -------------
     function validateNumber(input) {
       const value = input.value.trim();
       if (!/^\d+$/.test(value)) {
         alert("請填寫 0 或正整數，勿輸入小數、負數或文字！");
         input.value = "";
-      } else {
-        updateShipping();
       }
+      updateShipping();
     }
 
     function validateMoney(input) {
@@ -163,67 +163,81 @@
     }
 
     function updateShipping() {
-      const insurance = parseInt(document.getElementById("insurance").value) || 0;
-      const amountExtra = parseInt(document.getElementById("amountExtra").value) || 0;
-      const total = insurance + amountExtra;
+      const insurance = Number(document.getElementById("insurance").value) || 0;
+      const amountExtra = Number(document.getElementById("amountExtra").value) || 0;
+
+      // 可選：包材加購
+      let materialQty = 0;
+      const materialInput = document.getElementById("material");
+      if (materialInput) {
+        materialQty = Number(materialInput.value) || 0;
+      }
+      const materialCost = materialQty * 3;
+
+      const total = insurance + amountExtra + materialCost;
       document.getElementById("shipping-cost-text").innerText = `需匯款總金額(已含運費及包材費)：$${total}`;
+      return total; // 供其他函式使用（如 submitOrder）
     }
 
+    // 初始執行一次以帶出預設金額
+    document.addEventListener("DOMContentLoaded", updateShipping);
+
+    // ------------- 提交 Google Form -------------
     function submitOrder() {
+      const total = updateShipping(); // 送出前再次計算，確保一致
+
       let emailInput = document.getElementById("email").value.trim();
       if (!emailInput.includes("@")) emailInput += "@gmail.com";
       const email = emailInput;
-
       if (!email.endsWith("@gmail.com")) {
         alert("只接受 Gmail 帳號，請重新確認您的 Email！");
         return;
       }
 
-      const name = document.getElementById("name").value.trim();
-      const product = document.getElementById("product").value.trim();
-      const amountExtra = parseInt(document.getElementById("amountExtra").value) || 0;
-      const insurance = parseInt(document.getElementById("insurance").value) || 0;
+      const name       = document.getElementById("name").value.trim();
+      const product    = document.getElementById("product").value.trim();
+      const amountExtra = Number(document.getElementById("amountExtra").value) || 0;
+      const money      = document.getElementById("money").value.trim();
+      const realname   = document.getElementById("realname").value.trim();
+      const phone      = document.getElementById("phone").value.trim();
+      const store      = document.getElementById("store").value.trim();
+      const bank       = document.getElementById("bank").value.trim();
 
       let materialQty = 0;
       const materialInput = document.getElementById("material");
       if (materialInput) {
-        materialQty = parseInt(materialInput.value) || 0;
+        materialQty = Number(materialInput.value) || 0;
       }
-      const materialCost = materialQty * 3;
-
-      const total = amountExtra + insurance + materialCost;
-      const money = document.getElementById("money").value.trim();
-      const realname = document.getElementById("realname").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const store = document.getElementById("store").value.trim();
-      const bank = document.getElementById("bank").value.trim();
 
       if (!email || !name || !product || !money || !realname || !phone || !store) {
         alert("請填寫所有必填欄位！");
         return;
       }
 
+      // ---------- Google Form 映射欄位 ID ----------
       const formData = new FormData();
-      formData.append("entry.2051379311", email);
-      formData.append("entry.367789986", name);
-      formData.append("entry.1201921157", product);
-      formData.append("entry.2032813703", amountExtra.toString());
-      formData.append("entry.682580967", total.toString());
-      formData.append("entry.462462103", money);
-      formData.append("entry.1849184559", bank);
-      formData.append("entry.200595228", materialQty);
-      formData.append("entry.1308233084", realname);
-      formData.append("entry.1341157619", phone);
-      formData.append("entry.2117699031", store);
+      formData.append("entry.2051379311", email);          // Gmail信箱
+      formData.append("entry.367789986",  name);           // 社群姓名
+      formData.append("entry.1201921157", product);        // 商品明細
+      formData.append("entry.2032813703", amountExtra);    // 二補金額
+      formData.append("entry.682580967",  total);          // 總金額
+      formData.append("entry.462462103",  money);          // 付款金額
+      formData.append("entry.1849184559", bank);           // 匯款銀行末五碼
+      formData.append("entry.200595228",  materialQty);    // 包材數量
+      formData.append("entry.1308233084", realname);       // 真實姓名
+      formData.append("entry.1341157619", phone);          // 手機
+      formData.append("entry.2117699031", store);          // 取貨門市
 
       fetch("https://docs.google.com/forms/d/1t7FXBZjS3ECuiP3qPRwwZz68SQJcYDRV00bqaObIMi4/formResponse", {
         method: "POST",
         mode: "no-cors",
         body: formData
-      }).then(() => {
+      })
+      .then(() => {
         window.location.href = "myshipdone.html";
-      }).catch(() => {
-        window.location.href = "../othter/error.html";
+      })
+      .catch(() => {
+        window.location.href = "../other/error.html"; // 修正路徑拼寫錯誤
       });
     }
 
