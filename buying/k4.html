@@ -5,10 +5,10 @@
   <title>Arwen 開團購物</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-  <script>
+  <!--<script>
     const deadline = new Date("2025-06-16T14:00:00+08:00");
     if (new Date() > deadline) window.location.href = "../other/timesup.html";
-  </script>
+  </script>-->
   <style>
     @media (max-width: 480px) {
       .info-box { font-size: 13px; padding: 12px; }
@@ -40,13 +40,10 @@
 
   <!-- 商品區 -->
   <div class="product-wrapper">
-    <div class="product-card" data-price="450">
-      <img src="../image/el.jpg" alt="el簽售指定一專一卡">
-      <div class="product-title">el簽售指定一專一卡 - $450</div>
-      <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-      <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-      <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-      <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+    <div class="product-card" data-price="1600">
+      <img src="../image/presale/k4.jpg" alt="k4預售四專四卡">
+      <div class="product-title">wvs預售四專四卡 - $1600</div>
+      <div class="member-row" data-member="一套"><span class="member-name">一套</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
     </div>
   </div>
 
@@ -180,7 +177,7 @@
     }
 
     /* 整理商品數量 */
-    const qtys={柚:0,吉:0,冬:0,寧:0};
+    const qtys={一套:0};
     document.querySelectorAll(".member-row").forEach(r=>{
       const m=r.dataset.member;
       const q=parseInt(r.querySelector("input").value);
@@ -189,12 +186,14 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData={
-      "entry.342882468":qtys["柚"],"entry.1203459764":qtys["吉"],
-      "entry.691918567":qtys["冬"],"entry.1939798419":qtys["寧"],
-      "entry.194949479":emailInput,"entry.2141225664":name,
-      "entry.1538590104":amount,"entry.1641172190":bank,
-      "entry.636490834":time,"entry.1545039343":agree,
-      "entry.138199397":total
+      "entry.1884263680":qtys["一套"],
+      "entry.636474957":total,
+      "entry.1606163383":emailInput,
+      "entry.1177212074":name,
+      "entry.899548997":amount,
+      "entry.663021414":bank,
+      "entry.1979687691":time,
+      "entry.1545039343":agree,
     };
 
     fetch("https://docs.google.com/forms/d/1NaoW_V3B5TvTpqP1-yDdqGfeoU6usN6FtuyrT8F5mrY/formResponse",{
