@@ -212,7 +212,7 @@
 
   /* 自動帶入 localStorage */
   window.addEventListener("DOMContentLoaded",()=>{
-    ["email","name","bank","time"].forEach(id=>{
+    ["email","name","bank"].forEach(id=>{
       document.getElementById(id).value=localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1))||"";
     });
   });
