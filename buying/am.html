@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arwen 開團購物</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Noto Sans TC", sans-serif; background: #f3f3f3; margin: 0; padding: 0; }
+    #lookup-wrapper { text-align:center; padding: 25px 15px 10px; }
+    #lookup-wrapper input { width:240px; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:16px; }
+    #lookup-wrapper button { margin-left:8px; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; background:linear-gradient(45deg,#6e46ae,#d7a9f9); color:#fff; font-size:16px; }
+    #lookup-message { margin-top:12px; font-size:15px; }
+    .product-wrapper { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; }
+    .product-card { margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px; border: 1.5px solid #ccc; text-align: center; width: 250px; }
+    .product-card img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; }
+    .product-title { font-size: 20px; font-weight: bold; margin: 20px 0; }
+    .member-row { display:flex; justify-content:center; align-items:center; margin-top:6px; gap:6px; }
+    .member-name { width:40px; text-align:right; }
+    .qty-input { width:50px; text-align:center; border:1px solid #ccc; border-radius:6px; }
+    .total { font-size: 25px; font-weight: bold; text-align: center; margin: 30px 0; }
+    .submit-btn { background: linear-gradient(45deg,#6e46ae,#d7a9f9); color:#fff; font-size:16px; padding:10px 30px; border:none; border-radius:8px; cursor:pointer; margin-top:20px; }
+    #order-summary-text { font-weight:300; font-size:16px; line-height:1.6; text-align:center; }
+    #checkout-section { margin-top:30px; padding-top:20px; border-top:2px dashed #ccc; }
+    .payment-notice { background:#a798bd; color:#fff; padding:5px; border-radius:10px; text-align:center; line-height:1.4; margin-bottom:30px; font-size:15px; }
+    .form-group { margin-top:15px; }
+    .form-group input,.form-group select { width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; margin-top:5px; }
+  </style>
+</head>
+<body>
+  <!-- ===== 訂單查詢 ===== -->
+  <div id="lookup-wrapper">
+    <input id="social-name" type="text" placeholder="輸入社群名字查詢訂單" />
+    <button onclick="lookupOrder()">查詢</button>
+    <div id="lookup-message"></div>
+  </div>
+
+  <!-- ===== 商品卡片 ===== -->
+  <div class="product-wrapper">
+    <div class="product-card" data-price="450">
+      <img src="../image/presale/am.jpg" alt="am預售指定一專一卡">
+      <div class="product-title">am預售指定一專一卡 - $450</div>
+    </div>
+  </div>
+
+  <!-- ===== 總金額與結帳按鈕 ===== -->
+  <div class="total">總金額：<span id="total-price">$0</span></div>
+  <div style="text-align:center;"><button class="submit-btn" onclick="showCheckout()">結帳</button></div>
+
+  <!-- ===== 結帳區塊 ===== -->
+  <div id="checkout-section" style="display:none;">
+    <div class="total" id="order-summary-text"></div>
+    <div class="payment-notice" id="payment-status-notice" style="display:none;"></div>
+
+    <div class="form-group"><label for="email">*Gmail信箱（系統自動補上）</label><input type="text" id="email" placeholder="xxxxx"></div>
+    <div class="form-group"><label for="name">*社群內您的姓名</label><input type="text" id="name"></div>
+    <div class="form-group"><label for="amount">*匯款/無卡金額</label><input type="text" id="amount"></div>
+    <div class="form-group"><label for="bank">匯款銀行+末五碼</label><input type="text" id="bank"></div>
+    <div class="form-group"><label for="agree">*是否同意購買須知</label><select id="agree"><option value="">請選擇</option><option value="是">是</option></select></div>
+    <div style="text-align:center;"><button class="submit-btn" onclick="submitOrder()">送出訂單</button></div>
+  </div>
+
+<script>
+/* ===== 假資料庫 ===== */
+const ORDER_DB = {
+  "公主":             { paid:true,  柚:1, 冬:0, 吉:0, 寧:0 },
+  "Winter🐶💕":       { paid:true,  柚:1, 冬:1, 吉:0, 寧:0 },
+  "liuuuuuuuuuu":    { paid:true,  柚:1, 冬:0, 吉:0, 寧:0 },
+  "lianchen038521":  { paid:true,  柚:1, 冬:0, 吉:0, 寧:0 },
+  "KKF":              { paid:false, 柚:1, 冬:0, 吉:0, 寧:0 },
+  "阿牛":             { paid:false, 柚:0, 冬:1, 吉:0, 寧:0 },
+  "Sean":             { paid:true,  柚:0, 冬:1, 吉:0, 寧:0 },
+  "Hung":             { paid:true,  柚:1, 冬:1, 吉:0, 寧:0 },
+  "金冬天的狗⭐️":     { paid:false, 柚:0, 冬:1, 吉:0, 寧:0 },
+  "Angelaa":          { paid:false, 柚:1, 冬:0, 吉:0, 寧:0 },
+  "Eden":             { paid:false, 柚:0, 冬:1, 吉:0, 寧:0 },
+  "Steven♌(aespa)":  { paid:true,  柚:1, 冬:0, 吉:0, 寧:0 },
+  "🩵👶🏻🩵":          { paid:true,  柚:1, 冬:1, 吉:0, 寧:0 },
+  "Chin .":           { paid:true,  柚:1, 冬:0, 吉:0, 寧:0 },
+  "阿伯":             { paid:true,  柚:1, 冬:1, 吉:0, 寧:0 },
+  "Morris":           { paid:true,  柚:1, 冬:0, 吉:0, 寧:0 },
+  "Wmike":            { paid:true,  柚:1, 冬:0, 吉:0, 寧:0 },
+  "W":                { paid:true,  柚:1, 冬:1, 吉:0, 寧:0 },
+  "Yu hui":           { paid:true,  柚:1, 冬:0, 吉:0, 寧:0 }
+};
+
+/* ===== 全域狀態 ===== */
+let currentOrder = null;   // 查詢到的訂單
+let paymentStatus = null;  // 是否已對帳成功
+
+/* ===== 查詢訂單 ===== */
+function lookupOrder() {
+  const name = document.getElementById("social-name").value.trim();
+  const msg  = document.getElementById("lookup-message");
+  const card = document.querySelector(".product-card");
+  // 清空舊的數量列
+  card.querySelectorAll(".member-row").forEach(e => e.remove());
+
+  // 找訂單
+  const order = ORDER_DB[name];
+  currentOrder = order || null;
+
+  if (!order) {
+    msg.innerText = "❌ 查無此社群名字，請確認是否有喊單！";
+    msg.style.color = "#e74c3c";
+    document.getElementById("total-price").innerText = "$0";
+    return;
+  }
+
+  // 顯示商品數量
+  paymentStatus = order.paid;
+  ["柚","吉","冬","寧"].forEach(m => {
+    if (order[m]) {
+      const row = document.createElement("div");
+      row.className = "member-row";
+      row.innerHTML = `<span class='member-name'>${m}</span><input class='qty-input' type='number' value='${order[m]}' readonly>`;
+      card.appendChild(row);
+    }
+  });
+
+  // 計算金額
+  const price = parseInt(card.dataset.price, 10);
+  const total = ["柚","吉","冬","寧"].reduce((t, m) => t + (order[m] || 0) * price, 0);
+  document.getElementById("total-price").innerText = `$${total}`;
+
+  // 提示已對帳或待對帳
+  msg.style.color = paymentStatus ? "#27ae60" : "#e67e22";
+  msg.innerText  = paymentStatus ? "✅ 已確認匯款，可按『結帳』填表！"
+                                 : "⚠️ 尚未對帳成功，請核對品項後按結帳並填寫匯款資料";
+}
+
+/* ===== 顯示結帳表單 ===== */
+function showCheckout() {
+  if (!currentOrder) {
+    alert("請先查詢社群名字或確認是否有訂單！");
+    return;
+  }
+
+  const lines = ["柚","吉","冬","寧"]
+    .filter(m => currentOrder[m] > 0)
+    .map(m => `${m} x${currentOrder[m]}`);
+
+  if (lines.length === 0) {
+    alert("訂單內沒有商品數量，請確認！");
+    return;
+  }
+
+  // 購買明細
+  document.getElementById("order-summary-text").innerHTML =
+    `<strong>您的購買明細：</strong><br><br>${lines.join("<br>")}`;
+
+  // 對帳提示
+  const notice = document.getElementById("payment-status-notice");
+  notice.style.display = "block";
+  notice.innerHTML = paymentStatus
+    ? "<p>✅ 系統已對帳成功，您可以完成下單。</p>"
+    : "<p>⚠️ 尚未完成匯款或對帳，請確認後送出表單。</p>";
+
+  /* === 自動帶入查詢時輸入的社群姓名 === */
+  const queryName = document.getElementById("social-name").value.trim();
+  const nameInput = document.getElementById("name");
+  nameInput.value = queryName;
+  nameInput.readOnly = true;  // 使用者就不必再打一次
+
+  const totalAmount = document.getElementById("total-price").innerText.replace("$", "");
+  document.getElementById("amount").value = totalAmount;
+
+  // 顯示表單 & 滾動
+  document.getElementById("checkout-section").style.display = "block";
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
+
+/* ===== 送出表單 ===== */
+function submitOrder() {
+  if (!currentOrder) {
+    alert("請先查詢訂單！");
+    return;
+  }
+
+  // 1. 讀取各欄位
+  let emailVal = document.getElementById("email").value.trim();
+  if (emailVal && !emailVal.endsWith("@gmail.com")) emailVal += "@gmail.com";
+
+  const name   = document.getElementById("name").value.trim();
+  const amount = document.getElementById("amount").value.trim();
+  const bank   = document.getElementById("bank").value.trim();
+  const agree  = document.getElementById("agree").value;
+  const total  = document.getElementById("total-price").innerText.replace("$","");
+
+  if (!emailVal || !name || !amount || !agree) {
+    alert("請填寫所有 * 必填欄位！");
+    return;
+  }
+
+  // 2. 準備商品數量
+  const qtys = {
+    "柚": currentOrder["柚"] || 0,
+    "吉": currentOrder["吉"] || 0,
+    "冬": currentOrder["冬"] || 0,
+    "寧": currentOrder["寧"] || 0
+  };
+
+  // 3. 儲存至 localStorage 方便下次自動帶入
+  ["email","name","bank"].forEach(id => {
+    localStorage.setItem("saved"+id.charAt(0).toUpperCase()+id.slice(1),
+                         document.getElementById(id).value);
+  });
+
+  // 4. 組出 Google Forms 對應欄位
+  const postData = {
+    "entry.1966657025": qtys["柚"],      // 柚
+    "entry.1504926761": qtys["冬"],      // 冬
+    // 如果吉、寧後續也要寫入表單，可再加 entry
+    "entry.1793387795": emailVal,        // Email
+    "entry.398219589": name,            // 姓名
+    "entry.1866660785":  amount,          // 匯款金額
+    "entry.1641172190": bank,            // 銀行+末五碼
+    "entry.1174194777": agree,           // 同意
+    "entry.328979395":  total            // 總金額
+  };
+
+  // 5. 送出
+  fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse",{
+    method:"POST",
+    mode:"no-cors",
+    headers:{ "Content-Type":"application/x-www-form-urlencoded" },
+    body:new URLSearchParams(postData).toString()
+  })
+  .then(() => window.location.href="../other/done.html")
+  .catch(() => window.location.href="../other/error.html");
+}
+
+/* ===== 頁面載入時：自動填入 localStorage 資料 ===== */
+window.addEventListener("DOMContentLoaded", () => {
+  ["email","name","bank"].forEach(id => {
+    document.getElementById(id).value =
+      localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1)) || "";
+  });
+});
+</script>
+</body>
+</html>
