@@ -186,17 +186,17 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData={
-      "entry.1884263680":qtys["一套"],
-      "entry.636474957":total,
-      "entry.1606163383":emailInput,
-      "entry.1177212074":name,
-      "entry.899548997":amount,
-      "entry.663021414":bank,
-      "entry.1979687691":time,
-      "entry.1545039343":agree,
+      "entry.183572860":qtys["一套"],
+      "entry.1267997586":total,
+      "entry.958948097":emailInput,
+      "entry.1660097748":name,
+      "entry.2124694873":amount,
+      "entry.1797173544":bank,
+      "entry.152092151":time,
+      "entry.14240274":agree,
     };
 
-    fetch("https://docs.google.com/forms/d/1NaoW_V3B5TvTpqP1-yDdqGfeoU6usN6FtuyrT8F5mrY/formResponse",{
+    fetch("https://docs.google.com/forms/d/17MXXahLbjGxBjkBVGt4gg2uuQbktveYRco1ccQBIJL4/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
