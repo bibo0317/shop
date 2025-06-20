@@ -33,21 +33,25 @@
     .form-group input,.form-group select{width:100%;padding:10px;border:1px solid #ccc;border-radius:5px;margin-top:5px}
     .invalid{border:2px solid #e74c3c;background:#fff0f0}
     .error-message{font-size:13px;color:#e74c3c;margin-top:5px;display:none}
-    .stock-remaining{margin-top:10px;font-size:14px;color:#666}
   </style>
 </head>
 <body>
 <div class="product-wrapper">
-  <div class="product-card" data-price="600" data-stock="10">
-    <img src="../image/presale/wvs - w.jpg" alt="wvs預售指定冬">
-    <div class="product-title">wvs預售指定冬 - $600</div>
+  <div class="product-card" data-price="600">
+    <img src="../image/presale/wvs.jpg" alt="wvs預售指定">
+    <div class="product-title">wvs預售指定 - $600</div>
+    <div class="member-row" data-member="柚">
+      <span class="member-name">柚</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input type="number" class="qty-input" value="0" readonly>
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
     <div class="member-row" data-member="冬">
       <span class="member-name">冬</span>
       <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
       <input type="number" class="qty-input" value="0" readonly>
       <button class="qty-btn" onclick="updateQty(this,1)">+</button>
     </div>
-    <div class="stock-remaining">剩餘 10 件</div>
   </div>
 </div>
 
@@ -85,25 +89,12 @@
 </div>
 
 <script>
-const nameWhitelist = ["卡拉雞腿堡", "snow", "Sean", "金冬甜", "🩵👶🏻🩵","Djjj","Ruifeng","阿伯","liuuuuuuuuuu","yccucn"];
-
 function updateQty(btn, delta) {
-  const card = btn.closest(".product-card");
-  const stock = parseInt(card.dataset.stock);
   const inp = btn.parentElement.querySelector("input");
   let q = parseInt(inp.value) + delta;
-
-  let totalQty = 0;
-  card.querySelectorAll(".qty-input").forEach(i => totalQty += parseInt(i.value));
-  if (delta > 0 && totalQty >= stock) {
-    alert(`此商品限量 ${stock} 件，已無法再加購！`);
-    return;
-  }
   if (q < 0) q = 0;
   inp.value = q;
   updateTotal();
-  const remaining = stock - [...card.querySelectorAll(".qty-input")].reduce((a, i) => a + parseInt(i.value), 0);
-  card.querySelector(".stock-remaining").innerText = `剩餘 ${remaining} 件`;
 }
 
 function updateTotal() {
@@ -166,20 +157,16 @@ function validateAmount(input) {
 function submitOrder() {
   const emailInput = document.getElementById("email").value.trim();
   const name = document.getElementById("name").value.trim();
-  const passName = nameWhitelist.includes(name);
-  if (!passName) {
-    alert("此帳號/姓名不在白名單內，無法下單！");
-    return;
-  }
-
   const amount = document.getElementById("amount").value.trim();
   const bank = document.getElementById("bank").value.trim();
   const time = document.getElementById("time").value.trim();
   const agree = document.getElementById("agree").value;
+
   if (!emailInput || !name || !amount || !agree) {
     alert("請填寫所有必填欄位！");
     return;
   }
+
   if (!/^\d+(\.\d{0,2})?$/.test(amount)) {
     alert("匯款金額格式錯誤，只能填寫數字！");
     return;
@@ -191,17 +178,19 @@ function submitOrder() {
     const q = parseInt(r.querySelector("input").value);
     qtys[m] = (qtys[m] || 0) + q;
   });
+
   const total = document.getElementById("total-price").innerText.replace("$", "");
 
-  const postData={
-    "entry.2007084861":qtys["冬"],
-    "entry.97872056":total,
-    "entry.601715521":emailInput,
-    "entry.1089722182":name,
-    "entry.830257997":amount,
-    "entry.1037492200":bank,
-    "entry.506293035":time,
-    "entry.1445110791":agree,
+  const postData = {
+    "entry.789475783": qtys["冬"],
+    "entry.2007084861": qtys["柚"], // 根據你的表單欄位調整 key
+    "entry.97872056": total,
+    "entry.601715521": emailInput,
+    "entry.1089722182": name,
+    "entry.830257997": amount,
+    "entry.1037492200": bank,
+    "entry.506293035": time,
+    "entry.1445110791": agree,
   };
 
   fetch("https://docs.google.com/forms/d/1m865ZTjsh6a1ItHgc2d0mWNP12dzBNPtoJeTtVbjkMY/formResponse", {
