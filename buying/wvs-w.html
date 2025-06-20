@@ -193,14 +193,15 @@ function submitOrder() {
   });
   const total = document.getElementById("total-price").innerText.replace("$", "");
 
-  const postData = {
-    "entry.277065803": total,
-    "entry.1834756956": emailInput,
-    "entry.731592523": name,
-    "entry.257137855": amount,
-    "entry.2025982434": bank,
-    "entry.202573232": time,
-    "entry.453294272": agree,
+  const postData={
+    "entry.2007084861":qtys["冬"],
+    "entry.97872056":total,
+    "entry.601715521":emailInput,
+    "entry.1089722182":name,
+    "entry.830257997":amount,
+    "entry.1037492200":bank,
+    "entry.506293035":time,
+    "entry.1445110791":agree,
   };
 
   fetch("https://docs.google.com/forms/d/1m865ZTjsh6a1ItHgc2d0mWNP12dzBNPtoJeTtVbjkMY/formResponse", {
