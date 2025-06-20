@@ -204,13 +204,13 @@
     }).then(()=>{window.location.href="../other/done.html";})
       .catch(()=>{window.location.href="../other/error.html";});
   }
-
-  /* 自動帶入 localStorage */
+      /* 自動帶入 localStorage */
   window.addEventListener("DOMContentLoaded",()=>{
     ["email","name","bank"].forEach(id=>{
       document.getElementById(id).value=localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1))||"";
     });
   });
+
 </script>
 </body>
 </html>
