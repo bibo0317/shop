@@ -8,18 +8,18 @@
     body {
       font-family: "Noto Sans TC", sans-serif;
       background: #f9f9f9;
-      padding: 40px;
+      padding: 20px;
     }
     .box {
       max-width: 500px;
       margin: auto;
       background: white;
-      padding: 30px;
+      padding: 24px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     textarea, input {
-      width: 495px;
+      width: 100%;
       font-size: 16px;
       padding: 12px;
       border: 1px solid #ccc;
@@ -32,7 +32,8 @@
     }
     button {
       margin-top: 15px;
-      padding: 10px 20px;
+      width: 100%;
+      padding: 12px;
       background: #6a1b9a;
       color: white;
       font-size: 16px;
@@ -43,6 +44,7 @@
     .msg {
       margin-top: 15px;
       font-weight: bold;
+      text-align: center;
     }
     label {
       display: block;
@@ -51,11 +53,28 @@
       font-size: 14px;
       color: #555;
     }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      .box {
+        padding: 20px;
+      }
+      textarea, input {
+        font-size: 15px;
+        padding: 10px;
+      }
+      button {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="box">
-    <h2>💌匿名信箱</h2>
+    <h2>💌 匿名信箱</h2>
     <p>之前一直有想要把包裝從硬卡套+硬紙板換成塑膠盒子的想法</p>
     <p>這樣就不用再依據小卡數量增加包材費，一律20即可!</p>
     <p>但這種包裝方式我不確定大家能否接受，所以想做個調查</p>
@@ -84,16 +103,13 @@
         return;
       }
 
-      // ✅ Google 表單提交網址
       const formUrl = "https://docs.google.com/forms/d/1aMhDvOTRHFhh2Fbk83y4W30cLFbuPl4LyhTRVJx6BBA/formResponse";
-
-      // ✅ 對應 Google 表單的欄位 ID（請自行替換）
-      const entryFeedback = "entry.439603531";     // 回饋內容
-      const entryGroup = "entry.1323530494";        // 社群名稱（選填） ← 替換這個
+      const entryFeedback = "entry.439603531";
+      const entryGroup = "entry.1323530494";
 
       const formData = new FormData();
       formData.append(entryFeedback, feedback);
-      if (group) formData.append(entryGroup, group); // 有填才送出
+      if (group) formData.append(entryGroup, group);
 
       fetch(formUrl, {
         method: "POST",
