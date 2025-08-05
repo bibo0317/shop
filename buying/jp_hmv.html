@@ -62,7 +62,7 @@
 
   <!-- BURST Ver.日特別版*1 -->
   <div class="product-card" data-price="620">
-    <img src="../image/richmanjp/brust jp.jpg" alt="BURST日特*1">
+    <img src="../image/richmanjp/brust jp1.jpg" alt="BURST日特*1">
     <div class="product-title">BURST日特*1 - $620</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機1張(卡面共四種)</spans></strong></p>
       <p>封面（2隨1）</p>
@@ -100,7 +100,7 @@
 
   <!-- BURST日特*5種封面各一 -->
   <div class="product-card" data-price="3100">
-    <img src="../image/richmanjp/brust.jpg" alt="BURST一般*5">
+    <img src="../image/richmanjp/brust1.jpg" alt="BURST一般*5">
     <div class="product-title">BURST一般*5 - $3100</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機5張(卡面共四種)</spans></strong></p>
       <p><span style="color:#e74c3c;">官方未明確保證湊套，按照下單順序湊套+隨機1張(按下單順序排卡)</spans></p>
@@ -119,7 +119,7 @@
   </div>
 
     <div class="product-card" data-price="790">
-    <img src="../image/richmanjp/ENERGY.jpg" alt="ENERGY*1">
+    <img src="../image/richmanjp/ENERGY1.jpg" alt="ENERGY*1">
     <div class="product-title">ENERGY*1 - $790</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機1張(卡面共四種)</spans></strong></p>
       <p>封面（4隨1）</p>
@@ -314,11 +314,11 @@
 
     /* 整理商品數量 */
     /* 整理商品數量 */
-    const qtys = {
-      sm: 0, am: 0, ms: 0,
-      dmm柚: 0, dmm吉: 0, dmm冬: 0, dmm寧: 0,
-      el柚: 0, el吉: 0, el冬: 0, el寧: 0
-    };
+  const qtys = {
+    burst1: 0, burstjp1: 0, burstjp2: 0, burst5: 0,
+    energy1: 0, energy4: 0,
+    bag: 0
+  };
 
     document.querySelectorAll(".product-card").forEach(card => {
       const title = card.querySelector(".product-title").innerText;
@@ -328,11 +328,13 @@
         if (qty <= 0) return;
 
         const key =
-          title.includes("sm") ? "sm" :
-          title.includes("am") ? "am" :
-          title.includes("ms") ? "ms" :
-          title.includes("dmm") ? `dmm${member}` :
-          title.includes("el")  ? `el${member}` :
+          title.includes("BURST一般*1") ? "burst1" :
+          title.includes("BURST日特*1") ? "burstjp1" :
+          title.includes("BURST日特*2") ? "burstjp2" :
+          title.includes("BURST一般*5") ? "burst5" :
+          title.includes("ENERGY*1") ? "energy1" :
+          title.includes("ENERGY*4") ? "energy4" :
+          title.includes("RICH MAN BAG") ? "bag" :
           "";
 
         if (key) qtys[key] += qty;
@@ -342,22 +344,14 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData = {
-      // ✅ 套裝
-      "entry.1638792825": qtys["sm"],  // sm 數量
-      "entry.424883194":  qtys["am"],  // am 數量
-      "entry.466042967":  qtys["ms"],  // ms 數量
-
-      // ✅ dmm 指定
-      "entry.1966657025": qtys["dmm柚"],
-      "entry.359768829":  qtys["dmm吉"],
-      "entry.1504926761": qtys["dmm冬"],
-      "entry.1579516134": qtys["dmm寧"],
-
-      // ✅ el 指定
-      "entry.1134504884": qtys["el柚"],
-      "entry.110275361":  qtys["el吉"],
-      "entry.2034283280": qtys["el冬"],
-      "entry.627723709":  qtys["el寧"],
+      // ✅ 新商品（請替換 entry 編號）
+      "entry.1111111111": qtys["burst1"],
+      "entry.2222222222": qtys["burstjp1"],
+      "entry.3333333333": qtys["burstjp2"],
+      "entry.4444444444": qtys["burst5"],
+      "entry.5555555555": qtys["energy1"],
+      "entry.6666666666": qtys["energy4"],
+      "entry.7777777777": qtys["bag"],
 
       // ✅ 基本資料
       "entry.328979395":  total,
@@ -367,8 +361,8 @@
       "entry.385310176":  bank,
       "entry.1831422360": time,
       "entry.1174194777": agree
-      
     };
+
 
 
     fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse",{
