@@ -51,7 +51,6 @@
       <p>CD-R</p>
       <p>摺疊海報（2隨1）</p>
       <p>小卡（4隨1）</p>
-      <p>-</p>
     <div class="member-row" data-member="套裝">
       <span class="member-name">數量</span>
       <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
@@ -70,7 +69,6 @@
       <p>CD-R</p>
       <p>摺疊海報（2隨1）</p>
       <p>小卡（4隨1）</p>
-      <p>-</p>
     <div class="member-row" data-member="套裝">
       <span class="member-name">數量</span>
       <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
@@ -78,6 +76,7 @@
       <button class="qty-btn" onclick="updateQty(this,1)">+</button>
     </div>
   </div>
+
   <!-- BURST Ver.日特別版*1 -->
   <div class="product-card" data-price="620">
     <img src="../image/richmanjp/brust jp1.jpg" alt="BURST日特*1">
@@ -129,7 +128,6 @@
       <p>貼紙（1種）</p>
       <p>折疊海報（2隨1）</p>
       <p>小卡（4隨1）</p>
-      <p>-</p>
     <div class="member-row" data-member="套裝">
       <span class="member-name">數量</span>
       <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
@@ -344,6 +342,7 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData = {
+      // 新商品
       "entry.1775303354": qtys["burst1"],
       "entry.1549304352": qtys["burst5"],
       "entry.500793133":  qtys["burstjp1"],
@@ -360,11 +359,12 @@
       "entry.385310176":  bank,
       "entry.1831422360": time,
       "entry.1174194777": agree
+
     };
 
 
 
-    fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse",{
+    fetch("https://docs.google.com/forms/d/11Qm504UaQa3pk-TkAZWsyxx_WtjNifnp_s51MJJYGb8/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
