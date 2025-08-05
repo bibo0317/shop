@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
   <script>
+    let canSubmit = true;
     const deadline = new Date("2025-09-30T23:59:59+08:00");
     if (new Date() > deadline) window.location.href = "../other/timesup.html";
   </script>
@@ -286,6 +287,31 @@
 
   /* 送出訂單 */
   function submitOrder(){
+      const now = Date.now();
+  const lastSubmitTime = parseInt(localStorage.getItem("lastSubmitTime") || "0");
+  const cooldown = 60 * 1000; // 1分鐘
+
+  if (now - lastSubmitTime < cooldown) {
+    const waitSec = Math.ceil((cooldown - (now - lastSubmitTime)) / 1000);
+    alert(`請勿重複送出訂單！請等待 ${waitSec} 秒後再試。`);
+    return;
+  }
+
+  // 鎖定一分鐘內不能再送出
+  canSubmit = false;
+  localStorage.setItem("lastSubmitTime", now.toString());
+
+  const submitBtn = document.querySelector('.submit-btn');
+  submitBtn.innerText = "已送出，請稍候...";
+  submitBtn.disabled = true;
+
+  // 一分鐘後解除鎖定並恢復按鈕
+  setTimeout(() => {
+    canSubmit = true;
+    submitBtn.innerText = "送出訂單";
+    submitBtn.disabled = false;
+  }, cooldown);
+
     /* Email 補 @gmail.com */
     let emailInput=document.getElementById("email").value.trim();
     if(!emailInput.includes("@")) emailInput+="@gmail.com";
