@@ -341,28 +341,29 @@
 
     const postData = {
       // ✅ 新商品
-      "entry.1775303354": qtys["burst1"],      // 原本就是 burst1
-      "entry.229375581":  qtys["burst5"],      // 原本是 1549304352，已替換為你給的第二個 entry
-      "entry.500793133":  qtys["burstjp1"],
-      "entry.1869025974": qtys["burstjp2"],
-      "entry.1220623990": qtys["energy1"],
-      "entry.1754515421": qtys["energy4"],
-      "entry.1678382682": qtys["bag"],
+      "entry.2022554311": qtys["burst1"],
+      "entry.1684899520": qtys["burst5"],
+      "entry.1771288027": qtys["burstjp1"],
+      "entry.388692605":  qtys["burstjp2"],
+      "entry.832496757":  qtys["energy1"],
+      "entry.34751942":   qtys["energy4"],
+      "entry.134162455":  qtys["bag"],
 
       // ✅ 基本資料
-      "entry.1996212375": total,
-      "entry.2005283339": emailInput,
-      "entry.1187909103": name,
-      "entry.265837544":  amount,
-      "entry.1061422798": bank,
-      "entry.1127207060": agree
+      "entry.782275759":  total,
+      "entry.196303780":  emailInput,
+      "entry.1738162294": name,
+      "entry.1977809135": amount,
+      "entry.1973061889": bank,
+      "entry.1944590164": agree
     };
 
 
 
 
 
-    fetch("https://docs.google.com/forms/d/11Qm504UaQa3pk-TkAZWsyxx_WtjNifnp_s51MJJYGb8/formResponse",{
+
+    fetch("https://docs.google.com/forms/d/1fwTwlb3AhEqFoPa7F8h87ANWDUzqCYD0w_7Z2r3DqAs/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
