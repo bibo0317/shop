@@ -43,9 +43,9 @@
   <!-- 商品區 -->
 <div class="product-wrapper">
   <!-- sm 套裝 -->
-  <div class="product-card" data-price="620">
+  <div class="product-card" data-price="610">
     <img src="../image/richmanjp/brust.jpg" alt="BURST一般*1">
-    <div class="product-title">BURST一般*1 - $620</div>
+    <div class="product-title">BURST一般*1 - $610</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機1張(卡面共四種)</span></strong></p>
       <p>封面（5隨1）</p>
       <p>寫真集（5種/24頁）</p>
@@ -60,9 +60,9 @@
     </div>
   </div>
   <!-- BURST日特*5種封面各一 -->
-  <div class="product-card" data-price="3100">
+  <div class="product-card" data-price="3050">
     <img src="../image/richmanjp/brust1.jpg" alt="BURST一般*5">
-    <div class="product-title">BURST一般*5 - $3100</div>
+    <div class="product-title">BURST一般*5 - $3050</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機5張(卡面共四種)</span></strong></p>
       <p><span style="color:#e74c3c;">官方未明確保證湊套，按照下單順序湊套+隨機1張(按下單順序排卡)</span></p>
       <p>封面（5種各一）</p>
@@ -79,9 +79,9 @@
   </div>
 
   <!-- BURST Ver.日特別版*1 -->
-  <div class="product-card" data-price="620">
+  <div class="product-card" data-price="610">
     <img src="../image/richmanjp/brust jp1.jpg" alt="BURST日特*1">
-    <div class="product-title">BURST日特*1 - $620</div>
+    <div class="product-title">BURST日特*1 - $610</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機1張(卡面共四種)</span></strong></p>
       <p>封面（2隨1）</p>
       <p>寫真集（2種/24頁）</p>
@@ -98,9 +98,9 @@
   </div>
 
   <!-- BURST Ver.日特別版*2 -->
-  <div class="product-card" data-price="1240">
+  <div class="product-card" data-price="1220">
     <img src="../image/richmanjp/brust jp.jpg" alt="BURST日特*2">
-    <div class="product-title">BURST日特*2 - $1240</div>
+    <div class="product-title">BURST日特*2 - $1220</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機2張(卡面共四種)</span></strong></p>
       <p>封面（2種各一）</p>
       <p>寫真集（2種/24頁）</p>
@@ -118,9 +118,9 @@
 
 
 
-    <div class="product-card" data-price="790">
+    <div class="product-card" data-price="780">
     <img src="../image/richmanjp/ENERGY1.jpg" alt="ENERGY*1">
-    <div class="product-title">ENERGY*1 - $790</div>
+    <div class="product-title">ENERGY*1 - $780</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機1張(卡面共四種)</span></strong></p>
       <p>封面（4隨1）</p>
       <p>寫真集（4種/64頁）</p>
@@ -137,9 +137,9 @@
     </div>
   </div>
 
-    <div class="product-card" data-price="3160">
+    <div class="product-card" data-price="3120">
     <img src="../image/richmanjp/ENERGY.jpg" alt="ENERGY*4">
-    <div class="product-title">ENERGY*4 - $3160</div>
+    <div class="product-title">ENERGY*4 - $3120</div>
     <p><strong><span style="color:#e74c3c;">HMV特典隨機1張(卡面共四種)</span></strong></p>
       <p><span style="color:#e74c3c;">官方未明確保證湊套，按下單順序湊</span></p>
       <p>封面（4種各一）</p>
@@ -211,6 +211,10 @@
       <div id="amount-error" class="error-message">只能填寫數字，最多兩位小數</div>
     </div>
     <div class="form-group"><label for="bank">匯款銀行+末五碼</label><input type="text" id="bank" required></div>
+    <div class="form-group">
+      <label for="note">如有拆車請備註拆主名字及您拆的成員（選填）</label>
+      <input type="text" id="note" placeholder="拆主名字+您拆的成員">
+
     <div class="form-group"><label for="agree">*是否同意購買須知</label>
       <select id="agree" required><option value="">請選擇</option><option value="是">是</option></select>
     </div>
@@ -324,6 +328,7 @@
     const name=document.getElementById("name").value.trim();
     const amount=document.getElementById("amount").value.trim();
     const bank=document.getElementById("bank").value.trim();
+    const note=document.getElementById("note").value.trim();
     const agree=document.getElementById("agree").value;
 
     if(!emailInput||!name||!amount||!agree){
@@ -377,10 +382,11 @@
       // ✅ 基本資料
       "entry.1996212375": total,
       "entry.2005283339": emailInput,
-      "entry.1187909103": name,
+      "entry.1187809103": name,
       "entry.265837544":  amount,
       "entry.1061422798": bank,
-      "entry.1127207060": agree
+      "entry.1127207060": agree,
+      "entry.424347944": note
     };
 
 
