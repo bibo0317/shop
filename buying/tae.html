@@ -287,6 +287,8 @@
     if(!summary.length){alert("請至少選擇一項商品再結帳！");return;}
     document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
     document.getElementById("checkout-section").style.display="block";
+    document.getElementById("amount").value = document.getElementById("total-price").innerText.replace("$", "");
+
     window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
   }
 
