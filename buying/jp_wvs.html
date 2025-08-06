@@ -181,7 +181,7 @@
 
 
 
-  <div class="total">總金額：<span id="total-price">$0</span></div>
+  <div class="total">總金額：(若為拆車請以群組內公布調價為主)<span id="total-price">$0</span></div>
   <div style="text-align:center;"><button class="submit-btn" onclick="showCheckout()">結帳</button></div>
 
   <!-- 結帳區 -->
@@ -210,7 +210,9 @@
       <input type="text" id="amount" required oninput="validateAmount(this)">
       <div id="amount-error" class="error-message">只能填寫數字，最多兩位小數</div>
     </div>
-    <div class="form-group"><label for="bank">匯款銀行+末五碼</label><input type="text" id="bank" required></div>
+    <div class="form-group"><label for="bank">匯款銀行+末五碼</label><input type="text" id="bank" required></div>    <div class="form-group">
+      <label for="note">如有拆車請備註拆主名字及您拆的成員（選填）</label>
+      <input type="text" id="note" placeholder="拆主名字+您拆的成員">
     <div class="form-group"><label for="agree">*是否同意購買須知</label>
       <select id="agree" required><option value="">請選擇</option><option value="是">是</option></select>
     </div>
@@ -323,7 +325,7 @@
     const name=document.getElementById("name").value.trim();
     const amount=document.getElementById("amount").value.trim();
     const bank=document.getElementById("bank").value.trim();
-    const time=document.getElementById("time").value.trim();
+    const note=document.getElementById("note").value.trim();
     const agree=document.getElementById("agree").value;
 
     if(!emailInput||!name||!amount||!agree){
@@ -380,7 +382,8 @@
       "entry.1738162294": name,
       "entry.1977809135": amount,
       "entry.1973061889": bank,
-      "entry.1944590164": agree
+      "entry.1944590164": agree,
+      "entry.1267577534": note, // 備註欄位
     };
 
 
