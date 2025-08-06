@@ -370,10 +370,23 @@
     /* 整理商品數量 */
     /* 整理商品數量 */
   const qtys = {
-    burst1: 0, burstjp1: 0, burstjp2: 0, burst5: 0,
-    energy1: 0, energy4: 0,
-    bag: 0
+    item1: 0,  // 烤蛋
+    item2: 0,  // 玩偶鑰匙圈
+    item3: 0,  // 玩偶毛毯
+    item4: 0,  // 髮圈
+    item5: 0,  // 磁吸手機支架
+    item6: 0,  // 便利貼
+    item7: 0,  // 馬克杯
+    item8: 0,  // 攪拌棒
+    item9: 0,  // 鑰匙圈
+    item10: 0, // 製冰盒
+    item11: 0, // 解壓球
+    item12: 0, // 毛毯
+    item13: 0, // 娃包
+    item14: 0, // 30cm娃娃
+    item15: 0  // 小夜燈
   };
+
 
     document.querySelectorAll(".product-card").forEach(card => {
       const title = card.querySelector(".product-title").innerText;
@@ -383,14 +396,23 @@
         if (qty <= 0) return;
 
         const key =
-          title.includes("BURST一般*1") ? "burst1" :
-          title.includes("BURST日特*1") ? "burstjp1" :
-          title.includes("BURST日特*2") ? "burstjp2" :
-          title.includes("BURST一般*5") ? "burst5" :
-          title.includes("ENERGY*1") ? "energy1" :
-          title.includes("ENERGY*4") ? "energy4" :
-          title.includes("RICH MAN BAG") ? "bag" :
+          title.includes("1.烤蛋") ? "item1" :
+          title.includes("2.玩偶鑰匙圈") ? "item2" :
+          title.includes("3.玩偶毛毯") ? "item3" :
+          title.includes("4.髮圈") ? "item4" :
+          title.includes("5.磁吸手機支架") ? "item5" :
+          title.includes("6.便利貼") ? "item6" :
+          title.includes("7.馬克杯") ? "item7" :
+          title.includes("8.攪拌棒") ? "item8" :
+          title.includes("9.鑰匙圈") ? "item9" :
+          title.includes("10.製冰盒") ? "item10" :
+          title.includes("11.解壓球") ? "item11" :
+          title.includes("12.毛毯") ? "item12" :
+          title.includes("13.娃包") ? "item13" :
+          title.includes("14.30cm娃娃") ? "item14" :
+          title.includes("15.小夜燈") ? "item15" :
           "";
+
 
         if (key) qtys[key] += qty;
       });
@@ -399,22 +421,30 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData = {
-      // ✅ 新商品
-      "entry.1631131734": qtys["burst1"],      // 原本就是 burst1
-      "entry.1976073419":  qtys["burst5"],      // 原本是 1549304352，已替換為你給的第二個 entry
-      "entry.1455594277":  qtys["burstjp1"],
-      "entry.1291814059": qtys["burstjp2"],
-      "entry.1881506248": qtys["energy1"],
-      "entry.105331186": qtys["energy4"],
-      "entry.363523214": qtys["bag"],
+      // 🛍️ 各商品對應 Google 表單的 entry ID（需自行填上正確 ID）
+      "entry.1234567890": qtys["item1"],   // 烤蛋
+      "entry.2345678901": qtys["item2"],   // 玩偶鑰匙圈
+      "entry.3456789012": qtys["item3"],   // ...
+      "entry.4567890123": qtys["item4"],
+      "entry.5678901234": qtys["item5"],
+      "entry.6789012345": qtys["item6"],
+      "entry.7890123456": qtys["item7"],
+      "entry.8901234567": qtys["item8"],
+      "entry.9012345678": qtys["item9"],
+      "entry.0123456789": qtys["item10"],
+      "entry.1123456789": qtys["item11"],
+      "entry.1223456789": qtys["item12"],
+      "entry.1323456789": qtys["item13"],
+      "entry.1423456789": qtys["item14"],
+      "entry.1523456789": qtys["item15"],
 
-      // ✅ 基本資料
+      // 🧾 基本資料
       "entry.1505452344": total,
       "entry.588052343": emailInput,
       "entry.1351852687": name,
-      "entry.1232122310":  amount,
+      "entry.1232122310": amount,
       "entry.97728422": bank,
-      "entry.1784471284": agree,
+      "entry.1784471284": agree
     };
 
 
