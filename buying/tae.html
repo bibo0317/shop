@@ -446,12 +446,15 @@
       "entry.1425920244": agree        // ← 同意規則
     };
 
+    localStorage.setItem("savedEmail", emailInput);
+    localStorage.setItem("savedName", name);
+    localStorage.setItem("savedBank", bank);
 
     fetch("https://docs.google.com/forms/d/1CFTkSF7BR08BJ7C9HS6Bo2Opf-swjmcx_ai4kDrbr6U/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
-    }).then(()=>{window.location.href="../other/done.html";})
+    }).then(()=>{window.location.href="../other/tae.html";})
       .catch(()=>{window.location.href="../other/error.html";});
   }
 
