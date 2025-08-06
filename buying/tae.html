@@ -421,37 +421,37 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData = {
-      // 🛍️ 各商品對應 Google 表單的 entry ID（需自行填上正確 ID）
-      "entry.1234567890": qtys["item1"],   // 烤蛋
-      "entry.2345678901": qtys["item2"],   // 玩偶鑰匙圈
-      "entry.3456789012": qtys["item3"],   // ...
-      "entry.4567890123": qtys["item4"],
-      "entry.5678901234": qtys["item5"],
-      "entry.6789012345": qtys["item6"],
-      "entry.7890123456": qtys["item7"],
-      "entry.8901234567": qtys["item8"],
-      "entry.9012345678": qtys["item9"],
-      "entry.0123456789": qtys["item10"],
-      "entry.1123456789": qtys["item11"],
-      "entry.1223456789": qtys["item12"],
-      "entry.1323456789": qtys["item13"],
-      "entry.1423456789": qtys["item14"],
-      "entry.1523456789": qtys["item15"],
+      // 🛍️ 各商品對應 Google 表單的 entry ID
+      "entry.1873449152": qtys["item1"],  // 烤蛋
+      "entry.1537404706": qtys["item2"],  // 玩偶鑰匙圈
+      "entry.757852600": qtys["item3"],
+      "entry.1287762317": qtys["item4"],
+      "entry.784241552": qtys["item5"],
+      "entry.1796613905": qtys["item6"],
+      "entry.1761946597": qtys["item7"],
+      "entry.498421437": qtys["item8"],
+      "entry.322385217": qtys["item9"],
+      "entry.819091673": qtys["item10"],
+      "entry.679353749": qtys["item11"],
+      "entry.567594457": qtys["item12"],
+      "entry.59644323": qtys["item13"],
+      "entry.578352239": qtys["item14"],
+      "entry.1662827030": qtys["item15"],
 
       // 🧾 基本資料
-      "entry.1505452344": total,
-      "entry.588052343": emailInput,
-      "entry.1351852687": name,
-      "entry.1232122310": amount,
-      "entry.97728422": bank,
-      "entry.1784471284": agree
+      "entry.455025780": total,
+      "entry.1010292232": emailInput,
+      "entry.287438672": name,
+      "entry.1877359092": amount,
+      "entry.859409795": bank
     };
 
 
 
 
 
-    fetch("https://docs.google.com/forms/d/1wyJm23ncYBBFGexhcMkJ19WhQ2Y-BKZoofQlEIXB2wE/formResponse",{
+
+    fetch("https://docs.google.com/forms/d/1PaLrOrFAEacWXIO88Z0I7ZBfHSoZAZfkXyGZIm5wmUY/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
