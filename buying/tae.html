@@ -419,39 +419,35 @@
     });
 
     const total=document.getElementById("total-price").innerText.replace("$","");
-
     const postData = {
-      // 🛍️ 各商品對應 Google 表單的 entry ID
-      "entry.1873449152": qtys["item1"],  // 烤蛋
-      "entry.1537404706": qtys["item2"],  // 玩偶鑰匙圈
-      "entry.757852600": qtys["item3"],
-      "entry.1287762317": qtys["item4"],
-      "entry.784241552": qtys["item5"],
-      "entry.1796613905": qtys["item6"],
-      "entry.1761946597": qtys["item7"],
-      "entry.498421437": qtys["item8"],
-      "entry.322385217": qtys["item9"],
-      "entry.819091673": qtys["item10"],
-      "entry.679353749": qtys["item11"],
-      "entry.567594457": qtys["item12"],
-      "entry.59644323": qtys["item13"],
-      "entry.578352239": qtys["item14"],
-      "entry.1662827030": qtys["item15"],
+      // 🛍️ 各商品對應 Google 表單的 entry ID（依照你提供的順序填入）
+      "entry.178424760":    qtys["item1"],   // 烤蛋
+      "entry.1141904550":   qtys["item2"],   // 玩偶鑰匙圈
+      "entry.1284344794":   qtys["item3"],   // 玩偶毛毯
+      "entry.1361093034":   qtys["item4"],   // 髮圈
+      "entry.2061221105":   qtys["item5"],   // 磁吸手機支架
+      "entry.1645119065":   qtys["item6"],   // 便利貼
+      "entry.95474043":     qtys["item7"],   // 馬克杯
+      "entry.1008176533":   qtys["item8"],   // 攪拌棒
+      "entry.1904278369":   qtys["item9"],   // 鑰匙圈
+      "entry.1329199483":   qtys["item10"],  // 製冰盒
+      "entry.1146014480":   qtys["item11"],  // 解壓球
+      "entry.444655648":    qtys["item12"],  // 毛毯
+      "entry.1332982338":   qtys["item13"],  // 娃包
+      "entry.466969726":    qtys["item14"],  // 30cm娃娃
+      "entry.1422628936":   qtys["item15"],  // 小夜燈
 
-      // 🧾 基本資料
-      "entry.455025780": total,
-      "entry.1010292232": emailInput,
-      "entry.287438672": name,
-      "entry.1877359092": amount,
-      "entry.859409795": bank
+      // 🧾 基本資料（這部分 entry 仍需你補充「正確的」 entry ID）
+      "entry.1698350198": total,       // ← 修改為你的「總金額」欄位 ID
+      "entry.388635500":  emailInput,  // ← 修改為你的「Gmail信箱」欄位 ID
+      "entry.341596542":  name,        // ← 修改為你的「姓名」欄位 ID
+      "entry.1683207582": amount,      // ← 匯款金額
+      "entry.2056656447": bank,        // ← 銀行末五碼
+      "entry.1425920244": agree        // ← 同意規則
     };
 
 
-
-
-
-
-    fetch("https://docs.google.com/forms/d/1PaLrOrFAEacWXIO88Z0I7ZBfHSoZAZfkXyGZIm5wmUY/formResponse",{
+    fetch("https://docs.google.com/forms/d/1CFTkSF7BR08BJ7C9HS6Bo2Opf-swjmcx_ai4kDrbr6U/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
