@@ -104,7 +104,7 @@
   <div class="product-card" data-price="600">
     <img src="../image/tae/7.jpeg" alt="7.馬克杯">
     <div class="product-title">7.馬克杯 $600</div>
-    <p>易損，不一定能售後成功，介意請勿下單</p>
+    <p>易損，不包售後，介意請勿下單</p>
     <div class="member-row" data-member="數量">
       <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
       <input type="number" class="qty-input" value="0" readonly>
@@ -112,10 +112,12 @@
     </div>
 
   </div>
-    <div class="product-card" data-price="600">
-    <img src="../image/tae/7.jpeg" alt="7.馬克杯">
-    <div class="product-title">7.馬克杯 $690</div>
-    <p>官網下單，在官網到集運倉端可售後</p>
+    <div class="product-card" data-price="690">
+    <img src="../image/tae/7.jpeg" alt="7.馬克杯(可售後)">
+    <div class="product-title">7.馬克杯(官網) $690</div>
+    <p>若在官網到集運倉端途中破損可售後</p>
+    <p>會請集運單個加強包裝</p>
+    <p>但仍不保證一定不會破損，介意請勿下單</p>
     <div class="member-row" data-member="數量">
       <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
       <input type="number" class="qty-input" value="0" readonly>
@@ -374,6 +376,7 @@
     item5: 0,  // 磁吸手機支架
     item6: 0,  // 便利貼
     item7: 0,  // 馬克杯
+    item71: 0, // 馬克杯(可售後)
     item8: 0,  // 攪拌棒
     item9: 0,  // 鑰匙圈
     item10: 0, // 製冰盒
@@ -400,6 +403,7 @@
           title.includes("5.磁吸手機支架") ? "item5" :
           title.includes("6.便利貼") ? "item6" :
           title.includes("7.馬克杯") ? "item7" :
+          title.includes("7.馬克杯(可售後)") ? "item71" :
           title.includes("8.攪拌棒") ? "item8" :
           title.includes("9.PVC鑰匙圈") ? "item9" :
           title.includes("10.製冰盒") ? "item10" :
@@ -425,6 +429,7 @@
       "entry.2061221105":   qtys["item5"],   // 磁吸手機支架
       "entry.1645119065":   qtys["item6"],   // 便利貼
       "entry.95474043":     qtys["item7"],   // 馬克杯
+      "entry.1724904535":   qtys["item71"], // 馬克杯(可售後)
       "entry.1008176533":   qtys["item8"],   // 攪拌棒
       "entry.1904278369":   qtys["item9"],   // PVC鑰匙圈
       "entry.1329199483":   qtys["item10"],  // 製冰盒
