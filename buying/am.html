@@ -100,7 +100,7 @@ function lookupOrder() {
 
   // 顯示商品數量
   paymentStatus = order.paid;
-  ["柚","吉","冬","寧"].forEach(m => {
+  ["柚","吉","冬","寧","團"].forEach(m => {
     if (order[m]) {
       const row = document.createElement("div");
       row.className = "member-row";
@@ -111,7 +111,7 @@ function lookupOrder() {
 
   // 計算金額
   const price = parseInt(card.dataset.price, 10);
-  const total = ["柚","吉","冬","寧"].reduce((t, m) => t + (order[m] || 0) * price, 0);
+  const total = ["柚","吉","冬","寧","團"].reduce((t, m) => t + (order[m] || 0) * price, 0);
   document.getElementById("total-price").innerText = `$${total}`;
 
   // 提示已對帳或待對帳
@@ -127,7 +127,7 @@ function showCheckout() {
     return;
   }
 
-  const lines = ["柚","吉","冬","寧"]
+  const lines = ["柚","吉","冬","寧","團"]
     .filter(m => currentOrder[m] > 0)
     .map(m => `${m} x${currentOrder[m]}`);
 
@@ -174,7 +174,6 @@ function submitOrder() {
 
   const name   = document.getElementById("name").value.trim();
   const amount = document.getElementById("amount").value.trim();
-  const bank   = document.getElementById("bank").value.trim();
   const agree  = document.getElementById("agree").value;
   const total  = document.getElementById("total-price").innerText.replace("$","");
 
@@ -188,30 +187,32 @@ function submitOrder() {
     "柚": currentOrder["柚"] || 0,
     "吉": currentOrder["吉"] || 0,
     "冬": currentOrder["冬"] || 0,
-    "寧": currentOrder["寧"] || 0
+    "寧": currentOrder["寧"] || 0,
+    "團": currentOrder["團"] || 0
   };
 
   // 3. 儲存至 localStorage 方便下次自動帶入
-  ["email","name","bank"].forEach(id => {
+  ["email","name"].forEach(id => {
     localStorage.setItem("saved"+id.charAt(0).toUpperCase()+id.slice(1),
                          document.getElementById(id).value);
   });
 
   // 4. 組出 Google Forms 對應欄位
   const postData = {
-    "entry.1966657025": qtys["柚"],      // 柚
-    "entry.1504926761": qtys["冬"],      // 冬
-    // 如果吉、寧後續也要寫入表單，可再加 entry
-    "entry.1793387795": emailVal,        // Email
-    "entry.398219589": name,            // 姓名
-    "entry.1866660785":  amount,          // 匯款金額
-    "entry.1641172190": bank,            // 銀行+末五碼
-    "entry.1174194777": agree,           // 同意
-    "entry.328979395":  total            // 總金額
+    "entry.1884263680": qtys["柚"],      // 柚
+    "entry.442584672": qtys["冬"],      // 冬
+    "entry.338276590": qtys["吉"],      // 吉
+    "entry.744645328": qtys["寧"],      // 寧  
+    "entry.1824260934": qtys["團"],      // 團
+    "entry.1362025612": total,        // Email
+    "entry.1606163383": emailVal,            // 姓名
+    "entry.1177212074":  name,          // 匯款金額
+    "entry.899548997": amount,           // 同意
+    "entry.636474957":  agree           // 總金額
   };
 
   // 5. 送出
-  fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse",{
+  fetch("https://docs.google.com/forms/d/1lSgN16nTDxHKc2zs3srCU80H0lPG6oj83EUQEL7wZBk/formResponse",{
     method:"POST",
     mode:"no-cors",
     headers:{ "Content-Type":"application/x-www-form-urlencoded" },
@@ -223,7 +224,7 @@ function submitOrder() {
 
 /* ===== 頁面載入時：自動填入 localStorage 資料 ===== */
 window.addEventListener("DOMContentLoaded", () => {
-  ["email","name","bank"].forEach(id => {
+  ["email","name"].forEach(id => {
     document.getElementById(id).value =
       localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1)) || "";
   });
