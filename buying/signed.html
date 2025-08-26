@@ -170,7 +170,11 @@ function submitOrder() {
 
   // 1. 讀取各欄位
   let emailVal = document.getElementById("email").value.trim();
-  if (emailVal && !emailVal.endsWith("@gmail.com")) emailVal += "@gmail.com";
+  if (emailVal && !emailVal.endsWith("@")) emailVal += "@gmail.com";
+  if( emailVal && !emailVal.includes("yahoo") ) {
+    alert("請輸入正確的 Gmail 信箱格式！");
+    return;
+  }
 
   const name   = document.getElementById("name").value.trim();
   const amount = document.getElementById("amount").value.trim();
