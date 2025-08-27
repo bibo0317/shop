@@ -169,15 +169,18 @@
   </div>
 
 </div>
+<!-- 商品區結束 -->
 
 <div class="total">總金額：<span id="total-price">$0</span></div>
-<div style="text-align:center;"><button class="submit-btn" onclick="showCheckout()">結帳</button></div>
+<div style="text-align:center;">
+  <button class="submit-btn" onclick="showCheckout()">結帳</button>
+</div>
 
 <!-- 結帳區 -->
 <div id="checkout-section" style="display:none;">
   <div class="total" id="order-summary-text"></div>
   <div class="payment-notice">
-    <p>💰付款須知：匯款/無卡帳號:</p>
+    <p>💰付款須知：匯款帳號:</p>
     <p>請勿備註任何字符!會對不到帳</p>
     <p>（822）901566584648</p>
     <p>請先完成付款後再送出表單</p>
@@ -194,19 +197,82 @@
     <input type="text" id="name" required>
   </div>
   <div class="form-group">
-    <label for="amount">*匯款/無卡金額</label>
+    <label for="amount">*匯款金額</label>
     <input type="text" id="amount" required oninput="validateAmount(this)">
     <div id="amount-error" class="error-message">只能填寫數字，最多兩位小數</div>
   </div>
-  <div class="form-group"><label for="bank">匯款銀行+末五碼</label><input type="text" id="bank" required></div>
-  <div class="form-group"><label for="time">無卡時間</label><input type="text" id="time"></div>
-  <div class="form-group"><label for="agree">*是否同意購買須知</label>
-    <select id="agree" required><option value="">請選擇</option><option value="是">是</option></select>
+  <div class="form-group">
+    <label for="bank">匯款銀行+末五碼</label>
+    <input type="text" id="bank" required>
   </div>
-  <div style="text-align:center;"><button class="submit-btn" onclick="submitOrder()">送出訂單</button></div>
+  <div class="form-group">
+    <label for="agree">*是否同意購買須知</label>
+    <select id="agree" required>
+      <option value="">請選擇</option>
+      <option value="是">是</option>
+    </select>
+  </div>
+  <div style="text-align:center;">
+    <button class="submit-btn" onclick="submitOrder()">送出訂單</button>
+  </div>
 </div>
 
 <script>
+  /* === 商品 + Google Form entry 對應 === */
+  const entryMap = {
+    "隨機卡包|X": "entry.341365114",
+    "隨機卡包|Y": "entry.509251165",
+    "T-shirt|柚": "entry.913405674",
+    "T-shirt|吉": "entry.1138183385",
+    "T-shirt|冬": "entry.1686811342",
+    "T-shirt|寧": "entry.418541108",
+    "棒球帽|柚": "entry.101638510",
+    "棒球帽|吉": "entry.1318479579",
+    "棒球帽|冬": "entry.496782777",
+    "棒球帽|寧": "entry.2013573611",
+    "包包|柚": "entry.458489405",
+    "包包|吉": "entry.1832017569",
+    "包包|冬": "entry.1860308848",
+    "包包|寧": "entry.683722546",
+    "明信片書|柚": "entry.1740002626",
+    "明信片書|吉": "entry.1965830513",
+    "明信片書|冬": "entry.146144057",
+    "明信片書|寧": "entry.317391581",
+    "手幅|柚": "entry.1210458780",
+    "手幅|吉": "entry.1274597399",
+    "手幅|冬": "entry.1956143320",
+    "手幅|寧": "entry.1317030305",
+    "卡冊|柚": "entry.1617423982",
+    "卡冊|吉": "entry.999157586",
+    "卡冊|冬": "entry.556469942",
+    "卡冊|寧": "entry.973205140",
+    "紋身貼|柚": "entry.179681102",
+    "紋身貼|吉": "entry.2125317512",
+    "紋身貼|冬": "entry.1091325449",
+    "紋身貼|寧": "entry.1563418013",
+    "FANLIGHT DOLL 鑰匙圈|柚": "entry.2107213028",
+    "FANLIGHT DOLL 鑰匙圈|吉": "entry.8870931",
+    "FANLIGHT DOLL 鑰匙圈|冬": "entry.1718530560",
+    "FANLIGHT DOLL 鑰匙圈|寧": "entry.1237979321",
+    "手機掛繩|柚": "entry.1477579712",
+    "手機掛繩|吉": "entry.1836873402",
+    "手機掛繩|冬": "entry.1518840514",
+    "手機掛繩|寧": "entry.638714232",
+    "壓克力氣氛燈套裝|柚": "entry.1747074226",
+    "壓克力氣氛燈套裝|吉": "entry.1064650020",
+    "壓克力氣氛燈套裝|冬": "entry.150625352",
+    "壓克力氣氛燈套裝|寧": "entry.203098717",
+    "手鍊錶套裝|柚": "entry.1716237245",
+    "手鍊錶套裝|吉": "entry.1708453898",
+    "手鍊錶套裝|冬": "entry.271969103",
+    "手鍊錶套裝|寧": "entry.1080009822",
+    "14CM 站立娃娃|柚": "entry.1282478705",
+    "14CM 站立娃娃|吉": "entry.1593654315",
+    "14CM 站立娃娃|冬": "entry.783685312",
+    "14CM 站立娃娃|寧": "entry.1402756490",
+  };
+
+  /* === 更新數量 & 計算總價 === */
   function updateQty(btn,delta){
     const inp=btn.parentElement.querySelector('input');
     let q=parseInt(inp.value)+delta;
@@ -224,6 +290,8 @@
     });
     document.getElementById("total-price").innerText=`$${t}`;
   }
+
+  /* === 顯示結帳區 === */
   function showCheckout(){
     const summary=[];
     document.querySelectorAll(".product-card").forEach(card=>{
@@ -241,6 +309,8 @@
     document.getElementById("checkout-section").style.display="block";
     window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
   }
+
+  /* === 即時驗證 === */
   function validateEmail(input){
     const val=input.value.trim();
     const err=document.getElementById("email-error");
@@ -266,7 +336,67 @@
       input.classList.add("invalid"); err.style.display="block";
     }
   }
-</script>
 
+  /* === 送出訂單 === */
+  function submitOrder(){
+    let emailInput=document.getElementById("email").value.trim();
+    if(!emailInput.includes("@")) emailInput+="@gmail.com";
+    document.getElementById("email").value=emailInput;
+
+    if(!emailInput.endsWith("@gmail.com")){
+      alert("只接受 Gmail 帳號，請重新確認您的 Email！"); return;
+    }
+    const name=document.getElementById("name").value.trim();
+    const amount=document.getElementById("amount").value.trim();
+    const bank=document.getElementById("bank").value.trim();
+    const agree=document.getElementById("agree").value;
+
+    if(!emailInput||!name||!amount||!agree){
+      alert("請填寫所有必填欄位！"); return;
+    }
+    if(!/^\d+(\.\d{0,2})?$/.test(amount)){
+      alert("匯款金額格式錯誤，只能填寫數字！"); return;
+    }
+
+    const postData = {};
+    // 動態收集所有商品數量
+    document.querySelectorAll(".product-card").forEach(card=>{
+      const title=card.querySelector(".product-title").innerText.split(" - ")[0];
+      card.querySelectorAll(".member-row").forEach(row=>{
+        const member=row.dataset.member;
+        const qty=parseInt(row.querySelector("input").value);
+        const key=`${title}|${member}`;
+        if(entryMap[key]){
+          postData[entryMap[key]] = qty;
+        }
+      });
+    });
+
+    // 其他必填欄位
+    const total=document.getElementById("total-price").innerText.replace("$","");
+    postData["entry.1306235803"] = total;
+    postData["entry.579329091"] = emailInput;
+    postData["entry.1613793186"] = name;
+    postData["entry.1998904242"] = amount;
+    postData["entry.455935964"] = bank;
+    postData["entry.101664053"] = agree;
+
+    fetch("https://docs.google.com/forms/d/1623HDQYjs2GjcyhtjQ9PqVMwk6KTCyv7-uoboFtQ2zI/formResponse",{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body:new URLSearchParams(postData).toString()
+    }).then(()=>{window.location.href="../other/done.html";})
+      .catch(()=>{window.location.href="../other/error.html";});
+  }
+
+  /* 自動帶入 localStorage */
+  window.addEventListener("DOMContentLoaded",()=>{
+    ["email","name","bank"].forEach(id=>{
+      document.getElementById(id).value=localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1))||"";
+    });
+  });
+</script>
 </body>
 </html>
+
