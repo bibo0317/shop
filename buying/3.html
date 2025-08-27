@@ -273,13 +273,26 @@
   };
 
   /* === 更新數量 & 計算總價 === */
-  function updateQty(btn,delta){
-    const inp=btn.parentElement.querySelector('input');
-    let q=parseInt(inp.value)+delta;
-    if(q<0) q=0;
-    inp.value=q;
-    updateTotal();
+/* === 更新數量 & 計算總價 === */
+function updateQty(btn, delta) {
+  const inp = btn.parentElement.querySelector('input');
+  let q = parseInt(inp.value) + delta;
+  if (q < 0) q = 0;
+  inp.value = q;
+
+  // 更新總價
+  updateTotal();
+
+  // 如果結帳區已經展開，則自動收起並提示
+  const checkoutSection = document.getElementById("checkout-section");
+  if (checkoutSection && checkoutSection.style.display === "block") {
+    checkoutSection.style.display = "none"; // 收起結帳區
+    document.getElementById("order-summary-text").innerHTML = ""; // 清空明細
+    document.getElementById("amount").value = ""; // 清空匯款金額
+    alert("購物內容已變動，請重新結帳！");
   }
+}
+
   function updateTotal(){
     let t=0;
     document.querySelectorAll(".product-card").forEach(card=>{
@@ -292,23 +305,29 @@
   }
 
   /* === 顯示結帳區 === */
-  function showCheckout(){
-    const summary=[];
-    document.querySelectorAll(".product-card").forEach(card=>{
-      const title=card.querySelector(".product-title").innerText;
-      const lines=[];
-      card.querySelectorAll(".member-row").forEach(r=>{
-        const m=r.dataset.member;
-        const q=parseInt(r.querySelector("input").value);
-        if(q>0) lines.push(`${m} x${q}`);
-      });
-      if(lines.length) summary.push(`${title}<br>${lines.join("<br>")}`);
+function showCheckout(){
+  const summary=[];
+  document.querySelectorAll(".product-card").forEach(card=>{
+    const title=card.querySelector(".product-title").innerText;
+    const lines=[];
+    card.querySelectorAll(".member-row").forEach(r=>{
+      const m=r.dataset.member;
+      const q=parseInt(r.querySelector("input").value);
+      if(q>0) lines.push(`${m} x${q}`);
     });
-    if(!summary.length){alert("請至少選擇一項商品再結帳！");return;}
-    document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
-    document.getElementById("checkout-section").style.display="block";
-    window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-  }
+    if(lines.length) summary.push(`${title}<br>${lines.join("<br>")}`);
+  });
+  if(!summary.length){alert("請至少選擇一項商品再結帳！");return;}
+  
+  document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
+  document.getElementById("checkout-section").style.display="block";
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+
+  // ★ 新增：自動帶入總金額
+  const total = document.getElementById("total-price").innerText.replace("$","").trim();
+  document.getElementById("amount").value = total;
+}
+
 
   /* === 即時驗證 === */
   function validateEmail(input){
@@ -337,15 +356,24 @@
     }
   }
 
-  /* === 送出訂單 === */
-  function submitOrder(){
-    let emailInput=document.getElementById("email").value.trim();
-    if(!emailInput.includes("@")) emailInput+="@gmail.com";
-    document.getElementById("email").value=emailInput;
+let lastSubmitTime = 0;  // 新增：記錄上次送單時間
 
-    if(!emailInput.endsWith("@gmail.com")){
-      alert("只接受 Gmail 帳號，請重新確認您的 Email！"); return;
-    }
+function submitOrder(){
+  const now = Date.now();
+  if (now - lastSubmitTime < 60000) {  // 限制 60 秒
+    alert("請勿在 1 分鐘內重複送出訂單！");
+    return;
+  }
+  lastSubmitTime = now;  // 更新最後送出時間
+
+  let emailInput=document.getElementById("email").value.trim();
+  if(!emailInput.includes("@")) emailInput+="@gmail.com";
+  document.getElementById("email").value=emailInput;
+
+  if(!emailInput.endsWith("@gmail.com")){
+    alert("只接受 Gmail 帳號，請重新確認您的 Email！");
+    return;
+  }
     const name=document.getElementById("name").value.trim();
     const amount=document.getElementById("amount").value.trim();
     const bank=document.getElementById("bank").value.trim();
