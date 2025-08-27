@@ -360,31 +360,51 @@ let lastSubmitTime = 0;  // 新增：記錄上次送單時間
 
 function submitOrder(){
   const now = Date.now();
-  if (now - lastSubmitTime < 60000) {  // 限制 60 秒
+  if (now - lastSubmitTime < 60000) {
     alert("請勿在 1 分鐘內重複送出訂單！");
     return;
   }
-  lastSubmitTime = now;  // 更新最後送出時間
 
-  let emailInput=document.getElementById("email").value.trim();
-  if(!emailInput.includes("@")) emailInput+="@gmail.com";
-  document.getElementById("email").value=emailInput;
+  const emailEl = document.getElementById("email");
+  let emailInput = emailEl.value.trim();
 
-  if(!emailInput.endsWith("@gmail.com")){
-    alert("只接受 Gmail 帳號，請重新確認您的 Email！");
+  // 先擋空白
+  if (emailInput === "") {
+    alert("請輸入 Gmail。");
+    emailEl.focus();
     return;
   }
-    const name=document.getElementById("name").value.trim();
-    const amount=document.getElementById("amount").value.trim();
-    const bank=document.getElementById("bank").value.trim();
-    const agree=document.getElementById("agree").value;
 
-    if(!emailInput||!name||!amount||!agree){
-      alert("請填寫所有必填欄位！"); return;
-    }
-    if(!/^\d+(\.\d{0,2})?$/.test(amount)){
-      alert("匯款金額格式錯誤，只能填寫數字！"); return;
-    }
+  // 使用者有輸入但未含 @，才自動補上 @gmail.com
+  if (!emailInput.includes("@")) {
+    emailInput += "@gmail.com";
+  }
+  emailEl.value = emailInput;
+
+  // 僅接受有效的 Gmail
+  const gmailRe = /^[A-Za-z0-9._%+-]+@gmail\.com$/;
+  if (!gmailRe.test(emailInput)) {
+    alert("只接受有效的 Gmail（例如 yourname@gmail.com）。");
+    emailEl.focus();
+    return;
+  }
+
+  lastSubmitTime = now;  // 通過所有 Email 檢查後再更新鎖定時間
+
+  // 其餘原本的欄位檢查與送出流程照舊…
+  const name=document.getElementById("name").value.trim();
+  const amount=document.getElementById("amount").value.trim();
+  const bank=document.getElementById("bank").value.trim();
+  const agree=document.getElementById("agree").value;
+
+  if(!emailInput||!name||!amount||!agree){
+    alert("請填寫所有必填欄位！");
+    return;
+  }
+  if(!/^\d+(\.\d{0,2})?$/.test(amount)){
+    alert("匯款金額格式錯誤，只能填寫數字！");
+    return;
+  }
 
     const postData = {};
     // 動態收集所有商品數量
