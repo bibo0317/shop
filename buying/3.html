@@ -5,20 +5,6 @@
   <title>Arwen代購</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-<script>
-  const startTime = new Date("2025-08-31T08:00:00+08:00");
-  const deadline  = new Date("2025-08-31T08:30:00+08:00");
-  const now = new Date();
-
-  if (now < startTime) {
-    // 還沒開放
-    window.location.href = "../other/notyet.html"; 
-  } else if (now > deadline) {
-    // 已經截止
-    window.location.href = "../other/timesup.html";
-  }
-</script>
-
   <style>
     @media (max-width: 480px) {
       .info-box { font-size: 13px; padding: 12px; }
