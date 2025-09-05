@@ -5,7 +5,10 @@
   <title>Arwen 開團購物</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-
+  <script>
+    const deadline = new Date("2025-09-05T23:59:00+08:00");
+    if (new Date() > deadline) window.location.href = "../other/timesup.html";
+  </script>
   <style>
     @media (max-width: 480px) {
       .info-box { font-size: 13px; padding: 12px; }
@@ -37,10 +40,11 @@
 
   <!-- 商品區 -->
   <div class="product-wrapper">
-    <div class="product-card" data-price="1320">
-      <img src="../image/6mini/b.jpg" alt="Richman brust.ver">
-      <div class="product-title">Richman brust.ver - $1320</div>
-      <p>一律由車主代表填寫，許願順序由我@的順序排</p>
+    <div class="product-card" data-price="1120">
+      <img src="../image/6mini/am.jpg" alt="am幸運四卡四專">
+      <div class="product-title">am幸運四卡四專 - $1120</div>
+      <p>需二補國際，特典保證湊套</p>
+      <p>專輯brust盡量給不同封面</p>
       <div class="member-row" data-member="一套"><span class="member-name">一套</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
     </div>
 
@@ -72,12 +76,11 @@
       <input type="text" id="name" required>
     </div>
     <div class="form-group">
-      <label for="amount">*匯款/無卡金額</label>
+      <label for="amount">*匯款金額</label>
       <input type="text" id="amount" required oninput="validateAmount(this)">
       <div id="amount-error" class="error-message">只能填寫數字，最多兩位小數</div>
     </div>
     <div class="form-group"><label for="bank"> 匯款銀行+末五碼</label><input type="text" id="bank" required></div>
-    <div class="form-group"><label for="wish"> *一套請填寫許願成員，車主也請填寫清楚每位車員的社群名字+買的東西(包含自己的)，若無填寫清楚的品項一律寄給車主</label><input type="text" id="wish"></div>
     <div class="form-group"><label for="agree"> *是否同意購買須知，請重新檢查訂單，送出後不可更改</label>
       <select id="agree" required><option value=""> 請選擇</option><option value="是">是</option></select>
     </div>
@@ -234,10 +237,9 @@ function submitOrder(){
   const name = document.getElementById("name").value.trim();
   const amount = document.getElementById("amount").value.trim();
   const bank = document.getElementById("bank").value.trim();
-  const wish = document.getElementById("wish").value.trim();
   const agree = document.getElementById("agree").value;
 
-  if (!emailInput || !name || !amount || !wish || !bank || !agree) {
+  if (!emailInput || !name || !amount || !bank || !agree) {
     alert("請填寫所有必填欄位！");
     isSubmitting = false;
     return;
@@ -264,7 +266,6 @@ const postData = {
   "entry.548372524": name,               // 原 entry.1195798789
   "entry.1925502819": amount,            // 原 entry.1043038233
   "entry.123200789": bank,               // 原 entry.1950007438
-  "entry.705928444": wish,               // 原 entry.535033464
   "entry.2042996501": agree              // 原 entry.463756351
 };
 
