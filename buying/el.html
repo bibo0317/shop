@@ -91,6 +91,11 @@
 
 <!-- ================= JS ================= -->
 <script>
+  /* ====== 送單冷卻設定 ====== */
+  const SUBMIT_COOLDOWN_MS = 30_000;           // 30秒
+  const SUBMIT_TS_KEY = "lastSubmitTs:EL300";  // 可依賣場更換識別
+  let isSubmitting = false;                    // 防連點
+
   /* 數量加減與總金額 */
   function updateQty(btn,delta){
     const inp=btn.parentElement.querySelector('input');
@@ -108,11 +113,10 @@
       });
     });
     document.getElementById("total-price").innerText=`$${t}`;
-      const checkout = document.getElementById('checkout-section');
+    const checkout = document.getElementById('checkout-section');
     if (checkout && getComputedStyle(checkout).display !== 'none') {
       setAmountToTotal();
     }
-
   }
 
   /* 顯示結帳明細 */
@@ -135,22 +139,20 @@
     document.getElementById("checkout-section").style.display = "block";
     setAmountToTotal();
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-
   }
 
   /* 自動帶入總金額到匯款欄位 */
   function setAmountToTotal() {
-  const amountEl = document.getElementById('amount');
-  if (!amountEl) return;
-  const total = document.getElementById('total-price').innerText.replace('$','');
-  amountEl.value = total;
+    const amountEl = document.getElementById('amount');
+    if (!amountEl) return;
+    const total = document.getElementById('total-price').innerText.replace('$','');
+    amountEl.value = total;
   }
 
   /* -------- 即時驗證 -------- */
   function validateEmail(input){
     const val=input.value.trim();
     const err=document.getElementById("email-error");
-    /* 允許空字串或尚未輸入 @ 的過程 */
     if(val==="" || !val.includes("@")){
       input.classList.remove("invalid");
       err.style.display="none";
@@ -174,8 +176,19 @@
     }
   }
 
-  /* 送出訂單 */
+  /* 送出訂單（含30秒冷卻） */
   function submitOrder(){
+    // ===== 冷卻檢查（時間 + 防連點） =====
+    if (isSubmitting) return; // 已在送單流程中
+    const now = Date.now();
+    const lastTs = parseInt(localStorage.getItem(SUBMIT_TS_KEY) || "0", 10);
+    const remain = SUBMIT_COOLDOWN_MS - (now - lastTs);
+    if (remain > 0) {
+      const sec = Math.ceil(remain/1000);
+      alert(`請勿重複送單，還需等待 ${sec} 秒後才能再次送出。`);
+      return;
+    }
+
     /* Email 補 @gmail.com */
     let emailInput=document.getElementById("email").value.trim();
     if(!emailInput.includes("@")) emailInput+="@gmail.com";
@@ -214,12 +227,28 @@
       "entry.328979395":total
     };
 
+    // ===== 進入送單狀態：立即寫入時間避免連點；禁用按鈕 =====
+    isSubmitting = true;
+    localStorage.setItem(SUBMIT_TS_KEY, String(now));
+    const btn = document.querySelector('#checkout-section button.submit-btn');
+    const prevText = btn ? btn.innerText : null;
+    if (btn) { btn.disabled = true; btn.innerText = "送出中…"; }
+
     fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
-    }).then(()=>{window.location.href="../other/done.html";})
-      .catch(()=>{window.location.href="../other/error.html";});
+    }).then(()=>{
+      // 成功：導向成功頁（冷卻已記錄）
+      window.location.href="../other/done.html";
+    }).catch(()=>{
+      // 失敗：導向錯誤頁，但仍維持冷卻（避免重複炸表）
+      window.location.href="../other/error.html";
+    }).finally(()=>{
+      // 若頁面未跳轉（極少數情況），恢復按鈕狀態
+      isSubmitting = false;
+      if (btn && prevText) { btn.disabled = false; btn.innerText = prevText; }
+    });
   }
 
   /* 自動帶入 localStorage */
