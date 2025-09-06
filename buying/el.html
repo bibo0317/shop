@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
   <script>
-    const deadline = new Date("2025-09-05T23:59:00+08:00");
+    const deadline = new Date("2025-09-07T03:00:00+08:00");
     if (new Date() > deadline) window.location.href = "../other/timesup.html";
   </script>
   <style>
@@ -40,9 +40,9 @@
 
   <!-- 商品區 -->
   <div class="product-wrapper">
-    <div class="product-card" data-price="170">
-      <img src="../image/ez.jpg" alt="aespa交通卡">
-      <div class="product-title">aespa交通卡 - $170</div>
+    <div class="product-card" data-price="300">
+      <img src="../image/6mini/el.jpg" alt="EL幸運指定一卡一專">
+      <div class="product-title">EL幸運指定一卡一專 - $300</div>
       <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
       <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
       <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
@@ -58,8 +58,10 @@
     <div class="total" id="order-summary-text"></div>
 
     <div class="payment-notice">
-      <p>💰付款須知：匯款(請勿備註任何字符)帳號:</p>
-      <p>（822）901566584648</p>
+      <p>💰付款須知-匯款帳號:</p>
+      <p>請勿備註任何字符!會對不到帳</p>
+      <p><strong><span style="color: #a33225;">請注意匯款銀行是郵局!!!!!</strong></span></p>
+      <p>（700）00310710953998</p>
       <p>請先完成付款後再送出表單</p>
       <p>若未收到款項，將不列入此次訂單。</p>
     </div>
@@ -74,7 +76,7 @@
       <input type="text" id="name" required>
     </div>
     <div class="form-group">
-      <label for="amount">*匯款/無卡金額</label>
+      <label for="amount">*匯款金額</label>
       <input type="text" id="amount" required oninput="validateAmount(this)">
       <div id="amount-error" class="error-message">只能填寫數字，最多兩位小數</div>
     </div>
