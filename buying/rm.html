@@ -77,7 +77,7 @@
 </div>
 <div class="product-card" data-price="800">
 <img alt="HAIRPIN SET" src="../image/rm/07.webp"/>
-<div class="product-title">HAIRPIN SET - $800）</div>
+<div class="product-title">HAIRPIN SET - $800</div>
 <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
 <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
 <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
@@ -185,11 +185,14 @@
 <div class="total" id="order-summary-text"></div>
 <div class="payment-notice">
 <p>💰付款須知-匯款帳號:</p>
-<p>請勿備註任何字符!會對不到帳</p>
-<p><strong><span style="color: #a33225;">請注意匯款銀行是郵局!!!!!</span></strong></p>
+<p><strong><span style="color: #a33225;">請勿備註任何字符!會對不到帳</span></strong></p>
+<p><strong><span style="color: #a33225;">請往上拉看購買明細再次確認您選購的商品</span></strong></p>
+<p><strong><span style="color: #a33225;">訂單送出後不接受任何理由更改</span></strong></p>
+<p>請注意匯款銀行是郵局!!!!!</p>
 <p>（700）00310710953998</p>
 <p>請先完成付款後再送出表單</p>
-<p>若未收到款項，將不列入此次訂單。</p>
+<p>若未收到款項，將不列入此次訂單</p>
+<p>請往上拉看購買明細再次確認您選購的商品</p>
 </div>
 <div class="form-group">
 <label for="email">*Gmail信箱（系統自動補上）</label>
@@ -228,8 +231,8 @@ const entryMap = {
   "A4 PHOTO|冬": "entry.485401102",
   "A4 PHOTO|寧": "entry.1180888227",
   "4*6 PHOTO SET|無": "entry.4529351",
-  "隨機卡包|A": "entry.1450037341",
-  "隨機卡包|B": "entry.1855798280",
+  "隨機卡包A": "entry.1450037341",
+  "隨機卡包B": "entry.1855798280",
   "POSTCARD+HOLO SET|柚": "entry.1462387311",
   "POSTCARD+HOLO SET|吉": "entry.325724487",
   "POSTCARD+HOLO SET|冬": "entry.934941397",
@@ -428,6 +431,8 @@ function submitOrder(){
     postData["entry.1381923180"] = krwTotal;            // 韓幣總金額
     postData["entry.1159566987"] = generalCardCount;    // 一般滿額卡
     postData["entry.1676330581"] = clothingCardCount;   // 服飾滿額卡
+    postData["entry.1788214930"] = window.clothingCount;   // 服飾商品總件數
+
 
     document.querySelectorAll(".product-card").forEach(card=>{
       const title=card.querySelector(".product-title").innerText.split(" - ")[0];
@@ -481,7 +486,7 @@ const clothingKeywords = ["T-SHIRT SHORT ver.", "T-SHIRT LONG ver.", "PANTS SET"
 
 function updateBonuses() {
   window.krwTotal = 0;
-  let clothingCount = 0;
+  window.clothingCount = 0;
 
   document.querySelectorAll(".product-card").forEach(card => {
     const title = card.querySelector(".product-title")?.innerText.split(" - ")[0].trim();
@@ -489,7 +494,7 @@ function updateBonuses() {
     card.querySelectorAll(".member-row").forEach(row => {
       const qty = parseInt(row.querySelector("input").value);
       window.krwTotal += qty * krw;
-      if (clothingKeywords.includes(title)) clothingCount += qty;
+      if (clothingKeywords.includes(title)) window.clothingCount += qty;
     });
   });
 
