@@ -50,12 +50,12 @@
   <div class="member-row" data-member="無"><span class="member-name">無</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
 </div>
 <div class="product-card" data-price="140">
-  <img alt="隨機卡包" src="../image/rm/03.webp"/>
+  <img alt="隨機卡包A" src="../image/rm/03.webp"/>
   <div class="product-title">隨機卡包A - $140</div>
   <div class="member-row" data-member="A"><span class="member-name">A</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
 </div>
 <div class="product-card" data-price="140">
-  <img alt="隨機卡包" src="../image/rm/04.webp"/>
+  <img alt="隨機卡包B" src="../image/rm/04.webp"/>
   <div class="product-title">隨機卡包B - $140</div>
   <div class="member-row" data-member="B"><span class="member-name">B</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
 </div>
@@ -470,7 +470,7 @@ function submitOrder(){
 
 // === 🎁 滿額卡計算 ===
 const krwPriceMap = {
-  "A4 PHOTO": 11000, "4*6 PHOTO SET": 11000, "隨機卡包": 6000, "POSTCARD+HOLO SET": 11000,
+  "A4 PHOTO": 11000, "4*6 PHOTO SET": 11000, "隨機卡包A": 6000,"隨機卡包B": 6000, "POSTCARD+HOLO SET": 11000,
   "PIN BUTTON SET": 12000, "HAIRPIN SET": 38000, "T-SHIRT SHORT ver.": 48000, "T-SHIRT LONG ver.": 59000,
   "PANTS SET": 93000, "BAG SET": 75000, "CASE KEYRING SET": 48000, "NECKLACE SET": 37000,
   "MULTI STRAP SET": 56000, "CARD WALLET SET": 55000, "RICH MAN DOLL": 18000, "RANDOM CUSHION KEYRING": 8000,
