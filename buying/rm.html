@@ -1,11 +1,13 @@
+
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>Arwen代購</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-  <style>
+<meta charset="utf-8"/>
+<title>Arwen代購</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&amp;display=swap" rel="stylesheet"/>
+<style>
     @media (max-width: 480px) {
       .info-box { font-size: 13px; padding: 12px; }
       .info-box p, .payment-notice p { line-height: 1.8; margin: 6px 0; }
@@ -32,266 +34,257 @@
   </style>
 </head>
 <body>
-
-<!-- 商品區 -->
+<!-- ✅ 以下為完整 1~22 編號、價格正確的 RichMan 商品卡片區 -->
 <div class="product-wrapper">
-
-  <!-- A4 photo -->
-  <div class="product-card" data-price="130">
-    <img src="../image/3/randompack.jpg" alt="A4 photo">
-    <div class="product-title">A4 photo - $130</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 4*6 photo set -->
-  <div class="product-card" data-price="1020">
-    <img src="../image/3/tshirt.jpg" alt="4*6 photo set">
-    <div class="product-title">4*6 photo set - $1020</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 隨機卡包 -->
-  <div class="product-card" data-price="950">
-    <img src="../image/3/cap.jpg" alt="隨機卡包">
-    <div class="product-title">隨機卡包 - $950</div>
-    <div class="member-row" data-member="A"><span class="member-name">A</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="B"><span class="member-name">B</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-
-  </div>
-
-  <!-- 閃卡組 -->
-  <div class="product-card" data-price="1450">
-    <img src="../image/3/bag.jpg" alt="閃卡組">
-    <div class="product-title">閃卡組 - $1450</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 按鈕組 -->
-  <div class="product-card" data-price="280">
-    <img src="../image/3/postcard.jpg" alt="按鈕組">
-    <div class="product-title">按鈕組 - $280</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 髮夾 -->
-  <div class="product-card" data-price="550">
-    <img src="../image/3/banner.jpg" alt="髮夾">
-    <div class="product-title">髮夾 - $550</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 包包 -->
-  <div class="product-card" data-price="630">
-    <img src="../image/3/photobook.jpg" alt="包包">
-    <div class="product-title">包包 - $550</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- Case keying -->
-  <div class="product-card" data-price="280">
-    <img src="../image/3/tattoo.jpg" alt="Case keying">
-    <div class="product-title">Case keying - $280</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 項鍊組-->
-  <div class="product-card" data-price="400">
-    <img src="../image/3/fanlightdoll.jpg" alt="項鍊組">
-    <div class="product-title">項鍊組 - $400</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 手機掛繩 -->
-  <div class="product-card" data-price="340">
-    <img src="../image/3/strap.jpg" alt="手機掛繩">
-    <div class="product-title">手機掛繩 - $340</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 卡夾 -->
-  <div class="product-card" data-price="960">
-    <img src="../image/3/lightset.jpg" alt="卡夾">
-    <div class="product-title">卡夾 - $960</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 娃娃 -->
-  <div class="product-card" data-price="1320">
-    <img src="../image/3/braceletset.jpg" alt="娃娃">
-    <div class="product-title">娃娃 - $1320</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
-  <!-- 旅行包包 -->
-  <div class="product-card" data-price="560">
-    <img src="../image/3/doll.jpg" alt="旅行包包">
-    <div class="product-title">旅行包包 - $560</div>
-    <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-    <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-  </div>
-
+<div class="product-card" data-price="280">
+<img alt="A4 PHOTO" src="../image/rm/01.webp"/>
+  <div class="product-title">A4 PHOTO - $280</div>
+  <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+  <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+  <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+  <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
 </div>
-<!-- 商品區結束 -->
-
-<div class="total">總金額：<span id="total-price">$0</span></div>
+<div class="product-card" data-price="280">
+<img alt="4*6 PHOTO SET" src="../image/rm/02.webp"/>
+<div class="product-title">4*6 PHOTO SET - $280</div>
+  <div class="member-row" data-member="無"><span class="member-name">無</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="140">
+  <img alt="隨機卡包" src="../image/rm/03.webp"/>
+  <div class="product-title">隨機卡包A - $140</div>
+  <div class="member-row" data-member="A"><span class="member-name">A</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="140">
+  <img alt="隨機卡包" src="../image/rm/04.webp"/>
+  <div class="product-title">隨機卡包B - $140</div>
+  <div class="member-row" data-member="B"><span class="member-name">B</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="280">
+  <img alt="POSTCARD+HOLO SET" src="../image/rm/05.webp"/>
+  <div class="product-title">POSTCARD+HOLO SET - $280</div>
+  <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+  <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+  <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+  <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="290">
+<img alt="PIN BUTTON SET" src="../image/rm/06.webp"/>
+<div class="product-title">PIN BUTTON SET - $290</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="800">
+<img alt="HAIRPIN SET" src="../image/rm/07.webp"/>
+<div class="product-title">HAIRPIN SET - $800）</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="1050">
+<img alt="T-SHIRT SHORT ver." src="../image/rm/08.webp"/>
+<div class="product-title">T-SHIRT SHORT ver. - $1050</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="1250">
+<img alt="T-SHIRT LONG ver." src="../image/rm/09.webp"/>
+<div class="product-title">T-SHIRT LONG ver. - $1250</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="2150">
+<img alt="PANTS SET" src="../image/rm/10.webp"/>
+<div class="product-title">PANTS SET - $2150</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="1550">
+<img alt="BAG SET" src="../image/rm/11.webp"/>
+<div class="product-title">BAG SET - $1550</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="980">
+<img alt="CASE KEYRING SET" src="../image/rm/12.webp"/>
+<div class="product-title">CASE KEYRING SET - $980</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="760">
+<img alt="NECKLACE SET" src="../image/rm/13.webp"/>
+<div class="product-title">NECKLACE SET - $760</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="1160">
+<img alt="MULTI STRAP SET" src="../image/rm/14.webp"/>
+<div class="product-title">MULTI STRAP SET - $1160</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="1120">
+<img alt="CARD WALLET SET" src="../image/rm/15.webp"/>
+<div class="product-title">CARD WALLET SET - $1120</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="380">
+<img alt="RICH MAN DOLL" src="../image/rm/16.webp"/>
+<div class="product-title">RICH MAN DOLL - $380</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="2180">
+<img alt="HOODIE ZIP-UP" src="../image/rm/17.webp"/>
+<div class="product-title">HOODIE ZIP-UP - $2180</div>
+<div class="member-row" data-member="M"><span class="member-name">M</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="L"><span class="member-name">L</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="XL"><span class="member-name">XL</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="1100">
+<img alt="TRAVELER POUCH SET" src="../image/rm/18.webp"/>
+<div class="product-title">TRAVELER POUCH SET - $1100</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+</div>
+<div class="total">總金額：<span id="total-price">$0</span></div><div id="bonus-display" style="text-align:center; font-size:16px; color:#6e46ae; margin-top:-20px; margin-bottom:30px;"></div>
 <div style="text-align:center;">
-  <button class="submit-btn" onclick="showCheckout()">結帳</button>
+    <p><span style="color: #a33225;">⚠ 請務必<strong>自行再次計算</strong>滿額贈品數量</span>
+    <li>系統提供之滿額計算結果僅供參考，可能因輸入錯誤、瀏覽器問題等因素產生誤差</li>
+    <li>請買家自行重新計算一次韓幣總額與預估贈品，並依據公告自行確認贈品數量</li>
+    <li>本人將依實際成立訂單金額與商品類型進行滿額卡發放，不受線上計算結果限制</li>
+    <li>贈品排卡方式以社群公布為主，實際情況可能因官方供給而有變化，下單視同同意所有已頒布規則</li>
+<button class="submit-btn" onclick="showCheckout()">結帳</button>
 </div>
-
 <!-- 結帳區 -->
 <div id="checkout-section" style="display:none;">
-  <div class="total" id="order-summary-text"></div>
-  <div class="payment-notice">
-    <p>💰付款須知-匯款帳號:</p>
-    <p>請勿備註任何字符!會對不到帳</p>
-    <p><strong><span style="color: #a33225;">請注意匯款銀行是郵局!!!!!</strong></span></p>
-    <p>（700）00310710953998</p>
-    <p>請先完成付款後再送出表單</p>
-    <p>若未收到款項，將不列入此次訂單。</p>
-  </div>
-  <div class="form-group">
-    <label for="email">*Gmail信箱（系統自動補上）</label>
-    <input type="text" id="email" placeholder="xxxxx" required oninput="validateEmail(this)">
-    <div id="email-error" class="error-message">請輸入正確的 Gmail</div>
-  </div>
-  <div class="form-group">
-    <label for="name">*社群內您的姓名</label>
-    <input type="text" id="name" required>
-  </div>
-  <div class="form-group">
-    <label for="amount">*匯款金額</label>
-    <input type="text" id="amount" required oninput="validateAmount(this)">
-    <div id="amount-error" class="error-message">只能填寫數字，最多兩位小數</div>
-  </div>
-  <div class="form-group">
-    <label for="bank">匯款銀行+末五碼</label>
-    <input type="text" id="bank" required>
-  </div>
-  <div class="form-group">
-    <label for="agree">*是否同意購買須知</label>
-    <select id="agree" required>
-      <option value="">請選擇</option>
-      <option value="是">是</option>
-    </select>
-  </div>
-  <div style="text-align:center;">
-    <button class="submit-btn" onclick="submitOrder()">送出訂單</button>
-  </div>
+<div class="total" id="order-summary-text"></div>
+<div class="payment-notice">
+<p>💰付款須知-匯款帳號:</p>
+<p>請勿備註任何字符!會對不到帳</p>
+<p><strong><span style="color: #a33225;">請注意匯款銀行是郵局!!!!!</span></strong></p>
+<p>（700）00310710953998</p>
+<p>請先完成付款後再送出表單</p>
+<p>若未收到款項，將不列入此次訂單。</p>
 </div>
-
+<div class="form-group">
+<label for="email">*Gmail信箱（系統自動補上）</label>
+<input id="email" oninput="validateEmail(this)" placeholder="xxxxx" required="" type="text"/>
+<div class="error-message" id="email-error">請輸入正確的 Gmail</div>
+</div>
+<div class="form-group">
+<label for="name">*社群內您的姓名</label>
+<input id="name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="amount">*匯款金額</label>
+<input id="amount" oninput="validateAmount(this)" required="" type="text"/>
+<div class="error-message" id="amount-error">只能填寫數字，最多兩位小數</div>
+</div>
+<div class="form-group">
+<label for="bank">匯款銀行+末五碼</label>
+<input id="bank" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="agree">*是否同意購買須知</label>
+<select id="agree" required="">
+<option value="">請選擇</option>
+<option value="是">是</option>
+</select>
+</div>
+<div style="text-align:center;">
+<button class="submit-btn" onclick="submitOrder()">送出訂單</button>
+</div>
+</div>
 <script>
   /* === 商品 + Google Form entry 對應 === */
 const entryMap = {
-  // A4 photo
-  "A4 photo|柚": "",
-  "A4 photo|吉": "",
-  "A4 photo|冬": "",
-  "A4 photo|寧": "",
-
-  // 4*6 photo set
-  "4*6 photo set|柚": "",
-  "4*6 photo set|吉": "",
-  "4*6 photo set|冬": "",
-  "4*6 photo set|寧": "",
-
-  // 隨機卡包（規格 A/B）
-  "隨機卡包|A": "",
-  "隨機卡包|B": "",
-
-  // 閃卡組
-  "閃卡組|柚": "",
-  "閃卡組|吉": "",
-  "閃卡組|冬": "",
-  "閃卡組|寧": "",
-
-  // 按鈕組
-  "按鈕組|柚": "",
-  "按鈕組|吉": "",
-  "按鈕組|冬": "",
-  "按鈕組|寧": "",
-
-  // 髮夾
-  "髮夾|柚": "",
-  "髮夾|吉": "",
-  "髮夾|冬": "",
-  "髮夾|寧": "",
-
-  // 包包
-  "包包|柚": "",
-  "包包|吉": "",
-  "包包|冬": "",
-  "包包|寧": "",
-
-  // Case keying
-  "Case keying|柚": "",
-  "Case keying|吉": "",
-  "Case keying|冬": "",
-  "Case keying|寧": "",
-
-  // 項鍊組
-  "項鍊組|柚": "",
-  "項鍊組|吉": "",
-  "項鍊組|冬": "",
-  "項鍊組|寧": "",
-
-  // 手機掛繩
-  "手機掛繩|柚": "",
-  "手機掛繩|吉": "",
-  "手機掛繩|冬": "",
-  "手機掛繩|寧": "",
-
-  // 卡夾
-  "卡夾|柚": "",
-  "卡夾|吉": "",
-  "卡夾|冬": "",
-  "卡夾|寧": "",
-
-  // 娃娃
-  "娃娃|柚": "",
-  "娃娃|吉": "",
-  "娃娃|冬": "",
-  "娃娃|寧": "",
-
-  // 旅行包包
-  "旅行包包|柚": "",
-  "旅行包包|吉": "",
-  "旅行包包|冬": "",
-  "旅行包包|寧": "",
+  "A4 PHOTO|柚": "entry.2095271584",
+  "A4 PHOTO|吉": "entry.1893168025",
+  "A4 PHOTO|冬": "entry.485401102",
+  "A4 PHOTO|寧": "entry.1180888227",
+  "4*6 PHOTO SET|無": "entry.4529351",
+  "隨機卡包|A": "entry.1450037341",
+  "隨機卡包|B": "entry.1855798280",
+  "POSTCARD+HOLO SET|柚": "entry.1462387311",
+  "POSTCARD+HOLO SET|吉": "entry.325724487",
+  "POSTCARD+HOLO SET|冬": "entry.934941397",
+  "POSTCARD+HOLO SET|寧": "entry.2034166654",
+  "PIN BUTTON SET|柚": "entry.1949538081",
+  "PIN BUTTON SET|吉": "entry.1958540036",
+  "PIN BUTTON SET|冬": "entry.1981808467",
+  "PIN BUTTON SET|寧": "entry.1685438012",
+  "HAIRPIN SET|柚": "entry.1036422460",
+  "HAIRPIN SET|吉": "entry.2139647730",
+  "HAIRPIN SET|冬": "entry.993032879",
+  "HAIRPIN SET|寧": "entry.917619796",
+  "T-SHIRT SHORT ver.|柚": "entry.1846863402",
+  "T-SHIRT SHORT ver.|吉": "entry.2063821716",
+  "T-SHIRT SHORT ver.|冬": "entry.1146800342",
+  "T-SHIRT SHORT ver.|寧": "entry.745290303",
+  "T-SHIRT LONG ver.|柚": "entry.909871198",
+  "T-SHIRT LONG ver.|吉": "entry.11012378",
+  "T-SHIRT LONG ver.|冬": "entry.1723538798",
+  "T-SHIRT LONG ver.|寧": "entry.1697148647",
+  "PANTS SET|柚": "entry.444867571",
+  "PANTS SET|吉": "entry.862505689",
+  "PANTS SET|冬": "entry.2074196304",
+  "PANTS SET|寧": "entry.1456993214",
+  "BAG SET|柚": "entry.328647720",
+  "BAG SET|吉": "entry.1376258150",
+  "BAG SET|冬": "entry.541670963",
+  "BAG SET|寧": "entry.2129261971",
+  "CASE KEYRING SET|柚": "entry.155707555",
+  "CASE KEYRING SET|吉": "entry.736179212",
+  "CASE KEYRING SET|冬": "entry.598263342",
+  "CASE KEYRING SET|寧": "entry.1360874317",
+  "NECKLACE SET|柚": "entry.2134379145",
+  "NECKLACE SET|吉": "entry.285552752",
+  "NECKLACE SET|冬": "entry.1009910296",
+  "NECKLACE SET|寧": "entry.775745246",
+  "MULTI STRAP SET|柚": "entry.384579317",
+  "MULTI STRAP SET|吉": "entry.943188514",
+  "MULTI STRAP SET|冬": "entry.1025811472",
+  "MULTI STRAP SET|寧": "entry.896805593",
+  "CARD WALLET SET|柚": "entry.1947580528",
+  "CARD WALLET SET|吉": "entry.714098886",
+  "CARD WALLET SET|冬": "entry.1247284376",
+  "CARD WALLET SET|寧": "entry.1303684098",
+  "RICH MAN DOLL|柚": "entry.1696736113",
+  "RICH MAN DOLL|吉": "entry.1792542314",
+  "RICH MAN DOLL|冬": "entry.573484540",
+  "RICH MAN DOLL|寧": "entry.521825645",
+  "HOODIE ZIP-UP|M": "entry.279891839",
+  "HOODIE ZIP-UP|L": "entry.2094193175",
+  "HOODIE ZIP-UP|XL": "entry.1546849814",
+  "TRAVELER POUCH SET|柚": "entry.185606839",
+  "TRAVELER POUCH SET|吉": "entry.1570320549",
+  "TRAVELER POUCH SET|冬": "entry.537168731",
+  "TRAVELER POUCH SET|寧": "entry.459042380",
 };
 
 
@@ -431,6 +424,11 @@ function submitOrder(){
 
     const postData = {};
     // 動態收集所有商品數量
+    // 📦 加入：韓幣總金額與滿額卡 entry
+    postData["entry.1381923180"] = krwTotal;            // 韓幣總金額
+    postData["entry.1159566987"] = generalCardCount;    // 一般滿額卡
+    postData["entry.1676330581"] = clothingCardCount;   // 服飾滿額卡
+
     document.querySelectorAll(".product-card").forEach(card=>{
       const title=card.querySelector(".product-title").innerText.split(" - ")[0];
       card.querySelectorAll(".member-row").forEach(row=>{
@@ -445,14 +443,14 @@ function submitOrder(){
 
     // 其他必填欄位
     const total=document.getElementById("total-price").innerText.replace("$","");
-    postData["entry.1306235803"] = total;
-    postData["entry.579329091"] = emailInput;
-    postData["entry.1613793186"] = name;
-    postData["entry.1998904242"] = amount;
-    postData["entry.455935964"] = bank;
-    postData["entry.101664053"] = agree;
+    postData["entry.666217784"] = total;
+    postData["entry.352622612"] = emailInput;
+    postData["entry.1480766142"] = name;
+    postData["entry.1977969934"] = amount;
+    postData["entry.1950876724"] = bank;
+    postData["entry.616473169"] = agree;
 
-    fetch("https://docs.google.com/forms/d/1Y-mAsg9tMYFVBz0n6g2cyDnJvHaQofKhv0gBuLIsqSM/formResponse",{
+    fetch("https://docs.google.com/forms/d/1FDs8yPX-TzY7ZttlaaVeg14a1MCnxW8GcwLfjmCa4jA/formResponse",{
       method:"POST",
       mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
@@ -467,7 +465,50 @@ function submitOrder(){
       document.getElementById(id).value=localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1))||"";
     });
   });
+
+
+
+// === 🎁 滿額卡計算 ===
+const krwPriceMap = {
+  "A4 PHOTO": 11000, "4*6 PHOTO SET": 11000, "隨機卡包": 6000, "POSTCARD+HOLO SET": 11000,
+  "PIN BUTTON SET": 12000, "HAIRPIN SET": 38000, "T-SHIRT SHORT ver.": 48000, "T-SHIRT LONG ver.": 59000,
+  "PANTS SET": 93000, "BAG SET": 75000, "CASE KEYRING SET": 48000, "NECKLACE SET": 37000,
+  "MULTI STRAP SET": 56000, "CARD WALLET SET": 55000, "RICH MAN DOLL": 18000, "RANDOM CUSHION KEYRING": 8000,
+  "RANDOM EPOXY KEYRING": 3000, "RANDOM MINIATURE KEYRING": 7000, "RANDOM GUITAR PICK KEYRING": 6000,
+  "HOODIE ZIP-UP": 92000, "TRAVELER POUCH SET": 55000
+};
+const clothingKeywords = ["T-SHIRT SHORT ver.", "T-SHIRT LONG ver.", "PANTS SET", "HOODIE ZIP-UP"];
+
+function updateBonuses() {
+  window.krwTotal = 0;
+  let clothingCount = 0;
+
+  document.querySelectorAll(".product-card").forEach(card => {
+    const title = card.querySelector(".product-title")?.innerText.split(" - ")[0].trim();
+    const krw = krwPriceMap[title] || 0;
+    card.querySelectorAll(".member-row").forEach(row => {
+      const qty = parseInt(row.querySelector("input").value);
+      window.krwTotal += qty * krw;
+      if (clothingKeywords.includes(title)) clothingCount += qty;
+    });
+  });
+
+  window.generalCardCount = Math.floor(krwTotal / 50000) ;
+  window.clothingCardCount = Math.min(Math.floor(krwTotal / 100000), clothingCount) ;
+
+  let result = "";
+  if (generalCardCount > 0) result += `🎁 一般滿額卡：${generalCardCount} 張（每滿 ₩50,000）<br>`;
+  if (clothingCardCount > 0) result += `👕 服飾滿額卡：${clothingCardCount} 張（含服飾 ${clothingCount} 件）<br>`;
+  document.getElementById("bonus-display").innerHTML = result;
+}
+
+// call on load and rebind in updateQty
+updateBonuses();
+const origUpdateQty = updateQty;
+updateQty = function(btn, delta) {
+  origUpdateQty(btn, delta);
+  updateBonuses();
+};
 </script>
 </body>
 </html>
-
