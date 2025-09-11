@@ -169,13 +169,19 @@ function submitOrder() {
     return;
   }
 
-  // 1. 讀取各欄位
   let emailVal = document.getElementById("email").value.trim();
-  if (emailVal && !emailVal.endsWith("@")) emailVal += "@gmail.com";
-  if( emailVal && !emailVal.includes("yahoo") ) {
-    alert("請輸入正確的 Gmail 信箱格式！");
+
+  // 如果使用者只打帳號，幫他補上 @gmail.com
+  if (emailVal && !emailVal.includes("@")) {
+    emailVal += "@gmail.com";
+  }
+
+  // 驗證必須是 Gmail
+  if (!/^[A-Za-z0-9._%+-]+@gmail\.com$/.test(emailVal)) {
+    alert("只接受 Gmail 信箱，格式如 yourname@gmail.com");
     return;
   }
+
 
   const name   = document.getElementById("name").value.trim();
   const amount = document.getElementById("amount").value.trim();
