@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>抽獎登記</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #fff;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 400px;
+    }
+    h1 {
+      font-size: 22px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    label {
+      font-size: 14px;
+      color: #555;
+    }
+    /* 放到你的 <style> 裡即可 */
+.lead { margin: 0 0 8px; color: #6b7280; }
+.prize-list {
+  margin: 0 0 16px 1.25rem;  /* 與左側保持一致縮排 */
+  padding: 0;
+  list-style: decimal;       /* 顯示 1. 2. 3. 4. */
+}
+.prize-list li {
+  line-height: 1.7;
+  margin: 2px 0;             /* 行距更舒服 */
+}
+
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    /* 放到 <style> 區塊裡 */
+.note p {
+  margin: 4px 0;            /* 上下縮小間距 */
+  color: #4b5563;           /* 深灰色，比正文淡 */
+  font-size: 14px;          /* 字體略小一點 */
+  line-height: 1.5;         /* 行距適中 */
+}
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 0;
+      border-radius: 8px;
+      background: #4f46e5;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .msg {
+      margin-top: 14px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+    .msg.ok { color: #059669; }
+    .msg.err { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>抽獎登記</h1>
+
+    <!-- 隱藏 iframe 防止跳轉 -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+    <form id="lotteryForm"
+          method="POST"
+          target="hidden_iframe"
+          action="https://docs.google.com/forms/d/1Da2NhLZy2ptiN84kDd0M_FGE4JuWGWemnYu3qaT9pJo/formResponse">
+
+        <p class="lead">獎項包括以下：</p>
+        <ol class="prize-list">
+        <li>柚 Just 25 年曆</li>
+        <li>冬 mok 簽售單卡</li>
+        <li>吉 mr 幸運單卡</li>
+        <li>寧 ia 閃卡單卡</li>
+        </ol>
+    <div class="note">
+        <p>一個獎項抽出一人，獎項不重複中獎</p>
+        <p>抽到的人若達成共識可互換獎項</p>
+        <p>限制有跟團過者可以抽獎</p>
+        <p>寄送方式為賣貨便20內退58或是隨您購買的東西寄出</p>
+        <p>請確保填寫的資訊正確，若找不到人會直接抽出下一位</p>
+        <p>登記截止日為9/21-23:59</p>
+    </div>
+
+        <label for="name">社群內您的姓名 *</label>
+      <input id="name" name="entry.1071880591" type="text" required placeholder="輸入您的暱稱或姓名" />
+
+      <button id="submitBtn" type="submit">送出登記</button>
+
+      <div id="msgOK" class="msg ok">✅ 已送出成功！</div>
+      <div id="msgNG" class="msg err">⚠️ 送出失敗，請稍後再試。</div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('lotteryForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const msgOK = document.getElementById('msgOK');
+    const msgNG = document.getElementById('msgNG');
+    const hiddenIframe = document.getElementById('hidden_iframe');
+
+    let submitted = false;
+
+    form.addEventListener('submit', function(e) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送出中…';
+      submitted = true;
+      msgOK.style.display = 'none';
+      msgNG.style.display = 'none';
+    });
+
+    hiddenIframe.addEventListener('load', function() {
+      if (!submitted) return;
+      submitted = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = '送出登記';
+      msgOK.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
