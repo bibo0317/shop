@@ -192,7 +192,6 @@
 <p>（700）00310710953998</p>
 <p>請先完成付款後再送出表單</p>
 <p>若未收到款項，將不列入此次訂單</p>
-<p>請往上拉看購買明細再次確認您選購的商品</p>
 </div>
 <div class="form-group">
 <label for="email">*Gmail信箱（系統自動補上）</label>
@@ -291,7 +290,6 @@ const entryMap = {
 };
 
 
-  /* === 更新數量 & 計算總價 === */
 /* === 更新數量 & 計算總價 === */
 function updateQty(btn, delta) {
   const inp = btn.parentElement.querySelector('input');
@@ -336,7 +334,9 @@ function showCheckout(){
     });
     if(lines.length) summary.push(`${title}<br>${lines.join("<br>")}`);
   });
+    if(document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`)
   if(!summary.length){alert("請至少選擇一項商品再結帳！");return;}
+  
   
   document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
   document.getElementById("checkout-section").style.display="block";
