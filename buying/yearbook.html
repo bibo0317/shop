@@ -5,10 +5,6 @@
   <title>Arwen 開團購物</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-  <script>
-    const deadline = new Date("2025-06-16T14:00:00+08:00");
-    if (new Date() > deadline) window.location.href = "../other/timesup.html";
-  </script>
   <style>
     @media (max-width: 480px) {
       .info-box { font-size: 13px; padding: 12px; }
@@ -40,13 +36,14 @@
 
   <!-- 商品區 -->
   <div class="product-wrapper">
-    <div class="product-card" data-price="450">
-      <img src="../image/el.jpg" alt="el簽售指定一專一卡">
-      <div class="product-title">el簽售指定一專一卡 - $450</div>
-      <div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-      <div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-      <div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-      <div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+    <div class="product-card" data-price="1500">
+      <img src="../image/yb/yb.jpg" alt="aespa 2026年曆">
+      <div class="product-title">2026年曆 - $300</div>
+      <p>需二補國際</p>
+      <p>此團為壓價團價格較低，但相對出庫時間較晚(約晚1~2周)</p>
+      <button onclick='alert("內含內容：\n• 包裝盒\n• 桌曆\n• 軟封面日誌\n• 摺疊海報組\n• A2 海報組\n• 小冊子\n• 明信片組\n• 拍立得小卡組\n• 小卡組\n• 凝膠筆\n• 拍立得照片（隨機)\n影片卡：\n• 季節問候卡\n\n特別贈品：\n• 西角色鑰匙圈\n• 靴子吊墜項鍊\n• A2 布海報\n• 撲克牌照片組\n• Western House 摺疊照片冊\n• Western 貼紙組\n• 我的造型抱枕鑰匙圈\n• 牛仔布托特包")'>內容物配置
+      </button>
+      <div class="member-row" data-member="一組"><span class="member-name">一組</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
     </div>
   </div>
 
@@ -58,11 +55,12 @@
     <div class="total" id="order-summary-text"></div>
 
     <div class="payment-notice">
-      <p>💰付款須知：匯款/無卡(請勿備註任何字符)帳號:</p>
-      <p>（822）901566584648</p>
+      <p>💰付款須知-匯款帳號:</p>
+      <p>請勿備註任何字符!會對不到帳</p>
+      <p><strong><span style="color: #a33225;">請注意匯款銀行是郵局!!!!!</strong></span></p>
+      <p>（700）00310710953998</p>
       <p>請先完成付款後再送出表單</p>
       <p>若未收到款項，將不列入此次訂單。</p>
-      <p>無卡: 填寫確切日期時間並無卡至百位數，剩餘二補</p>
     </div>
 
     <div class="form-group">
@@ -75,12 +73,11 @@
       <input type="text" id="name" required>
     </div>
     <div class="form-group">
-      <label for="amount">*匯款/無卡金額</label>
+      <label for="amount">*匯款金額</label>
       <input type="text" id="amount" required oninput="validateAmount(this)">
       <div id="amount-error" class="error-message">只能填寫數字，最多兩位小數</div>
     </div>
     <div class="form-group"><label for="bank">匯款銀行+末五碼</label><input type="text" id="bank" required></div>
-    <div class="form-group"><label for="time">無卡時間</label><input type="text" id="time"></div>
     <div class="form-group"><label for="agree">*是否同意購買須知</label>
       <select id="agree" required><option value="">請選擇</option><option value="是">是</option></select>
     </div>
@@ -89,6 +86,11 @@
 
 <!-- ================= JS ================= -->
 <script>
+  /* ====== 送單冷卻設定 ====== */
+  const SUBMIT_COOLDOWN_MS = 30_000;           // 30秒
+  const SUBMIT_TS_KEY = "lastSubmitTs:EL300";  // 可依賣場更換識別
+  let isSubmitting = false;                    // 防連點
+
   /* 數量加減與總金額 */
   function updateQty(btn,delta){
     const inp=btn.parentElement.querySelector('input');
@@ -106,6 +108,10 @@
       });
     });
     document.getElementById("total-price").innerText=`$${t}`;
+    const checkout = document.getElementById('checkout-section');
+    if (checkout && getComputedStyle(checkout).display !== 'none') {
+      setAmountToTotal();
+    }
   }
 
   /* 顯示結帳明細 */
@@ -125,13 +131,23 @@
     document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
     document.getElementById("checkout-section").style.display="block";
     window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+    document.getElementById("checkout-section").style.display = "block";
+    setAmountToTotal();
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }
+
+  /* 自動帶入總金額到匯款欄位 */
+  function setAmountToTotal() {
+    const amountEl = document.getElementById('amount');
+    if (!amountEl) return;
+    const total = document.getElementById('total-price').innerText.replace('$','');
+    amountEl.value = total;
   }
 
   /* -------- 即時驗證 -------- */
   function validateEmail(input){
     const val=input.value.trim();
     const err=document.getElementById("email-error");
-    /* 允許空字串或尚未輸入 @ 的過程 */
     if(val==="" || !val.includes("@")){
       input.classList.remove("invalid");
       err.style.display="none";
@@ -155,8 +171,19 @@
     }
   }
 
-  /* 送出訂單 */
+  /* 送出訂單（含30秒冷卻） */
   function submitOrder(){
+    // ===== 冷卻檢查（時間 + 防連點） =====
+    if (isSubmitting) return; // 已在送單流程中
+    const now = Date.now();
+    const lastTs = parseInt(localStorage.getItem(SUBMIT_TS_KEY) || "0", 10);
+    const remain = SUBMIT_COOLDOWN_MS - (now - lastTs);
+    if (remain > 0) {
+      const sec = Math.ceil(remain/1000);
+      alert(`請勿重複送單，還需等待 ${sec} 秒後才能再次送出。`);
+      return;
+    }
+
     /* Email 補 @gmail.com */
     let emailInput=document.getElementById("email").value.trim();
     if(!emailInput.includes("@")) emailInput+="@gmail.com";
@@ -169,7 +196,6 @@
     const name=document.getElementById("name").value.trim();
     const amount=document.getElementById("amount").value.trim();
     const bank=document.getElementById("bank").value.trim();
-    const time=document.getElementById("time").value.trim();
     const agree=document.getElementById("agree").value;
 
     if(!emailInput||!name||!amount||!agree){
@@ -180,7 +206,7 @@
     }
 
     /* 整理商品數量 */
-    const qtys={柚:0,吉:0,冬:0,寧:0};
+    const qtys={一組:0};
     document.querySelectorAll(".member-row").forEach(r=>{
       const m=r.dataset.member;
       const q=parseInt(r.querySelector("input").value);
@@ -189,25 +215,39 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData={
-      "entry.342882468":qtys["柚"],"entry.1203459764":qtys["吉"],
-      "entry.691918567":qtys["冬"],"entry.1939798419":qtys["寧"],
-      "entry.194949479":emailInput,"entry.2141225664":name,
-      "entry.1538590104":amount,"entry.1641172190":bank,
-      "entry.636490834":time,"entry.1545039343":agree,
-      "entry.138199397":total
+      "entry.1966657025":qtys["一組"],
+      "entry.1793387795":emailInput,"entry.398219589":name,
+      "entry.1866660785":amount,"entry.385310176":bank,"entry.1174194777":agree,
+      "entry.328979395":total
     };
 
-    fetch("https://docs.google.com/forms/d/1NaoW_V3B5TvTpqP1-yDdqGfeoU6usN6FtuyrT8F5mrY/formResponse",{
+    // ===== 進入送單狀態：立即寫入時間避免連點；禁用按鈕 =====
+    isSubmitting = true;
+    localStorage.setItem(SUBMIT_TS_KEY, String(now));
+    const btn = document.querySelector('#checkout-section button.submit-btn');
+    const prevText = btn ? btn.innerText : null;
+    if (btn) { btn.disabled = true; btn.innerText = "送出中…"; }
+
+    fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
-    }).then(()=>{window.location.href="../other/done.html";})
-      .catch(()=>{window.location.href="../other/error.html";});
+    }).then(()=>{
+      // 成功：導向成功頁（冷卻已記錄）
+      window.location.href="../other/done.html";
+    }).catch(()=>{
+      // 失敗：導向錯誤頁，但仍維持冷卻（避免重複炸表）
+      window.location.href="../other/error.html";
+    }).finally(()=>{
+      // 若頁面未跳轉（極少數情況），恢復按鈕狀態
+      isSubmitting = false;
+      if (btn && prevText) { btn.disabled = false; btn.innerText = prevText; }
+    });
   }
 
   /* 自動帶入 localStorage */
   window.addEventListener("DOMContentLoaded",()=>{
-    ["email","name","bank","time"].forEach(id=>{
+    ["email","name","bank"].forEach(id=>{
       document.getElementById(id).value=localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1))||"";
     });
   });
