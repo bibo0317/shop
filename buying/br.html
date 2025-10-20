@@ -36,16 +36,14 @@
 
   <!-- 商品區 -->
   <div class="product-wrapper">
-    <div class="product-card" data-price="2450">
-      <img src="../image/yb/yb.jpg" alt="aespa 2026年曆(MD)">
-      <div class="product-title">aespa 2026年曆(MD) - $2450</div>
+    <div class="product-card" data-price="300">
+      <img src="../image/6mini/el.jpg" alt="寧芭莎雜誌">
+      <div class="product-title">寧芭莎雜誌 - $300</div>
       <p>需二補</p>
-      <p>此價格為MD通路，下單後不提供更改其他通路，目前特典糊圖未出，建議等待糊圖出來後再進行下單</p>
-      <p>官方發售日期為2025/12/22，壓價會晚出庫1~2周，2026年才會拿到</p>
-      <p>
-      <button onclick='alert("內含內容：\n• 包裝盒\n• 桌曆\n• 軟封面日誌\n• 摺疊海報組\n• A2 海報組\n• 小冊子\n• 明信片組\n• 拍立得小卡組\n• 小卡組\n• 凝膠筆\n• 拍立得照片（隨機)\n影片卡：\n• 季節問候卡\n\n特別贈品：\n• 西角色鑰匙圈\n• 靴子吊墜項鍊\n• A2 布海報\n• 撲克牌照片組\n• Western House 摺疊照片冊\n• Western 貼紙組\n• 我的造型抱枕鑰匙圈\n• 牛仔布托特包")'>內容物配置
-      </button>
-      <div class="member-row" data-member="一組"><span class="member-name">一組</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+      <div class="member-row" data-member="E"><span class="member-name">E</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+      <div class="member-row" data-member="F"><span class="member-name">F</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+      <div class="member-row" data-member="G"><span class="member-name">G</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+      <div class="member-row" data-member="H"><span class="member-name">H</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
     </div>
   </div>
 
@@ -208,7 +206,7 @@
     }
 
     /* 整理商品數量 */
-    const qtys={一組:0};
+    const qtys={柚:0,吉:0,冬:0,寧:0};
     document.querySelectorAll(".member-row").forEach(r=>{
       const m=r.dataset.member;
       const q=parseInt(r.querySelector("input").value);
@@ -217,7 +215,8 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData={
-      "entry.1966657025":qtys["一組"],
+      "entry.1966657025":qtys["E"],"entry.359768829":qtys["F"],
+      "entry.1504926761":qtys["G"],"entry.1579516134":qtys["H"],
       "entry.1793387795":emailInput,"entry.398219589":name,
       "entry.1866660785":amount,"entry.385310176":bank,"entry.1174194777":agree,
       "entry.328979395":total
