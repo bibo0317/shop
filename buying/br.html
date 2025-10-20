@@ -37,13 +37,14 @@
   <!-- 商品區 -->
   <div class="product-wrapper">
     <div class="product-card" data-price="300">
-      <img src="../image/6mini/el.jpg" alt="寧芭莎雜誌">
+      <img src="../image/br.jpg" alt="寧芭莎雜誌">
       <div class="product-title">寧芭莎雜誌 - $300</div>
       <p>需二補</p>
+      <div class="member-row" data-member="D"><span class="member-name">D</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
       <div class="member-row" data-member="E"><span class="member-name">E</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
       <div class="member-row" data-member="F"><span class="member-name">F</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
       <div class="member-row" data-member="G"><span class="member-name">G</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
-      <div class="member-row" data-member="H"><span class="member-name">H</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+
     </div>
   </div>
 
@@ -206,7 +207,7 @@
     }
 
     /* 整理商品數量 */
-    const qtys={柚:0,吉:0,冬:0,寧:0};
+    const qtys={D:0,E:0,F:0,G:0};
     document.querySelectorAll(".member-row").forEach(r=>{
       const m=r.dataset.member;
       const q=parseInt(r.querySelector("input").value);
@@ -215,8 +216,8 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData={
-      "entry.1966657025":qtys["E"],"entry.359768829":qtys["F"],
-      "entry.1504926761":qtys["G"],"entry.1579516134":qtys["H"],
+      "entry.1579516134":qtys["D"],"entry.1966657025":qtys["E"],
+      "entry.359768829":qtys["F"],"entry.1504926761":qtys["G"],
       "entry.1793387795":emailInput,"entry.398219589":name,
       "entry.1866660785":amount,"entry.385310176":bank,"entry.1174194777":agree,
       "entry.328979395":total

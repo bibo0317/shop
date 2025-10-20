@@ -213,10 +213,10 @@
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData={
-      "entry.1966657025":qtys["一組"],
-      "entry.1793387795":emailInput,"entry.398219589":name,
-      "entry.1866660785":amount,"entry.385310176":bank,"entry.1174194777":agree,
-      "entry.328979395":total
+      "entry.1900636822":qtys["一組"],
+      "entry.629965707":emailInput,"entry.548372524":name,
+      "entry.1925502819":amount,"entry.123200789":bank,"entry.2042996501":agree,
+      "entry.2051250517":total
     };
 
     // ===== 進入送單狀態：立即寫入時間避免連點；禁用按鈕 =====
@@ -226,7 +226,7 @@
     const prevText = btn ? btn.innerText : null;
     if (btn) { btn.disabled = true; btn.innerText = "送出中…"; }
 
-    fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse",{
+    fetch("https://docs.google.com/forms/d/1XZapz4eONRPEkolXfjnWXcLFtuTAtQbjg4f_VQF2beo/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
