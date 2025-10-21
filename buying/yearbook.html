@@ -5,6 +5,10 @@
   <title>Arwen 開團購物</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <script>
+    const deadline = new Date("2025-10-21T12:00:00+08:00");
+    if (new Date() > deadline) window.location.href = "../other/timesup.html";
+  </script>
   <style>
     @media (max-width: 480px) {
       .info-box { font-size: 13px; padding: 12px; }
