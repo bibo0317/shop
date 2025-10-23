@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>下單須知</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      line-height: 1.8;
+      padding: 20px;
+      background-color: #fefefe;
+    }
+    h1 {
+      text-align: center;
+      color: #d17a22;
+    }
+    .notice {
+        background-color: #fffaf5;
+        border: 2px solid #ffe0b2;
+        padding: 20px ;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .checkbox-area {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .checkbox-area input {
+      margin-right: 8px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #d17a22;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    button.enabled {
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    .highlight {
+        color: rgb(206, 3, 3);
+        font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>下單須知</h1>
+    <div class="notice">
+    <p>下單前請詳細閱讀以下規則：</p>
+    <li><span style="color:rgb(206, 3, 3);"><strong>選擇賣貨便則默認運輸風險買家承擔，若寄丟我方不承擔任何責任，需寄保值交貨便者可以回上一頁選擇</strong></span></li>
+    <p><strong>📦 基礎包材：</strong></p>
+    <ul>
+        <li>使用<strong>硬紙板、氣泡紙、飛機盒/紙箱</strong>進行包裝</li>
+        <!--<li>主要保護會因碰撞受傷/含小卡的商品</li>
+        <li>隨機卡拆開湊套商品會附卡膜，其餘未拆商品不含卡膜</li>-->
+    </ul>
+
+    <p><strong>📝 下單方式：</strong></p>
+    <ul>
+        <li>請務必<span style="color:rgb(206, 3, 3);"><strong>下單基礎包材費20+所有購買商品、正確填寫社群名及email</span style="color:red;"></strong>，買幾個就下幾個</li>
+        <li><strong><a href="https://docs.google.com/spreadsheets/d/10IDD52K6McryY0QyyBmTyr9jchfGNRRcBsN6kcV4DvM/edit?usp=sharing" target="_blank">您購買的商品</strong></a>
+      可以於此查詢</li>
+        <li>若有未下單的商品少寄，<strong>需由買家負擔額外運費</strong></li>
+        <li><span style="color:rgb(206, 3, 3);"><strong>若未下單基礎包材費20，我方將以裸寄方式出貨，且不負責商品損傷</strong></span></li>
+        <li>購買商品若包含<strong>體積較大</strong>的品項，<strong>可能需分開寄送</strong>，請留意群組通知</li>
+    </ul>
+
+    <p><strong>📦 包材加購：</strong></p>
+    <ul>
+        <li><strong>所有商品默認不拆開，只有下單硬卡套才會額外包裝小卡</strong>，含卡膜+標籤貼+硬卡套</li>
+        <li>若不全拆，請於備註中清楚標示「哪些要拆」</li>
+        <li>若無備註且下單卡套數量 < 總卡數，將從含本體金額最高的開始配卡套</li>
+        <li><span style="color:rgb(206, 3, 3);"><strong>額外包裝仍默認廠損，若小卡有損恕不提供退換</strong></span>
+        <li><strong>禁止下單超過小卡數量的硬卡套，多出的部分不出貨且不退款</strong></li>
+        <li><strong>不信任本人的話請勿下單此服務</strong>，不會損傷各位的小卡</li>
+        
+    </ul>
+
+    <p><strong>❗ 其他注意事項：</strong></p>
+    <ul>
+        <li><span style="color:rgb(206, 3, 3);"><strong>請務必錄製完整開箱影片</strong></span>，影片中商品不得離開畫面。售後時效為領貨後 7 天內，需提供影片才受理，<strong>逾期不受理</strong></li>
+        <li>若無其他已到未出貨商品，商品將最多免費保管兩週，逾期未下單者，每天將酌收倉儲費 5 元，若超出一個月則商品可能釋出</li>
+        <li><strong>退款金額以我釋出的金額為主，市價若有變動，最高退回原付款金額，退款之轉帳手續費由買家承擔</strong></li>
+        <li><strong>未領貨者再次寄出將酌收 100 元（含包材與人力費)</strong>，若商品退回兩天內無法聯繫，將列入黑名單處理，商品所有權歸我方所有且不退款</li>
+    </ul>
+    </div>
+      <form id="notice-form">
+    <div class="checkbox-area">
+      <label>
+        <input type="checkbox" id="agree-checkbox" />
+        我已詳細閱讀、已悉知並同意以上所有規則
+      </label>
+      <br>
+      <button type="submit" id="next-btn" disabled>前往下一步</button>
+    </div>
+  </form>
+
+  <script>
+    const checkbox = document.getElementById("agree-checkbox");
+    const button = document.getElementById("next-btn");
+
+    checkbox.addEventListener("change", function () {
+      if (checkbox.checked) {
+        button.disabled = false;
+        button.classList.add("enabled");
+      } else {
+        button.disabled = true;
+        button.classList.remove("enabled");
+      }
+    });
+
+    document.getElementById("notice-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (checkbox.checked) {
+        window.location.href = "https://myship.7-11.com.tw/general/detail/GM2501030153717"; // ← 改成你要跳轉的頁面
+      }
+    });
+  </script>
+</body>
+</html>
