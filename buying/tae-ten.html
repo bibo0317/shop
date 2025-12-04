@@ -262,17 +262,17 @@
 <script>
   /* === 商品 + Google Form entry 對應 === */
 const entryMap = {
-  "A4照片組": "entry.2095271584",
-  "閃卡組": "entry.1893168025",
-  "明信片組": "entry.485401102",
-  "歷年隨機專輯吊飾": "entry.1180888227",
-  "盒子照片組": "entry.4529351",
+  "A4照片組|一組": "entry.2095271584",
+  "閃卡組|一組": "entry.1893168025",
+  "明信片組|一組": "entry.485401102",
+  "歷年隨機專輯吊飾|一組": "entry.1180888227",
+  "盒子照片組|一組": "entry.4529351",
   "帽踢|M": "entry.1450037341",
   "帽踢|L": "entry.1855798280",
-  "環保袋": "entry.1462387311",
-  "MINI DOLL": "entry.325724487",
-  "8CM DOLL": "entry.934941397",
-  "手套組": "entry.2034166654",
+  "環保袋|一組": "entry.1462387311",
+  "MINI DOLL|一組": "entry.325724487",
+  "8CM DOLL|一組": "entry.934941397",
+  "手套組|一組": "entry.2034166654",
   "香氛組|CERTAIN.TY": "entry.1949538081",
   "香氛組|S": "entry.1981808467",
   "香氛組|UNSEEN": "entry.1036422460",
@@ -452,7 +452,7 @@ function submitOrder(){
       mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
-    }).then(()=>{window.location.href="../other/done.html";})
+    }).then(()=>{window.location.href="../other/tae.html";})
       .catch(()=>{window.location.href="../other/error.html";});
   }
 
