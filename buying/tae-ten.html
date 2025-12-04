@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<title>Arwen代購</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&amp;display=swap" rel="stylesheet"/>
+<style>
+    @media (max-width: 480px) {
+      .info-box { font-size: 13px; padding: 12px; }
+      .info-box p, .payment-notice p { line-height: 1.8; margin: 6px 0; }
+      .notice-title { font-size: 20px; }
+    }
+    body { font-family: "Noto Sans TC", sans-serif; background: #f3f3f3; margin: 0; padding: 0; }
+    .product-wrapper { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; }
+    .product-card { margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px; border: 1.5px solid #ccc; text-align: center; width: 250px; }
+    .product-card img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; }
+    .product-title { font-size: 20px; font-weight: bold; margin: 20px 0; }
+    .member-row { display: flex; justify-content: center; align-items: center; margin-top: 10px; gap: 10px; }
+    .member-name { width: 40px; text-align: center; }
+    .qty-btn { width: 30px; height: 30px; background: #d7a9f9; border: none; border-radius: 5px; color: #fff; font-size: 18px; cursor: pointer; }
+    .qty-input { width: 40px; height: 30px; text-align: right; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
+    .total { font-size: 25px; font-weight: bold; text-align: center; margin: 30px 0; }
+    .submit-btn { background: linear-gradient(45deg,#6e46ae,#d7a9f9); color:#fff; font-size:16px; padding:10px 30px; border:none; border-radius:8px; cursor:pointer; margin-top:20px; }
+    #order-summary-text { font-weight:300; font-size:16px; line-height:1.6; text-align:center; }
+    #checkout-section { margin-top:30px; padding-top:20px; border-top:2px dashed #ccc; }
+    .payment-notice { background:#a798bd; color:#fff; padding:5px; border-radius:10px; text-align:center; line-height:0.8; margin-bottom:30px; font-size:15px; }
+    .form-group { margin-top:15px; }
+    .form-group input,.form-group select { width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; margin-top:5px; }
+    .invalid { border:2px solid #e74c3c; background:#fff0f0; }
+    .error-message { font-size:13px; color:#e74c3c; margin-top:5px; display:none; }
+  </style>
+</head>
+<body>
+<!-- ✅ 以下為完整 1~22 編號、價格正確的 RichMan 商品卡片區 -->
+<div class="product-wrapper">
+  <!-- 1. A4照片組 -->
+  <div class="product-card" data-price="300">
+    <img src="../image/tae/01.webp" alt="A4照片組" />
+    <div class="product-title">A4照片組 - $300</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 2. 閃卡組 -->
+  <div class="product-card" data-price="240">
+    <img src="../image/tae/02.webp" alt="閃卡組" />
+    <div class="product-title">閃卡組 - $240</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 3. 明信片組 -->
+  <div class="product-card" data-price="300">
+    <img src="../image/tae/03.webp" alt="明信片組" />
+    <div class="product-title">明信片組 - $300</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 4. 歷年隨機專輯吊飾 -->
+  <div class="product-card" data-price="200">
+    <img src="../image/tae/04.webp" alt="歷年隨機專輯吊飾" />
+    <div class="product-title">歷年隨機專輯吊飾 - $200</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 5. 盒子照片組 -->
+  <div class="product-card" data-price="520">
+    <img src="../image/tae/05.webp" alt="盒子照片組" />
+    <div class="product-title">盒子照片組 - $520</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 6. 帽踢M -->
+  <div class="product-card" data-price="1750">
+    <img src="../image/tae/06.webp" alt="帽踢" />
+    <div class="product-title">帽踢 - $1750</div>
+    <div class="member-row" data-member="M">
+      <span class="member-name">M</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+    <div class="member-row" data-member="L">
+      <span class="member-name">L</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 8. 環保袋 -->
+  <div class="product-card" data-price="1180">
+    <img src="../image/tae/08.webp" alt="環保袋" />
+    <div class="product-title">環保袋 - $1180</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 9. MINI DOLL -->
+  <div class="product-card" data-price="340">
+    <img src="../image/tae/09.webp" alt="MINI DOLL" />
+    <div class="product-title">MINI DOLL - $340</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 10. 8CM DOLL -->
+  <div class="product-card" data-price="420">
+    <img src="../image/tae/10.webp" alt="8CM DOLL" />
+    <div class="product-title">8CM DOLL - $420</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 11. 手套組 -->
+  <div class="product-card" data-price="400">
+    <img src="../image/tae/11.webp" alt="手套組" />
+    <div class="product-title">手套組 - $400</div>
+    <div class="member-row" data-member="一組">
+      <span class="member-name">一組</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+
+  <!-- 12. 香氛組 -->
+  <div class="product-card" data-price="1400">
+    <img src="../image/tae/12.png" alt="香氛組" />
+    <div class="product-title">香氛組 - $1400</div>
+    <div class="member-row" data-member="CERTAIN.TY">
+      <span class="member-name">CERTAIN.TY</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+    <div class="member-row" data-member="S">
+      <span class="member-name">S</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+    <div class="member-row" data-member="UNSEEN">
+      <span class="member-name">UNSEEN</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+    <div class="member-row" data-member="INVU-HEAL ME">
+      <span class="member-name">INVU-HEAL ME</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+    <div class="member-row" data-member="THE ODD OF LOVE">
+      <span class="member-name">THE ODD OF LOVE</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+    <div class="member-row" data-member="THE TENSE">
+      <span class="member-name">THE TENSE</span>
+      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+      <input class="qty-input" type="number" value="0" readonly />
+      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+    </div>
+  </div>
+</div>
+
+<div class="total">總金額：<span id="total-price">$0</span></div><div id="bonus-display" style="text-align:center; font-size:16px; color:#6e46ae; margin-top:-20px; margin-bottom:30px;"></div>
+<div style="text-align:center;">
+    <p><span style="color: #a33225;">⚠ 請務必<strong>自行再次計算</strong>滿額贈品數量</span>
+    <li>系統提供之滿額計算結果僅供參考，可能因輸入錯誤、瀏覽器問題等因素產生誤差</li>
+    <li>請買家自行重新計算一次韓幣總額與預估贈品，並依據公告自行確認贈品數量</li>
+    <li>本人將依實際成立訂單金額與商品類型進行滿額卡發放，不受線上計算結果限制</li>
+    <li>贈品排卡方式以試算表內下單先後順序為主，多張盡量發不同，實際情況可能因官方供給而有變化，下單視同同意所有已頒布規則</li>
+    <li>滿額卡片瑕疵較多 官方不予更換售後 請知悉</li>
+    <li>*產品外包裝盒僅為保護作用，如在運送過程中出現凹陷、刮痕、破損等情況，均不在售後範圍內概不售後*</li>
+    <li>商品皆為全新未拆，不包出廠瑕疵<li>
+<button class="submit-btn" onclick="showCheckout()">結帳</button>
+</div>
+<!-- 結帳區 -->
+<div id="checkout-section" style="display:none;">
+<div class="total" id="order-summary-text"></div>
+<div class="payment-notice">
+<p>💰付款須知-匯款帳號:</p>
+<p><strong><span style="color: #a33225;">請勿備註任何字符!會對不到帳</span></strong></p>
+<p><strong><span style="color: #a33225;">請往上拉看購買明細再次確認您選購的商品</span></strong></p>
+<p><strong><span style="color: #a33225;">訂單送出後不接受任何理由更改</span></strong></p>
+<p>請注意匯款銀行是郵局!!!!!</p>
+<p>（700）00310710953998</p>
+<p>請先完成付款後再送出表單</p>
+<p>若未收到款項，將不列入此次訂單</p>
+</div>
+<div class="form-group">
+<label for="email">*Gmail信箱（系統自動補上）</label>
+<input id="email" oninput="validateEmail(this)" placeholder="xxxxx" required="" type="text"/>
+<div class="error-message" id="email-error">請輸入正確的 Gmail</div>
+</div>
+<div class="form-group">
+<label for="name">*社群內您的姓名</label>
+<input id="name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="amount">*匯款金額</label>
+<input id="amount" oninput="validateAmount(this)" required="" type="text"/>
+<div class="error-message" id="amount-error">只能填寫數字，最多兩位小數</div>
+</div>
+<div class="form-group">
+<label for="bank">匯款銀行+末五碼</label>
+<input id="bank" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="agree">*是否同意購買須知</label>
+<select id="agree" required="">
+<option value="">請選擇</option>
+<option value="是">是</option>
+</select>
+</div>
+<div style="text-align:center;">
+<button class="submit-btn" onclick="submitOrder()">送出訂單</button>
+</div>
+</div>
+<script>
+  /* === 商品 + Google Form entry 對應 === */
+const entryMap = {
+  "A4照片組": "entry.2095271584",
+  "閃卡組": "entry.1893168025",
+  "明信片組": "entry.485401102",
+  "歷年隨機專輯吊飾": "entry.1180888227",
+  "盒子照片組": "entry.4529351",
+  "帽踢|M": "entry.1450037341",
+  "帽踢|L": "entry.1855798280",
+  "環保袋": "entry.1462387311",
+  "MINI DOLL": "entry.325724487",
+  "8CM DOLL": "entry.934941397",
+  "手套組": "entry.2034166654",
+  "香氛組|CERTAIN.TY": "entry.1949538081",
+  "香氛組|S": "entry.1981808467",
+  "香氛組|UNSEEN": "entry.1036422460",
+  "香氛組|INVU-HEAL ME": "entry.2139647730",
+  "香氛組|THE ODD OF LOVE": "entry.993032879",
+  "香氛組|THE TENSE": "entry.917619796",
+};
+
+
+/* === 更新數量 & 計算總價 === */
+function updateQty(btn, delta) {
+  const inp = btn.parentElement.querySelector('input');
+  let q = parseInt(inp.value) + delta;
+  if (q < 0) q = 0;
+  inp.value = q;
+
+  // 更新總價
+  updateTotal();
+
+  // 如果結帳區已經展開，則自動收起並提示
+  const checkoutSection = document.getElementById("checkout-section");
+  if (checkoutSection && checkoutSection.style.display === "block") {
+    checkoutSection.style.display = "none"; // 收起結帳區
+    document.getElementById("order-summary-text").innerHTML = ""; // 清空明細
+    document.getElementById("amount").value = ""; // 清空匯款金額
+    alert("購物內容已變動，請重新結帳！");
+  }
+}
+
+  function updateTotal(){
+    let t=0;
+    document.querySelectorAll(".product-card").forEach(card=>{
+      const price=parseInt(card.dataset.price);
+      card.querySelectorAll(".qty-input").forEach(i=>{
+        t+=price*parseInt(i.value);
+      });
+    });
+    document.getElementById("total-price").innerText=`$${t}`;
+  }
+
+  /* === 顯示結帳區 === */
+function showCheckout(){
+  const summary=[];
+  document.querySelectorAll(".product-card").forEach(card=>{
+    const title=card.querySelector(".product-title").innerText;
+    const lines=[];
+    card.querySelectorAll(".member-row").forEach(r=>{
+      const m=r.dataset.member;
+      const q=parseInt(r.querySelector("input").value);
+      if(q>0) lines.push(`${m} x${q}`);
+    });
+    if(lines.length) summary.push(`${title}<br>${lines.join("<br>")}`);
+  });
+    if(document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`)
+  if(!summary.length){alert("請至少選擇一項商品再結帳！");return;}
+  
+  
+  document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
+  document.getElementById("checkout-section").style.display="block";
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+
+  // ★ 新增：自動帶入總金額
+  const total = document.getElementById("total-price").innerText.replace("$","").trim();
+  document.getElementById("amount").value = total;
+}
+
+
+  /* === 即時驗證 === */
+  function validateEmail(input){
+    const val=input.value.trim();
+    const err=document.getElementById("email-error");
+    if(val==="" || !val.includes("@")){
+      input.classList.remove("invalid");
+      err.style.display="none";
+      return;
+    }
+    if(!val.endsWith("@gmail.com")){
+      input.classList.add("invalid");
+      err.style.display="block";
+    }else{
+      input.classList.remove("invalid");
+      err.style.display="none";
+    }
+  }
+  function validateAmount(input){
+    const v=input.value.trim();
+    const err=document.getElementById("amount-error");
+    if(v==="" || /^\d+(\.\d{0,2})?$/.test(v)){
+      input.classList.remove("invalid"); err.style.display="none";
+    }else{
+      input.classList.add("invalid"); err.style.display="block";
+    }
+  }
+
+let lastSubmitTime = 0;  // 新增：記錄上次送單時間
+
+function submitOrder(){
+  const now = Date.now();
+  if (now - lastSubmitTime < 60000) {
+    alert("請勿在 1 分鐘內重複送出訂單！");
+    return;
+  }
+
+  const emailEl = document.getElementById("email");
+  let emailInput = emailEl.value.trim();
+
+  // 先擋空白
+  if (emailInput === "") {
+    alert("請輸入 Gmail。");
+    emailEl.focus();
+    return;
+  }
+
+  // 使用者有輸入但未含 @，才自動補上 @gmail.com
+  if (!emailInput.includes("@")) {
+    emailInput += "@gmail.com";
+  }
+  emailEl.value = emailInput;
+
+  // 僅接受有效的 Gmail
+  const gmailRe = /^[A-Za-z0-9._%+-]+@gmail\.com$/;
+  if (!gmailRe.test(emailInput)) {
+    alert("只接受有效的 Gmail（例如 yourname@gmail.com）。");
+    emailEl.focus();
+    return;
+  }
+
+  lastSubmitTime = now;  // 通過所有 Email 檢查後再更新鎖定時間
+
+  // 其餘原本的欄位檢查與送出流程照舊…
+  const name=document.getElementById("name").value.trim();
+  const amount=document.getElementById("amount").value.trim();
+  const bank=document.getElementById("bank").value.trim();
+  const agree=document.getElementById("agree").value;
+
+  if(!emailInput||!name||!amount||!agree){
+    alert("請填寫所有必填欄位！");
+    return;
+  }
+  if(!/^\d+(\.\d{0,2})?$/.test(amount)){
+    alert("匯款金額格式錯誤，只能填寫數字！");
+    return;
+  }
+
+    const postData = {};
+    // 動態收集所有商品數量
+    // 📦 加入：韓幣總金額與滿額卡 entry
+    postData["entry.1381923180"] = krwTotal;            // 韓幣總金額
+    postData["entry.1159566987"] = generalCardCount;    // 一般滿額卡
+    postData["entry.1676330581"] = clothingCardCount;   // 服飾滿額卡
+    postData["entry.1788214930"] = window.clothingCount;   // 服飾商品總件數
+
+
+    document.querySelectorAll(".product-card").forEach(card=>{
+      const title=card.querySelector(".product-title").innerText.split(" - ")[0];
+      card.querySelectorAll(".member-row").forEach(row=>{
+        const member=row.dataset.member;
+        const qty=parseInt(row.querySelector("input").value);
+        const key=`${title}|${member}`;
+        if(entryMap[key]){
+          postData[entryMap[key]] = qty;
+        }
+      });
+    });
+
+    // 其他必填欄位
+    const total=document.getElementById("total-price").innerText.replace("$","");
+    postData["entry.666217784"] = total;
+    postData["entry.352622612"] = emailInput;
+    postData["entry.1480766142"] = name;
+    postData["entry.1977969934"] = amount;
+    postData["entry.1950876724"] = bank;
+    postData["entry.616473169"] = agree;
+
+    fetch("https://docs.google.com/forms/d/1FDs8yPX-TzY7ZttlaaVeg14a1MCnxW8GcwLfjmCa4jA/formResponse",{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body:new URLSearchParams(postData).toString()
+    }).then(()=>{window.location.href="../other/done.html";})
+      .catch(()=>{window.location.href="../other/error.html";});
+  }
+
+  /* 自動帶入 localStorage */
+  window.addEventListener("DOMContentLoaded",()=>{
+    ["email","name","bank"].forEach(id=>{
+      document.getElementById(id).value=localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1))||"";
+    });
+  });
+
+
+
+// === 🎁 滿額卡計算 ===
+const krwPriceMap = {
+  "A4照片組": 11000,
+  "閃卡組": 11000,
+  "明信片組": 11000,
+  "歷年隨機專輯吊飾": 8000,
+  "盒子照片組": 22000,
+  "帽踢": 79000,
+  "環保袋": 55000,
+  "MINI DOLL": 15000,
+  "8CM DOLL": 20000,
+  "手套組": 18000,
+  "香氛組": 62000  // 所有香氛組都同價
+};
+
+
+const clothingKeywords = ["帽踢", "環保袋"];
+
+
+function updateBonuses() {
+  window.krwTotal = 0;
+  window.clothingCount = 0;
+
+  document.querySelectorAll(".product-card").forEach(card => {
+    const title = card.querySelector(".product-title").innerText.split(" - ")[0].trim();
+    const krw = krwPriceMap[title] || 0;
+
+    card.querySelectorAll(".member-row").forEach(row => {
+      const qty = parseInt(row.querySelector("input").value);
+      window.krwTotal += qty * krw;
+
+      // 若是服飾商品
+      if (clothingKeywords.includes(title)) {
+        window.clothingCount += qty;
+      }
+    });
+  });
+
+  window.generalCardCount = Math.floor(krwTotal / 50000);
+  window.clothingCardCount = Math.min(Math.floor(krwTotal / 100000), clothingCount);
+
+  let result = "";
+  if (generalCardCount > 0) result += `🎁 一般滿額卡：${generalCardCount} 張（每滿 ₩50,000）<br>`;
+  if (clothingCardCount > 0) result += `👕 服飾滿額卡：${clothingCardCount} 張（含服飾 ${clothingCount} 件）<br>`;
+  document.getElementById("bonus-display").innerHTML = result;
+}
+
+
+// call on load and rebind in updateQty
+updateBonuses();
+const origUpdateQty = updateQty;
+updateQty = function(btn, delta) {
+  origUpdateQty(btn, delta);
+  updateBonuses();
+};
+</script>
+</body>
+</html>
