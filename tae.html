@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="image/home/favicon.png" type="image/png">
+  <title>Arwen首頁</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; margin: 0; background: #f7f7f7; }
+    header { background: #6e46ae; color: white; padding: 0px; text-align: center; font-size: 24px; }
+    .section { max-width: 900px; margin: auto; padding: 10px 20px; }
+    .section-title { font-size: 22px; margin-bottom: 20px; color: #6e46ae; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    .group-list { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .group-card { margin-top:10px;background: white; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); width: 250px; overflow: hidden; text-align: center; transition: transform 0.2s; }
+    .group-card:hover { transform: translateY(-5px); }
+    .group-card img { width: 80%; height: 200px; object-fit: cover; margin-top:20px;}
+    .group-card h3 { margin: 10px 0; color: #333; font-size: 18px; }
+    .group-card .countdown {font-size: 12px;color: #6e46ae; /* 紫色點綴 */font-weight: 500;margin: 6px 0;}
+    .group-card p {padding: 0 10px; font-size: 14px; color: #666;line-height: 1.4;margin: 4px 0;}
+    .group-card a { display: block; background: #6e46ae; color: white; text-decoration: none; padding: 10px; border-radius: 0 0 10px 10px; }
+    .smaller {max-height: 60px; width: auto; object-fit: contain;}
+    .footer { text-align: center; font-size: 14px; color: #aaa; padding: 30px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="image/home/head.jpg" alt="Arwen首頁" style="width: 100%; display: block;">
+  </header>  
+
+  <div class="section">
+    <div class="section-title">📌 購物須知</div>
+    <p>嚴禁第三方匯款！</p>
+    <p>請確認購買的商品與金額皆正確後再送出訂單</p>
+    <p>後續需二補，一律+20賣貨便</p>
+    <p>可寄交貨便保值，自行至賣貨便查看二補金額(如有)，並填單即可，運費自行負擔</p>
+    <p>寄賣貨便則默認商品運輸風險自行承擔</p>
+    <p>目前若有未到商品則已到可以囤貨</p>
+    <p>如果東西都到+無訂購其他新團務將開啟兩個星期的囤貨期~超過囤貨期未下單的話收取一天五元的倉儲費，會先在群組@一次，並寄email提醒並至少五次</p>
+    <p>存放超過一個月則銷毀或釋出，退款金額最低以我釋出的金額為主</p>
+    <p>因為市價可能有變動，最多退款您原付款的全額，且若有轉帳手續費需要您負擔</p>
+  </div>
+
+  <div class="section">
+  <div class="section-title">📦開團中的商品</div>
+  <!--<p>代購本人可能會買一整套，如有此情況湊套順位1，介意請繞道~</p>
+  <p>(只會買一套，不會買單張搶順位~請放心!)</p>
+  <p>請注意日通可能斷貨，我這邊盡量以4張/5張為單位盡速下單，如不幸還是有斷貨情況則退款處理</p>-->
+  
+    <div class="group-list">
+      
+  <div class="group-card">
+    <img src="image/tae/01.webp" alt="tae 10周年">
+    <h3>tae 10周年線上團</h3>
+    <p>不需二補</p>
+    <p>隨機滿額卡包裝方式:銀袋包裝後夾在硬紙板中(有卡膜無硬卡套)</p>
+    <p>出庫時間:2月中</p>
+    <p>可能隨時截止，需要請盡早下單</p>
+    <div class="countdown" data-deadline="2025-12-05T11:00:00+08:00"></div>
+    <a href="buying/tae-ten.html" class="order-link">前往下單</a>
+  </div>-->
+
+  <!--<div class="group-card">
+    <img src="image/yb/yb.jpg" alt="aespa 2026年曆">
+    <h3>aespa 2026年曆</h3>
+    <p>需二補，其他注意事項可見連結內</p>
+    <div class="countdown" data-deadline="2025-10-24T12:00:00+08:00"></div>
+    <a href="buying/yearbook.html" class="order-link">前往下單</a>
+  </div>-->
+
+  <!---<div class="group-card">
+    <img src="image/mic.jpg" alt="aespa mic特典四專四卡">
+    <h3>aespa mic特典四專四卡</h3>
+    <p>需二補，專輯盡量不重複</p>
+    <div class="countdown" data-deadline="2025-10-24T12:00:00+08:00"></div>
+    <a href="buying/mic.html" class="order-link">前往下單</a>
+  </div>
+
+     <div class="group-card">
+        <img src="image/richmanjp/w.webp" alt="Rich man-warner">
+        <h3>Rich man-warner</h3>
+        <p>含應募劵，需二補</p>
+        <div class="countdown" data-deadline="2025-09-05T23:59:59+08:00"></div>
+        <a href="buying/jp_warner.html" class="order-link">前往下單</a>
+      </div>
+
+      <div class="group-card">
+        <img src="image/richmanjp/w.png" alt="Rich man-wvs">
+        <h3>Rich man-wvs</h3>
+        <p>含應募劵，需二補</p>
+        <div class="countdown" data-deadline="2025-09-05T23:59:59+08:00"></div>
+        <a href="buying/jp_wvs.html" class="order-link">前往下單</a>
+      </div> -->
+    </div> 
+    
+  </div>
+
+  <!--<div class="section">
+    <div class="section-title">🚚 出貨賣場</div>
+    <p>若需使用賣貨便寄送服務，請先確認商品是否已到貨，以下方式擇一即可</p>
+    <p>填單前請詳閱注意事項，如有問題請先私訊</p>
+    <p>目前可下單之商品:</p>
+    <p>guitar、sr預售</p>
+    <div class="group-list">
+      <div class="group-card">
+        <img src="image/home/shop1.jpg" alt="賣貨便賣場下單" class="smaller">
+        <h3>賣貨便賣場下單</h3>
+        <p>默認商品運輸風險自行承擔</p>
+        <a href="info/info.html">前往填單</a>
+      </div>
+      <div class="group-card">
+        <img src="image/home/shop2.png" alt="寄交貨便保值" class="smaller">
+        <h3>交貨便保值</h3>
+        <p>保值運費需自行負擔</p>
+        <a href="info/info copy.html">前往填單</a>
+      </div>
+    </div>-->
+  </div>
+  
+  <div class="section">
+    <div class="section-title">📬 Contact me</div>
+    <!--<p>匿名意見回饋</p>-->
+    <p>
+      如需協助或詢問庫存，歡迎
+      <a href="https://lin.ee/Do2cMIl" target="_blank">私訊line官方帳號</a>，
+      或於
+      <a href="https://line.me/ti/g2/_Oja-IfWXBsWrNmK_p_5LcWbPDa69gQw6Wwn0g?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank">line社群</a>
+      提問。
+    </p>
+    <p>
+      <a href="https://docs.google.com/spreadsheets/d/1Q0x7tsbgbZa3goQ9pGayjsC4IBk2bFO-n1iWN_gwLks/edit?usp=sharing" target="_blank">進度及對帳表</a>
+      
+      可以於此查詢
+    </p>
+  </div>
+
+  <div class="footer">© 2025 Arwen</div>
+
+  <script>
+    function updateCountdown() {
+      const countdowns = document.querySelectorAll('.countdown');
+      const links = document.querySelectorAll('.order-link');
+
+      countdowns.forEach(el => {
+        const deadline = new Date(el.dataset.deadline);
+        const now = new Date();
+        const diff = deadline - now;
+
+        if (diff <= 0) {
+          el.textContent = '已截止';
+        } else {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+          el.textContent = `剩下 ${days} 天 ${hours} 時 ${minutes} 分 ${seconds} 秒`;
+        }
+      });
+
+      // 更新連結
+      links.forEach(link => {
+        const deadline = new Date(link.dataset.deadline);
+        const now = new Date();
+        if (now > deadline) {
+          link.href = "other/timesup.html";
+        }
+      });
+    }
+
+    setInterval(updateCountdown, 1000);
+    window.onload = updateCountdown;
+  </script>
+</body>
+</html>
