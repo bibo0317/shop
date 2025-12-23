@@ -241,26 +241,69 @@
       alert("匯款金額格式錯誤，只能填寫數字！"); return;
     }
 
-    /* 整理商品數量 */
-    const qtys={
-      A:0,B:0,
-      柚:0,吉:0,冬:0,寧:0
-    };
-    document.querySelectorAll(".member-row").forEach(r=>{
-      const m=r.dataset.member;
-      const q=parseInt(r.querySelector("input").value);
-      qtys[m]+=q;
-    });
-    const total=document.getElementById("total-price").innerText.replace("$","");
+const qtys = {
+  random: { A: 0, B: 0 },                 // 隨機卡
+  photobooth: { 柚: 0, 吉: 0, 冬: 0, 寧: 0 }, // 人生四格
+  photoset: { 柚: 0, 吉: 0, 冬: 0, 寧: 0 },   // 照片組
+  cardsleeve: { 柚: 0, 吉: 0, 冬: 0, 寧: 0 }, // 卡套組
+  clothes: { 柚: 0, 吉: 0, 冬: 0, 寧: 0 }     // 衣服
+};
 
-    const postData={
-      "entry.1234567890":qtys["A"],"entry.2345678901":qtys["B"],
-      "entry.3456789012":qtys["柚"],"entry.4567890123":qtys["吉"],
-      "entry.5678901234":qtys["冬"],"entry.6789012345":qtys["寧"],
-      "entry.1793387795":emailInput,"entry.398219589":name,
-      "entry.1866660785":amount,"entry.385310176":bank,"entry.1174194777":agree,
-      "entry.328979395":total
-    };
+const productKeys = ["random", "photobooth", "photoset", "cardsleeve", "clothes"];
+
+document.querySelectorAll(".product-card").forEach((card, idx) => {
+  const pKey = productKeys[idx];
+  if (!pKey) return;
+
+  card.querySelectorAll(".member-row").forEach(r => {
+    const m = r.dataset.member;
+    const q = parseInt(r.querySelector(".qty-input").value, 10) || 0;
+    if (qtys[pKey] && qtys[pKey][m] !== undefined) {
+      qtys[pKey][m] += q;
+    }
+  });
+});
+
+const total = document.getElementById("total-price").innerText.replace("$", "");
+
+const postData = {
+  // 01 隨機卡：A / B
+  "entry.RANDOM_A": qtys.random.A,
+  "entry.RANDOM_B": qtys.random.B,
+
+  // 02 人生四格：柚 / 吉 / 冬 / 寧
+  "entry.PHOTOBOOTH_YOU": qtys.photobooth["柚"],
+  "entry.PHOTOBOOTH_JI": qtys.photobooth["吉"],
+  "entry.PHOTOBOOTH_DONG": qtys.photobooth["冬"],
+  "entry.PHOTOBOOTH_NING": qtys.photobooth["寧"],
+
+  // 03 照片組：柚 / 吉 / 冬 / 寧
+  "entry.PHOTOSET_YOU": qtys.photoset["柚"],
+  "entry.PHOTOSET_JI": qtys.photoset["吉"],
+  "entry.PHOTOSET_DONG": qtys.photoset["冬"],
+  "entry.PHOTOSET_NING": qtys.photoset["寧"],
+
+  // 04 卡套組：柚 / 吉 / 冬 / 寧
+  "entry.CARDSLEEVE_YOU": qtys.cardsleeve["柚"],
+  "entry.CARDSLEEVE_JI": qtys.cardsleeve["吉"],
+  "entry.CARDSLEEVE_DONG": qtys.cardsleeve["冬"],
+  "entry.CARDSLEEVE_NING": qtys.cardsleeve["寧"],
+
+  // 05 衣服：柚 / 吉 / 冬 / 寧
+  "entry.CLOTHES_YOU": qtys.clothes["柚"],
+  "entry.CLOTHES_JI": qtys.clothes["吉"],
+  "entry.CLOTHES_DONG": qtys.clothes["冬"],
+  "entry.CLOTHES_NING": qtys.clothes["寧"],
+
+  // 其他欄位（維持你原本的）
+  "entry.1793387795": emailInput,
+  "entry.398219589": name,
+  "entry.1866660785": amount,
+  "entry.385310176": bank,
+  "entry.1174194777": agree,
+  "entry.328979395": total
+};
+
 
     // ===== 進入送單狀態：立即寫入時間避免連點；禁用按鈕 =====
     isSubmitting = true;
