@@ -267,41 +267,41 @@ document.querySelectorAll(".product-card").forEach((card, idx) => {
 const total = document.getElementById("total-price").innerText.replace("$", "");
 
 const postData = {
-  // 01 隨機卡：A / B
-  "entry.RANDOM_A": qtys.random.A,
-  "entry.RANDOM_B": qtys.random.B,
+  /* 01 隨機卡 */
+  "entry.2095271584": qtys.random.A,   // 隨機卡 A
+  "entry.1893168025": qtys.random.B,   // 隨機卡 B
 
-  // 02 人生四格：柚 / 吉 / 冬 / 寧
-  "entry.PHOTOBOOTH_YOU": qtys.photobooth["柚"],
-  "entry.PHOTOBOOTH_JI": qtys.photobooth["吉"],
-  "entry.PHOTOBOOTH_DONG": qtys.photobooth["冬"],
-  "entry.PHOTOBOOTH_NING": qtys.photobooth["寧"],
+  /* 02 人生四格 */
+  "entry.485401102": qtys.photobooth["柚"],
+  "entry.1180888227": qtys.photobooth["吉"],
+  "entry.4529351": qtys.photobooth["冬"],
+  "entry.1450037341": qtys.photobooth["寧"],
 
-  // 03 照片組：柚 / 吉 / 冬 / 寧
-  "entry.PHOTOSET_YOU": qtys.photoset["柚"],
-  "entry.PHOTOSET_JI": qtys.photoset["吉"],
-  "entry.PHOTOSET_DONG": qtys.photoset["冬"],
-  "entry.PHOTOSET_NING": qtys.photoset["寧"],
+  /* 03 照片組 */
+  "entry.1855798280": qtys.photoset["柚"],
+  "entry.1462387311": qtys.photoset["吉"],
+  "entry.325724487": qtys.photoset["冬"],
+  "entry.934941397": qtys.photoset["寧"],
 
-  // 04 卡套組：柚 / 吉 / 冬 / 寧
-  "entry.CARDSLEEVE_YOU": qtys.cardsleeve["柚"],
-  "entry.CARDSLEEVE_JI": qtys.cardsleeve["吉"],
-  "entry.CARDSLEEVE_DONG": qtys.cardsleeve["冬"],
-  "entry.CARDSLEEVE_NING": qtys.cardsleeve["寧"],
+  /* 04 卡套組 */
+  "entry.2034166654": qtys.cardsleeve["柚"],
+  "entry.1949538081": qtys.cardsleeve["吉"],
+  "entry.1981808467": qtys.cardsleeve["冬"],
+  "entry.1036422460": qtys.cardsleeve["寧"],
 
-  // 05 衣服：柚 / 吉 / 冬 / 寧
-  "entry.CLOTHES_YOU": qtys.clothes["柚"],
-  "entry.CLOTHES_JI": qtys.clothes["吉"],
-  "entry.CLOTHES_DONG": qtys.clothes["冬"],
-  "entry.CLOTHES_NING": qtys.clothes["寧"],
+  /* 05 衣服 */
+  "entry.2139647730": qtys.clothes["柚"],
+  "entry.993032879": qtys.clothes["吉"],
+  "entry.917619796": qtys.clothes["冬"],
+  "entry.625947960": qtys.clothes["寧"],
 
   // 其他欄位（維持你原本的）
-  "entry.1793387795": emailInput,
-  "entry.398219589": name,
-  "entry.1866660785": amount,
-  "entry.385310176": bank,
-  "entry.1174194777": agree,
-  "entry.328979395": total
+  "entry.352622612": emailInput,
+  "entry.1480766142": name,
+  "entry.1977969934": amount,
+  "entry.1950876724": bank,
+  "entry.616473169": agree,
+  "entry.666217784": total
 };
 
 
@@ -312,7 +312,7 @@ const postData = {
     const prevText = btn ? btn.innerText : null;
     if (btn) { btn.disabled = true; btn.innerText = "送出中…"; }
 
-    fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse",{
+    fetch("https://docs.google.com/forms/d/1FDs8yPX-TzY7ZttlaaVeg14a1MCnxW8GcwLfjmCa4jA/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
