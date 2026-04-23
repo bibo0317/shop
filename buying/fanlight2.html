@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arwen 開團購物</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <script>
+    const deadline = new Date("2026-04-23T23:59:59+08:00");
+    if (new Date() > deadline) window.location.href = "../other/timesup.html";
+  </script>
+  <style>
+    @media (max-width: 480px) {
+      .info-box { font-size: 13px; padding: 12px; }
+      .info-box p, .payment-notice p { line-height: 1.8; margin: 6px 0; }
+      .notice-title { font-size: 20px; }
+    }
+    body { font-family: "Noto Sans TC", sans-serif; background: #f3f3f3; margin: 0; padding: 0; }
+    .product-wrapper { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; }
+    .product-card { margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px; border: 1.5px solid #ccc; text-align: center; width: 250px; }
+    .product-card img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; }
+    .product-title { font-size: 20px; font-weight: bold; margin: 20px 0; }
+    .member-row { display: flex; justify-content: center; align-items: center; margin-top: 10px; gap: 10px; }
+    .member-name { width: 30px; }
+    .qty-btn { width: 30px; height: 30px; background: #d7a9f9; border: none; border-radius: 5px; color: #fff; font-size: 18px; cursor: pointer; }
+    .qty-input { width: 40px; height: 30px; text-align: right; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
+    .total { font-size: 25px; font-weight: bold; text-align: center; margin: 30px 0; }
+    .submit-btn { background: linear-gradient(45deg,#6e46ae,#d7a9f9); color:#fff; font-size:16px; padding:10px 30px; border:none; border-radius:8px; cursor:pointer; margin-top:20px; }
+    #order-summary-text { font-weight:300; font-size:16px; line-height:1.6; text-align:center; }
+    #checkout-section { margin-top:30px; padding-top:20px; border-top:2px dashed #ccc; }
+    .payment-notice { background:#a798bd; color:#fff; padding:5px; border-radius:10px; text-align:center; line-height:0.8; margin-bottom:30px; font-size:15px; }
+    .form-group { margin-top:15px; }
+    .form-group input,.form-group select { width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; margin-top:5px; }
+    /* 即時驗證樣式 */
+    .invalid { border:2px solid #e74c3c; background:#fff0f0; }
+    .error-message { font-size:13px; color:#e74c3c; margin-top:5px; display:none; }
+  </style>
+</head>
+<body>
+
+  <!-- 商品區 -->
+  <div class="product-wrapper">
+    <div class="product-card" data-price="1230">
+      <img src="../image/fanlight.jpg" alt="二代手燈">
+      <div class="product-title">aespa二代手燈 - $1230</div>
+      <p>不需二補</p>
+      <div class="member-row" data-member="一組"><span class="member-name">一組</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+    </div>
+  </div>
+
+  <div class="total">總金額：<span id="total-price">$0</span></div>
+  <div style="text-align:center;"><button class="submit-btn" onclick="showCheckout()">結帳</button></div>
+
+  <!-- 結帳區 -->
+  <div id="checkout-section" style="display:none;">
+    <div class="total" id="order-summary-text"></div>
+
+    <div class="payment-notice">
+      <p>💰付款須知-匯款帳號:</p>
+      <p>請勿備註任何字符!會對不到帳</p>
+      <p><strong><span style="color: #a33225;">請注意匯款銀行是郵局!!!!!</strong></span></p>
+      <p>（700）00310710953998</p>
+      <p>請先完成付款後再送出表單</p>
+      <p>若未收到款項，將不列入此次訂單。</p>
+    </div>
+
+    <div class="form-group">
+      <label for="email">*Gmail信箱（系統自動補上@gmail）</label>
+      <input type="text" id="email" placeholder="xxxxx" required oninput="validateEmail(this)">
+      <div id="email-error" class="error-message">請輸入正確的 Gmail</div>
+    </div>
+    <div class="form-group">
+      <label for="name">*社群內您的姓名</label>
+      <input type="text" id="name" required>
+    </div>
+    <div class="form-group">
+      <label for="amount">*匯款金額</label>
+      <input type="text" id="amount" required oninput="validateAmount(this)">
+      <div id="amount-error" class="error-message">只能填寫數字，最多兩位小數</div>
+    </div>
+    <div class="form-group"><label for="bank">匯款銀行+末五碼</label><input type="text" id="bank" required></div>
+    <div class="form-group"><label for="agree">*是否同意購買須知</label>
+      <select id="agree" required><option value="">請選擇</option><option value="是">是</option></select>
+    </div>
+    <div style="text-align:center;"><button class="submit-btn" onclick="submitOrder()">送出訂單</button></div>
+  </div>
+
+<!-- ================= JS ================= -->
+<script>
+  /* ====== 送單冷卻設定 ====== */
+  const SUBMIT_COOLDOWN_MS = 30_000;           // 30秒
+  const SUBMIT_TS_KEY = "lastSubmitTs:EL300";  // 可依賣場更換識別
+  let isSubmitting = false;                    // 防連點
+
+  /* 數量加減與總金額 */
+  function updateQty(btn,delta){
+    const inp=btn.parentElement.querySelector('input');
+    let q=parseInt(inp.value)+delta;
+    if(q<0) q=0;
+    inp.value=q;
+    updateTotal();
+  }
+  function updateTotal(){
+    let t=0;
+    document.querySelectorAll(".product-card").forEach(card=>{
+      const price=parseInt(card.dataset.price);
+      card.querySelectorAll(".qty-input").forEach(i=>{
+        t+=price*parseInt(i.value);
+      });
+    });
+    document.getElementById("total-price").innerText=`$${t}`;
+    const checkout = document.getElementById('checkout-section');
+    if (checkout && getComputedStyle(checkout).display !== 'none') {
+      setAmountToTotal();
+    }
+  }
+
+  /* 顯示結帳明細 */
+  function showCheckout(){
+    const summary=[];
+    document.querySelectorAll(".product-card").forEach(card=>{
+      const title=card.querySelector(".product-title").innerText;
+      const lines=[];
+      card.querySelectorAll(".member-row").forEach(r=>{
+        const m=r.dataset.member;
+        const q=parseInt(r.querySelector("input").value);
+        if(q>0) lines.push(`${m} x${q}`);
+      });
+      if(lines.length) summary.push(`${title}<br>${lines.join("<br>")}`);
+    });
+    if(!summary.length){alert("請至少選擇一項商品再結帳！");return;}
+    document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
+    document.getElementById("checkout-section").style.display="block";
+    window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+    document.getElementById("checkout-section").style.display = "block";
+    setAmountToTotal();
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }
+
+  /* 自動帶入總金額到匯款欄位 */
+  function setAmountToTotal() {
+    const amountEl = document.getElementById('amount');
+    if (!amountEl) return;
+    const total = document.getElementById('total-price').innerText.replace('$','');
+    amountEl.value = total;
+  }
+
+  /* -------- 即時驗證 -------- */
+  function validateEmail(input){
+    const val=input.value.trim();
+    const err=document.getElementById("email-error");
+    if(val==="" || !val.includes("@")){
+      input.classList.remove("invalid");
+      err.style.display="none";
+      return;
+    }
+    if(!val.endsWith("@gmail.com")){
+      input.classList.add("invalid");
+      err.style.display="block";
+    }else{
+      input.classList.remove("invalid");
+      err.style.display="none";
+    }
+  }
+  function validateAmount(input){
+    const v=input.value.trim();
+    const err=document.getElementById("amount-error");
+    if(v==="" || /^\d+(\.\d{0,2})?$/.test(v)){
+      input.classList.remove("invalid"); err.style.display="none";
+    }else{
+      input.classList.add("invalid"); err.style.display="block";
+    }
+  }
+
+  /* 送出訂單（含30秒冷卻） */
+  function submitOrder(){
+    // ===== 冷卻檢查（時間 + 防連點） =====
+    if (isSubmitting) return; // 已在送單流程中
+    const now = Date.now();
+    const lastTs = parseInt(localStorage.getItem(SUBMIT_TS_KEY) || "0", 10);
+    const remain = SUBMIT_COOLDOWN_MS - (now - lastTs);
+    if (remain > 0) {
+      const sec = Math.ceil(remain/1000);
+      alert(`請勿重複送單，還需等待 ${sec} 秒後才能再次送出。`);
+      return;
+    }
+
+    /* Email 補 @gmail.com */
+    let emailInput=document.getElementById("email").value.trim();
+    if(!emailInput.includes("@")) emailInput+="@gmail.com";
+    document.getElementById("email").value=emailInput;
+
+    /* 最終驗證 */
+    if(!emailInput.endsWith("@gmail.com")){
+      alert("只接受 Gmail 帳號，請重新確認您的 Email！"); return;
+    }
+    const name=document.getElementById("name").value.trim();
+    const amount=document.getElementById("amount").value.trim();
+    const bank=document.getElementById("bank").value.trim();
+    const agree=document.getElementById("agree").value;
+
+    if(!emailInput||!name||!amount||!agree){
+      alert("請填寫所有必填欄位！"); return;
+    }
+    if(!/^\d+(\.\d{0,2})?$/.test(amount)){
+      alert("匯款金額格式錯誤，只能填寫數字！"); return;
+    }
+
+    /* 整理商品數量 */
+    const qtys={一組:0};
+    document.querySelectorAll(".member-row").forEach(r=>{
+      const m=r.dataset.member;
+      const q=parseInt(r.querySelector("input").value);
+      qtys[m]+=q;
+    });
+    const total=document.getElementById("total-price").innerText.replace("$","");
+
+    const postData={
+      "entry.1433769554":qtys["一組"],
+      "entry.1176441319":emailInput,"entry.1195798789":name,
+      "entry.1043038233":amount,"entry.1950007438":bank,"entry.463756351":agree,
+      "entry.505508747":total
+    };
+
+    // ===== 進入送單狀態：立即寫入時間避免連點；禁用按鈕 =====
+    isSubmitting = true;
+    localStorage.setItem(SUBMIT_TS_KEY, String(now));
+    const btn = document.querySelector('#checkout-section button.submit-btn');
+    const prevText = btn ? btn.innerText : null;
+    if (btn) { btn.disabled = true; btn.innerText = "送出中…"; }
+
+    fetch("https://docs.google.com/forms/d/11ENwzzF5ayvmufYtJPKnFR0xFQmkADCTKo7nBiCkZ_A/formResponse",{
+      method:"POST",mode:"no-cors",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body:new URLSearchParams(postData).toString()
+    }).then(()=>{
+      // 成功：導向成功頁（冷卻已記錄）
+      window.location.href="../other/done.html";
+    }).catch(()=>{
+      // 失敗：導向錯誤頁，但仍維持冷卻（避免重複炸表）
+      window.location.href="../other/error.html";
+    }).finally(()=>{
+      // 若頁面未跳轉（極少數情況），恢復按鈕狀態
+      isSubmitting = false;
+      if (btn && prevText) { btn.disabled = false; btn.innerText = prevText; }
+    });
+  }
+
+  /* 自動帶入 localStorage */
+  window.addEventListener("DOMContentLoaded",()=>{
+    ["email","name","bank"].forEach(id=>{
+      document.getElementById(id).value=localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1))||"";
+    });
+  });
+</script>
+</body>
+</html>
