@@ -199,12 +199,29 @@ function showCheckout() {
     `<strong>您的購買明細：</strong><br><br>${lines.join("<br>")}`;
 
   const notice = document.getElementById("payment-status-notice");
-  notice.style.display = "block";
-  notice.innerHTML = paymentStatus
-    ? "<p>✅ 系統已對帳成功，您可以完成下單。</p>"
-    : "<p>⚠️ 尚未完成匯款或對帳，請確認後送出表單。</p>";
 
-  const queryName = document.getElementById("social-name").value.trim();
+  if (notice) {
+    notice.style.display = "block";
+
+    if (paymentStatus) {
+      notice.innerHTML = `
+        <p>✅ 系統已對帳成功，您可以完成下單。</p>
+      `;
+    } else {
+      notice.innerHTML = `
+        <p>⚠️ 尚未完成匯款或對帳，請確認後送出表單。</p>
+        <p>💰付款須知 - 匯款帳號:</p>
+        <p>請勿備註任何字符！會對不到帳</p>
+        <p><strong><span style="color:#a33225;">請注意匯款銀行是郵局!!!!!</span></strong></p>
+        <p>（700）00310710953998</p>
+        <p>請先完成付款後再送出表單</p>
+        <p>若未收到款項，將不列入此次訂單。</p>
+      `;
+    }
+  }
+
+  // 自動帶入名字
+  const queryName = document.getElementById("social-name")?.value.trim();
   const nameInput = document.getElementById("name");
   nameInput.value = queryName;
   nameInput.readOnly = true;
