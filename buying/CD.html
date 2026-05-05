@@ -15,9 +15,30 @@
     .product-card { margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px; border: 1.5px solid #ccc; text-align: center; width: 250px; }
     .product-card img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; background:#eee; }
     .product-title { font-size: 20px; font-weight: bold; margin: 20px 0; }
-    .member-row { display: flex; justify-content: center; align-items: center; margin-top: 10px; gap: 10px; }
-    .member-name { width: 30px; }
-    .qty-input { width:50px; text-align:center; border:1px solid #ccc; border-radius:6px; }
+    .member-row {
+      display: grid;
+      grid-template-columns: 40px 70px;
+      justify-content: center;
+      align-items: center;
+      column-gap: 10px;
+      margin-top: 6px;
+    }
+
+    .member-name {
+      width: auto;
+      text-align: center;
+      font-size: 22px;
+    }
+
+    .qty-input {
+      width: 70px;
+      height: 34px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 18px;
+      box-sizing: border-box;
+    }
     .total { font-size: 25px; font-weight: bold; text-align: center; margin: 30px 0; }
     .submit-btn { background: linear-gradient(45deg,#6e46ae,#d7a9f9); color:#fff; font-size:16px; padding:10px 30px; border:none; border-radius:8px; cursor:pointer; margin-top:20px; }
     #order-summary-text { font-weight:300; font-size:16px; line-height:1.6; text-align:center; }
@@ -38,13 +59,10 @@
 
   <!-- ===== 商品卡片 ===== -->
   <div class="product-wrapper">
-    <div class="product-card" data-key="POS" data-price="300">
-      <img src="../image/signed/pos.webp" alt="POS">
-      <div class="product-title">CD單封 - $300</div>
-        <div class="member-row" data-member="柚"><span class="member-name">柚</span><input type="number" class="qty-input" value="0" readonly></div>
-        <div class="member-row" data-member="吉"><span class="member-name">吉</span><input type="number" class="qty-input" value="0" readonly></div>
-        <div class="member-row" data-member="冬"><span class="member-name">冬</span><input type="number" class="qty-input" value="0" readonly></div>
-        <div class="member-row" data-member="寧"><span class="member-name">寧</span><input type="number" class="qty-input" value="0" readonly></div>
+    <div class="product-card" data-key="CD" data-price="300">
+      <img src="../image/CD.webp" alt="CD版">
+      <div class="product-title">CD版 - $300</div>
+    </div>
   </div>
 
   <!-- ===== 總金額與結帳按鈕 ===== -->
@@ -74,7 +92,7 @@
     </div>
 
     <div class="form-group">
-      <label for="amount">*匯款金額</label>
+      <label for="amount">*匯款/無卡金額</label>
       <input type="text" id="amount">
     </div>
 
@@ -94,26 +112,21 @@
 <script>
 /* ===== 商品設定 ===== */
 const PRODUCTS = [
-  { key: "CD", label: "CD單封", price: 300 },
+  { key: "柚", label: "柚", price: 300 },
+  { key: "吉", label: "吉", price: 300 },
+  { key: "冬", label: "冬", price: 300 },
+  { key: "寧", label: "寧", price: 300 }
 ];
-  
+
 /* ===== 資料庫 ===== */
 const ORDER_DB = {
-  "Arwen": { paid:false, CD:1 },
-  "lianchen038521": { paid:true, CD:2 },
-  "mandu":          { paid:true, CD:1 },
-  "Jack":           { paid:true, POS:1, ACID:1, LEMONADE:1 },
-  "yy":             { paid:true, POS:1, ACID:0, LEMONADE:0 },
-  "K":             { paid:true, POS:1, ACID:0, LEMONADE:0 },
-  "Liii":           { paid:true, POS:1, ACID:0, LEMONADE:2 },
-  "cuuuuu":         { paid:true, POS:0, ACID:1, LEMONADE:1 },
-  "수수":            { paid:true, POS:0, ACID:1, LEMONADE:0 },
-  "Eunice":         { paid:true, POS:0, ACID:1, LEMONADE:0 },
-  "Alex":           { paid:true, POS:0, ACID:0, LEMONADE:1 },
-  "Xavier":         { paid:true, POS:0, ACID:0, LEMONADE:1 },
-  "Leon":         { paid:true, POS:0, ACID:1, LEMONADE:0 },
-  "Chenhann":         { paid:true, POS:0, ACID:1, LEMONADE:0 },
-  "kaii":         { paid:true, POS:0, ACID:1, LEMONADE:0 }
+  "SL": { paid:false, 柚:1, 吉:1, 冬:1, 寧:1 },
+  "阿牛": { paid:false, 柚:0, 吉:0, 冬:1, 寧:0 },
+  "安_Ann": { paid:false, 柚:0, 吉:1, 冬:0, 寧:0 },
+  "lianchen038521": { paid:false, 柚:1, 吉:0, 冬:1, 寧:0 },
+  "Ling18": { paid:false, 柚:1, 吉:0, 冬:1, 寧:0 },
+  "紅豆喵": { paid:false, 柚:1, 吉:0, 冬:0, 寧:0 },
+  "Arwen": { paid:false, 柚:1, 吉:0, 冬:0, 寧:0 }
 };
 
 /* ===== 全域狀態 ===== */
@@ -151,7 +164,7 @@ function lookupOrder() {
     total += qty * product.price;
 
     if (qty > 0) {
-      const card = document.querySelector(`.product-card[data-key="${product.key}"]`);
+      const card = document.querySelector(`.product-card[data-key="CD"]`);
       const row = document.createElement("div");
       row.className = "member-row";
       row.innerHTML = `
@@ -187,7 +200,7 @@ function showCheckout() {
   }
 
   document.getElementById("order-summary-text").innerHTML =
-    `<strong>您的購買明細：</strong><br><br>${lines.join("<br>")}`;
+    `<strong>您的購買明細：</strong><br><br>CD版<br>${lines.join("<br>")}`;
 
   const notice = document.getElementById("payment-status-notice");
 
@@ -211,7 +224,6 @@ function showCheckout() {
     }
   }
 
-  // 自動帶入名字
   const queryName = document.getElementById("social-name")?.value.trim();
   const nameInput = document.getElementById("name");
   nameInput.value = queryName;
@@ -238,7 +250,7 @@ function submitOrder() {
 
   const name   = document.getElementById("name").value.trim();
   const amount = document.getElementById("amount").value.trim();
-  const bank=document.getElementById("bank").value.trim();
+  const bank   = document.getElementById("bank").value.trim();
   const agree  = document.getElementById("agree").value;
   const total  = document.getElementById("total-price").innerText.replace("$", "");
 
@@ -248,27 +260,30 @@ function submitOrder() {
   }
 
   const qtys = {
-    POS: currentOrder.POS || 0,
-    ACID: currentOrder.ACID || 0,
-    LEMONADE: currentOrder.LEMONADE || 0
+    "柚": currentOrder["柚"] || 0,
+    "吉": currentOrder["吉"] || 0,
+    "冬": currentOrder["冬"] || 0,
+    "寧": currentOrder["寧"] || 0
   };
 
   localStorage.setItem("savedEmail", document.getElementById("email").value);
 
   const postData = {
-    "entry.1966657025": qtys.POS,
-    "entry.1263239589": qtys.ACID,
-    "entry.959007677": qtys.LEMONADE,
 
-    "entry.1793387795": emailVal,
-    "entry.398219589": name,
-    "entry.1866660785": amount,
-    "entry.1174194777": agree,
-    "entry.385310176": bank,
-    "entry.328979395": total
+    "entry.1193134101": qtys["柚"],
+    "entry.703984754": qtys["吉"],
+    "entry.356226778": qtys["冬"],
+    "entry.722241181": qtys["寧"],
+
+    "entry.1670643664": emailVal,
+    "entry.390971231": name,
+    "entry.544087547": amount,
+    "entry.56900943": bank,
+    "entry.566792811": total,
+    "entry.1258444094": agree
   };
 
-  fetch("https://docs.google.com/forms/d/10tBJ9diH_bMHb7hkptgiUlCfcVklCmj19X2l3TpnBFw/formResponse", {
+  fetch("https://docs.google.com/forms/d/18gZPau6bxxZq68txBav1g41MSxnWTL2XZ-ZPA65ZIKk/formResponse", {
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
