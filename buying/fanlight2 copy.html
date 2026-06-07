@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
   <script>
-    const deadline = new Date("2026-06-10T23:59:59+08:00");
+    const deadline = new Date("2026-04-23T23:59:59+08:00");
     if (new Date() > deadline) window.location.href = "../other/timesup.html";
   </script>
   <style>
@@ -40,23 +40,12 @@
 
   <!-- 商品區 -->
   <div class="product-wrapper">
-    <div class="product-card" data-price="1230" data-product="fanlight">
+    <div class="product-card" data-price="1230">
       <img src="../image/fanlight.jpg" alt="二代手燈">
       <div class="product-title">aespa二代手燈 - $1230</div>
       <p>不需二補</p>
       <div class="member-row" data-member="一組"><span class="member-name">一組</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input type="number" class="qty-input" value="0" readonly><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
     </div>
-    <div class="product-card" data-price="570" data-product="mini-light">
-      <img src="../image/lightstick2.jpg" alt="aespa二代小手燈">
-      <div class="product-title">aespa二代小手燈 - $570</div>
-      <p>不需二補</p>
-      <div class="member-row" data-member="一組">
-    <span class="member-name">一組</span>
-    <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
-    <input type="number" class="qty-input" value="0" readonly>
-    <button class="qty-btn" onclick="updateQty(this,1)">+</button>
-  </div>
-</div>
   </div>
 
   <div class="total">總金額：<span id="total-price">$0</span></div>
@@ -218,27 +207,19 @@
     }
 
     /* 整理商品數量 */
-    const qtys = {
-      fanlight: 0,
-      "mini-light": 0
-    };
-
-    document.querySelectorAll(".product-card").forEach(card => {
-      const product = card.dataset.product;
-      const q = parseInt(card.querySelector(".qty-input").value);
-      qtys[product] = q;
+    const qtys={一組:0};
+    document.querySelectorAll(".member-row").forEach(r=>{
+      const m=r.dataset.member;
+      const q=parseInt(r.querySelector("input").value);
+      qtys[m]+=q;
     });
     const total=document.getElementById("total-price").innerText.replace("$","");
 
     const postData={
-      "entry.2057913046": qtys["fanlight"],
-      "entry.1117797344" : qtys["mini-light"],
-      "entry.82782635": total,
-      "entry.254492802": emailInput,
-      "entry.115228895": name,
-      "entry.385940012": amount,
-      "entry.1289769022": bank,
-      "entry.392066430": agree
+      "entry.1433769554":qtys["一組"],
+      "entry.1176441319":emailInput,"entry.1195798789":name,
+      "entry.1043038233":amount,"entry.1950007438":bank,"entry.463756351":agree,
+      "entry.505508747":total
     };
 
     // ===== 進入送單狀態：立即寫入時間避免連點；禁用按鈕 =====
@@ -248,7 +229,7 @@
     const prevText = btn ? btn.innerText : null;
     if (btn) { btn.disabled = true; btn.innerText = "送出中…"; }
 
-    fetch("https://docs.google.com/forms/u/0/d/1Q1VfhHJVyOlNgWKuhQdXA3dIaT7ATmD5LChEO-UjGuI/formResponse",{
+    fetch("https://docs.google.com/forms/d/11ENwzzF5ayvmufYtJPKnFR0xFQmkADCTKo7nBiCkZ_A/formResponse",{
       method:"POST",mode:"no-cors",
       headers:{"Content-Type":"application/x-www-form-urlencoded"},
       body:new URLSearchParams(postData).toString()
