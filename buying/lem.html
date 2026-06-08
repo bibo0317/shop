@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<title>Arwen代購</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&amp;display=swap" rel="stylesheet"/>
+  <script>
+    const deadline = new Date("2026-06-11T23:59:00+08:00");
+    if (new Date() > deadline) window.location.href = "../other/timesup.html";
+  </script>
+<style>
+    @media (max-width: 480px) {
+      .info-box { font-size: 13px; padding: 12px; }
+      .info-box p, .payment-notice p { line-height: 1.8; margin: 6px 0; }
+      .notice-title { font-size: 20px; }
+    }
+    body { font-family: "Noto Sans TC", sans-serif; background: #f3f3f3; margin: 0; padding: 0; }
+    .product-wrapper { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; }
+    .product-card { margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px; border: 1.5px solid #ccc; text-align: center; width: 250px; }
+    .product-card img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; }
+    .product-title { font-size: 20px; font-weight: bold; margin: 20px 0; }
+    .member-row { display: flex; justify-content: center; align-items: center; margin-top: 10px; gap: 10px; }
+    .member-name { width: 40px; text-align: center; }
+    .qty-btn { width: 30px; height: 30px; background: #d7a9f9; border: none; border-radius: 5px; color: #fff; font-size: 18px; cursor: pointer; }
+    .qty-input { width: 40px; height: 30px; text-align: right; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
+    .total { font-size: 25px; font-weight: bold; text-align: center; margin: 30px 0; }
+    .submit-btn { background: linear-gradient(45deg,#6e46ae,#d7a9f9); color:#fff; font-size:16px; padding:10px 30px; border:none; border-radius:8px; cursor:pointer; margin-top:20px; }
+    #order-summary-text { font-weight:300; font-size:16px; line-height:1.6; text-align:center; }
+    #checkout-section { margin-top:30px; padding-top:20px; border-top:2px dashed #ccc; }
+    .payment-notice { background:#a798bd; color:#fff; padding:5px; border-radius:10px; text-align:center; line-height:0.8; margin-bottom:30px; font-size:15px; }
+    .form-group { margin-top:15px; }
+    .form-group input,.form-group select { width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; margin-top:5px; }
+    .invalid { border:2px solid #e74c3c; background:#fff0f0; }
+    .error-message { font-size:13px; color:#e74c3c; margin-top:5px; display:none; }
+  </style>
+</head>
+<body>
+<!-- ✅ aespa 新商品卡片區：KARINA=柚、GISELLE=吉、WINTER=冬、NINGNING=寧 -->
+<div class="product-wrapper">
+<div class="product-card" data-price="440">
+<img alt="METAL CASE" src="../image/aespa/01.webp"/>
+<div class="product-title">METAL CASE - $440</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="750">
+<img alt="SYMBOL RING" src="../image/aespa/02.webp"/>
+<div class="product-title">SYMBOL RING - $750</div>
+<div class="member-row" data-member="9號"><span class="member-name">9號</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="11號"><span class="member-name">11號</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="13號"><span class="member-name">13號</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="15號"><span class="member-name">15號</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="17號"><span class="member-name">17號</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="1650">
+<img alt="SHOULDER BAG SET" src="../image/aespa/03.webp"/>
+<div class="product-title">SHOULDER BAG SET - $1650</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="130">
+  <img src="../image/aespa/04.webp"/>
+  <div class="product-title">WDA ver. 隨機卡 - $130</div>
+
+  <div class="member-row" data-member="數量">
+    <span class="member-name">數量</span>
+    <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+    <input class="qty-input" type="number" value="0" readonly>
+    <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+  </div>
+</div>
+<div class="product-card" data-price="130">
+  <img src="../image/aespa/25.webp"/>
+  <div class="product-title">LEMONADE ver. 隨機卡 - $130</div>
+
+  <div class="member-row" data-member="數量">
+    <span class="member-name">數量</span>
+    <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
+    <input class="qty-input" type="number" value="0" readonly>
+    <button class="qty-btn" onclick="updateQty(this,1)">+</button>
+  </div>
+</div>
+<div class="product-card" data-price="220">
+<img alt="[WDA ver.] 明信片+閃卡套裝" src="../image/aespa/05.webp"/>
+<div class="product-title">[WDA ver.] 明信片+閃卡套裝 - $220</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="220">
+<img alt="[LEMONADE ver.] 明信片+閃卡套裝" src="../image/aespa/06.webp"/>
+<div class="product-title">[LEMONADE ver.] 明信片+閃卡套裝 - $220</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="310">
+<img alt="PHOTO SET" src="../image/aespa/07.webp"/>
+<div class="product-title">PHOTO SET - $310</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="470">
+<img alt="CREATURE KEYRING SET" src="../image/aespa/08.webp"/>
+<div class="product-title">CREATURE KEYRING SET - $470</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="625">
+<img alt="POUCH" src="../image/aespa/09.webp"/>
+<div class="product-title">POUCH - $625</div>
+<div class="member-row" data-member="數量"><span class="member-name">數量</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="770">
+<img alt="BEANIE" src="../image/aespa/10.webp"/>
+<div class="product-title">BEANIE - $770</div>
+<div class="member-row" data-member="數量"><span class="member-name">數量</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="2150">
+<img alt="ZIP-UP HOODIE SET" src="../image/aespa/11.webp"/>
+<div class="product-title">ZIP-UP HOODIE SET - $2150</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="2150">
+<img alt="CROPPED ZIP-UP HOODIE SET" src="../image/aespa/12.webp"/>
+<div class="product-title">CROPPED ZIP-UP HOODIE SET - $2150</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="950">
+<img alt="T-SHIRT (WDA ver.)" src="../image/aespa/13.webp"/>
+<div class="product-title">T-SHIRT (WDA ver.) - $950</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="1060">
+<img alt="T-SHIRT (LEMONADE ver.)" src="../image/aespa/14.webp"/>
+<div class="product-title">T-SHIRT (LEMONADE ver.) - $1060</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="670">
+<img alt="HAND MIRROR SET(易碎不售後)" src="../image/aespa/15.webp"/>
+<div class="product-title">HAND MIRROR SET(易碎不售後) - $670</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="440">
+<img alt="COLOR-CHANGING REUSABLE CUP SET" src="../image/aespa/16.png"/>
+<div class="product-title">COLOR-CHANGING REUSABLE CUP SET - $440</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="660">
+<img alt="DOLL KEYRING (WDA ver.)" src="../image/aespa/18.webp"/>
+<div class="product-title">DOLL KEYRING (WDA ver.) - $660</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="440">
+<img alt="DOLL KEYRING (LEMONADE ver.)" src="../image/aespa/19.webp"/>
+<div class="product-title">DOLL KEYRING (LEMONADE ver.) - $440</div>
+<div class="member-row" data-member="柚"><span class="member-name">柚</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="吉"><span class="member-name">吉</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="冬"><span class="member-name">冬</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+<div class="member-row" data-member="寧"><span class="member-name">寧</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="200">
+<img alt="RANDOM MINI LEMON KEYRING" src="../image/aespa/20.webp"/>
+<div class="product-title">RANDOM MINI LEMON KEYRING - $200</div>
+<div class="member-row" data-member="數量"><span class="member-name">數量</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="200">
+<img alt="RANDOM MINI ACRYLIC SHAKER KEYRING" src="../image/aespa/21.png"/>
+<div class="product-title">RANDOM MINI ACRYLIC SHAKER KEYRING - $200</div>
+<div class="member-row" data-member="數量"><span class="member-name">數量</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="160">
+<img alt="RANDOM LENTICULAR PIN BUTTON" src="../image/aespa/22.webp"/>
+<div class="product-title">RANDOM LENTICULAR PIN BUTTON - $160</div>
+<div class="member-row" data-member="數量"><span class="member-name">數量</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="160">
+<img alt="RANDOM MINI CAN KEYRING" src="../image/aespa/23.webp"/>
+<div class="product-title">RANDOM MINI CAN KEYRING - $160</div>
+<div class="member-row" data-member="數量"><span class="member-name">數量</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+<div class="product-card" data-price="100">
+<img alt="RANDOM STICKER SET" src="../image/aespa/24.webp"/>
+<div class="product-title">RANDOM STICKER SET - $100</div>
+<div class="member-row" data-member="數量"><span class="member-name">數量</span><button class="qty-btn" onclick="updateQty(this,-1)">-</button><input class="qty-input" readonly="" type="number" value="0"/><button class="qty-btn" onclick="updateQty(this,1)">+</button></div>
+</div>
+</div>
+<div class="total">總金額：<span id="total-price">$0</span></div><div id="bonus-display" style="text-align:center; font-size:16px; color:#6e46ae; margin-top:-20px; margin-bottom:30px;"></div>
+<div style="text-align:center;">
+    <p><span style="color: #a33225;">⚠ 請務必<strong>自行再次計算</strong>滿額贈品數量</span>
+    <li>系統提供之滿額計算結果僅供參考，可能因輸入錯誤、瀏覽器問題等因素產生誤差</li>
+    <li>請買家自行重新計算一次韓幣總額與預估贈品，並依據公告自行確認贈品數量</li>
+    <li>本人將依實際成立訂單金額與商品類型進行滿額卡發放，不受線上計算結果限制</li>
+    <li>贈品排卡方式以社群公布為主，實際情況可能因官方供給而有變化，下單視同同意所有已頒布規則</li>
+<button class="submit-btn" onclick="showCheckout()">結帳</button>
+</div>
+<!-- 結帳區 -->
+<div id="checkout-section" style="display:none;">
+<div class="total" id="order-summary-text"></div>
+<div class="payment-notice">
+<p>💰付款須知-匯款帳號:</p>
+<p><strong><span style="color: #a33225;">請勿備註任何字符!會對不到帳</span></strong></p>
+<p><strong><span style="color: #a33225;">請往上拉看購買明細再次確認您選購的商品</span></strong></p>
+<p><strong><span style="color: #a33225;">訂單送出後不接受任何理由更改</span></strong></p>
+<p>請注意匯款銀行是郵局!!!!!</p>
+<p>（700）00310710953998</p>
+<p>請先完成付款後再送出表單</p>
+<p>若未收到款項，將不列入此次訂單</p>
+</div>
+<div class="form-group">
+<label for="email">*Gmail信箱（系統自動補上@gmail）</label>
+<input id="email" oninput="validateEmail(this)" placeholder="xxxxx" required="" type="text"/>
+<div class="error-message" id="email-error">請輸入正確的 Gmail</div>
+</div>
+<div class="form-group">
+<label for="name">*社群內您的姓名，填單後禁止改名，若因買家改名找不到人而造成損失我方不負責</label>
+<input id="name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="amount">*匯款金額，先匯款完才能送單</label>
+<input id="amount" oninput="validateAmount(this)" required="" type="text"/>
+<div class="error-message" id="amount-error">只能填寫數字，最多兩位小數</div>
+</div>
+<div class="form-group">
+<label for="bank">匯款銀行+您的末五碼</label>
+<input id="bank" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="agree">*我知道商品皆默認瑕疵損，且需久等，我已看過下單須知並同意所有規則</label>
+<select id="agree" required="">
+<option value="">請選擇</option>
+<option value="是">是</option>
+</select>
+</div>
+<div style="text-align:center;">
+<button class="submit-btn" onclick="submitOrder()">送出訂單</button>
+</div>
+</div>
+<script>
+  /* === 商品 + Google Form entry 對應 === */
+const entryMap = {
+  "METAL CASE|柚": "entry.1055571248",
+  "METAL CASE|吉": "entry.1024037843",
+  "METAL CASE|冬": "entry.941501353",
+  "METAL CASE|寧": "entry.272155063",
+  "SYMBOL RING|9號": "entry.1347113960",
+  "SYMBOL RING|11號": "entry.1732407159",
+  "SYMBOL RING|13號": "entry.716263164",
+  "SYMBOL RING|15號": "entry.256422403",
+  "SYMBOL RING|17號": "entry.1603545561",
+  "SHOULDER BAG SET|柚": "entry.69645246",
+  "SHOULDER BAG SET|吉": "entry.910277937",
+  "SHOULDER BAG SET|冬": "entry.902236523",
+  "SHOULDER BAG SET|寧": "entry.1176268956",
+  "WDA ver. 隨機卡|數量": "entry.1152638013",
+  "LEMONADE ver. 隨機卡|數量": "entry.1170399057",
+  "[WDA ver.] 明信片+閃卡套裝|柚": "entry.327728669",
+  "[WDA ver.] 明信片+閃卡套裝|吉": "entry.1221250688",
+  "[WDA ver.] 明信片+閃卡套裝|冬": "entry.268515483",
+  "[WDA ver.] 明信片+閃卡套裝|寧": "entry.1745809230",
+  "[LEMONADE ver.] 明信片+閃卡套裝|柚": "entry.1244733550",
+  "[LEMONADE ver.] 明信片+閃卡套裝|吉": "entry.1456244333",
+  "[LEMONADE ver.] 明信片+閃卡套裝|冬": "entry.1744459689",
+  "[LEMONADE ver.] 明信片+閃卡套裝|寧": "entry.793097047",
+  "PHOTO SET|柚": "entry.1747208317",
+  "PHOTO SET|吉": "entry.1978577192",
+  "PHOTO SET|冬": "entry.1312031397",
+  "PHOTO SET|寧": "entry.368577302",
+  "CREATURE KEYRING SET|柚": "entry.317228402",
+  "CREATURE KEYRING SET|吉": "entry.720199310",
+  "CREATURE KEYRING SET|冬": "entry.1086317803",
+  "CREATURE KEYRING SET|寧": "entry.500842723",
+  "POUCH|數量": "entry.107584308",
+  "BEANIE|數量": "entry.298631524",
+  "ZIP-UP HOODIE SET|柚": "entry.1308062672",
+  "ZIP-UP HOODIE SET|吉": "entry.1752414599",
+  "ZIP-UP HOODIE SET|冬": "entry.1562151717",
+  "ZIP-UP HOODIE SET|寧": "entry.308587049",
+  "CROPPED ZIP-UP HOODIE SET|柚": "entry.439021821",
+  "CROPPED ZIP-UP HOODIE SET|吉": "entry.961161716",
+  "CROPPED ZIP-UP HOODIE SET|冬": "entry.2076407252",
+  "CROPPED ZIP-UP HOODIE SET|寧": "entry.836344487",
+  "T-SHIRT (WDA ver.)|柚": "entry.1593737751",
+  "T-SHIRT (WDA ver.)|吉": "entry.356633157",
+  "T-SHIRT (WDA ver.)|冬": "entry.1230528651",
+  "T-SHIRT (WDA ver.)|寧": "entry.641520488",
+  "T-SHIRT (LEMONADE ver.)|柚": "entry.2039072567",
+  "T-SHIRT (LEMONADE ver.)|吉": "entry.251226430",
+  "T-SHIRT (LEMONADE ver.)|冬": "entry.787465456",
+  "T-SHIRT (LEMONADE ver.)|寧": "entry.1438820645",
+  "HAND MIRROR SET(易碎不售後)|柚": "entry.1917894015",
+  "HAND MIRROR SET(易碎不售後)|吉": "entry.2137336799",
+  "HAND MIRROR SET(易碎不售後)|冬": "entry.1639759472",
+  "HAND MIRROR SET(易碎不售後)|寧": "entry.1161932914",
+  "COLOR-CHANGING REUSABLE CUP SET|柚": "entry.1923225210",
+  "COLOR-CHANGING REUSABLE CUP SET|吉": "entry.1298750111",
+  "COLOR-CHANGING REUSABLE CUP SET|冬": "entry.1167309190",
+  "COLOR-CHANGING REUSABLE CUP SET|寧": "entry.1386553084",
+  "DOLL KEYRING (WDA ver.)|柚": "entry.760060766",
+  "DOLL KEYRING (WDA ver.)|吉": "entry.948541104",
+  "DOLL KEYRING (WDA ver.)|冬": "entry.1591462643",
+  "DOLL KEYRING (WDA ver.)|寧": "entry.374478027",
+  "DOLL KEYRING (LEMONADE ver.)|柚": "entry.1040955466",
+  "DOLL KEYRING (LEMONADE ver.)|吉": "entry.1037137728",
+  "DOLL KEYRING (LEMONADE ver.)|冬": "entry.804572543",
+  "DOLL KEYRING (LEMONADE ver.)|寧": "entry.2012180690",
+  "RANDOM MINI LEMON KEYRING|數量": "entry.2093660565",
+  "RANDOM MINI ACRYLIC SHAKER KEYRING|數量": "entry.1794766032",
+  "RANDOM LENTICULAR PIN BUTTON|數量": "entry.1031526379",
+  "RANDOM MINI CAN KEYRING|數量": "entry.13875579",
+  "RANDOM STICKER SET|數量": "entry.52330401",
+};
+
+
+/* === 更新數量 & 計算總價 === */
+function updateQty(btn, delta) {
+  const inp = btn.parentElement.querySelector('input');
+  let q = parseInt(inp.value) + delta;
+  if (q < 0) q = 0;
+  inp.value = q;
+
+  // 更新總價
+  updateTotal();
+
+  // 如果結帳區已經展開，則自動收起並提示
+  const checkoutSection = document.getElementById("checkout-section");
+  if (checkoutSection && checkoutSection.style.display === "block") {
+    checkoutSection.style.display = "none"; // 收起結帳區
+    document.getElementById("order-summary-text").innerHTML = ""; // 清空明細
+    document.getElementById("amount").value = ""; // 清空匯款金額
+    alert("購物內容已變動，請重新結帳！");
+  }
+}
+
+  function updateTotal(){
+    let t=0;
+    document.querySelectorAll(".product-card").forEach(card=>{
+      const price=parseInt(card.dataset.price);
+      card.querySelectorAll(".qty-input").forEach(i=>{
+        t+=price*parseInt(i.value);
+      });
+    });
+    document.getElementById("total-price").innerText=`$${t}`;
+  }
+
+  /* === 顯示結帳區 === */
+function showCheckout(){
+  const summary=[];
+  document.querySelectorAll(".product-card").forEach(card=>{
+    const title=card.querySelector(".product-title").innerText;
+    const lines=[];
+    card.querySelectorAll(".member-row").forEach(r=>{
+      const m=r.dataset.member;
+      const q=parseInt(r.querySelector("input").value);
+      if(q>0) lines.push(`${m} x${q}`);
+    });
+    if(lines.length) summary.push(`${title}<br>${lines.join("<br>")}`);
+  });
+    if(document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`)
+  if(!summary.length){alert("請至少選擇一項商品再結帳！");return;}
+  
+  
+  document.getElementById("order-summary-text").innerHTML=`<strong>您的購買明細：</strong><br><br>${summary.join("<br><br>")}`;
+  document.getElementById("checkout-section").style.display="block";
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+
+  // ★ 新增：自動帶入總金額
+  const total = document.getElementById("total-price").innerText.replace("$","").trim();
+  document.getElementById("amount").value = total;
+}
+
+
+  /* === 即時驗證 === */
+  function validateEmail(input){
+    const val=input.value.trim();
+    const err=document.getElementById("email-error");
+    if(val==="" || !val.includes("@")){
+      input.classList.remove("invalid");
+      err.style.display="none";
+      return;
+    }
+    if(!val.endsWith("@gmail.com")){
+      input.classList.add("invalid");
+      err.style.display="block";
+    }else{
+      input.classList.remove("invalid");
+      err.style.display="none";
+    }
+  }
+  function validateAmount(input){
+    const v=input.value.trim();
+    const err=document.getElementById("amount-error");
+    if(v==="" || /^\d+(\.\d{0,2})?$/.test(v)){
+      input.classList.remove("invalid"); err.style.display="none";
+    }else{
+      input.classList.add("invalid"); err.style.display="block";
+    }
+  }
+
+let lastSubmitTime = 0;  // 新增：記錄上次送單時間
+
+function submitOrder(){
+  const now = Date.now();
+  if (now - lastSubmitTime < 60000) {
+    alert("請勿在 1 分鐘內重複送出訂單！");
+    return;
+  }
+
+  const emailEl = document.getElementById("email");
+  let emailInput = emailEl.value.trim();
+
+  // 先擋空白
+  if (emailInput === "") {
+    alert("請輸入 Gmail。");
+    emailEl.focus();
+    return;
+  }
+
+  // 使用者有輸入但未含 @，才自動補上 @gmail.com
+  if (!emailInput.includes("@")) {
+    emailInput += "@gmail.com";
+  }
+  emailEl.value = emailInput;
+
+  // 僅接受有效的 Gmail
+  const gmailRe = /^[A-Za-z0-9._%+-]+@gmail\.com$/;
+  if (!gmailRe.test(emailInput)) {
+    alert("只接受有效的 Gmail（例如 yourname@gmail.com）。");
+    emailEl.focus();
+    return;
+  }
+
+  lastSubmitTime = now;  // 通過所有 Email 檢查後再更新鎖定時間
+
+  // 其餘原本的欄位檢查與送出流程照舊…
+  const name=document.getElementById("name").value.trim();
+  const amount=document.getElementById("amount").value.trim();
+  const bank=document.getElementById("bank").value.trim();
+  const agree=document.getElementById("agree").value;
+
+  if(!emailInput||!name||!amount||!agree){
+    alert("請填寫所有必填欄位！");
+    return;
+  }
+  if(!/^\d+(\.\d{0,2})?$/.test(amount)){
+    alert("匯款金額格式錯誤，只能填寫數字！");
+    return;
+  }
+
+    const postData = {};
+    // 動態收集所有商品數量
+    // 📦 加入：韓幣總金額與滿額卡 entry
+    postData["entry.1009540364"] = krwTotal;            // 韓幣總金額
+    postData["entry.63376792"] = generalCardCount;    // 一般滿額卡
+    postData["entry.2084151796"] = clothingCardCount;   // 服飾滿額卡
+    postData["entry.506978117"] = window.clothingCount;   // 服飾商品總件數
+
+
+    document.querySelectorAll(".product-card").forEach(card=>{
+      const title=card.querySelector(".product-title").innerText.split(" - ")[0];
+      card.querySelectorAll(".member-row").forEach(row=>{
+        const member=row.dataset.member;
+        const qty=parseInt(row.querySelector("input").value);
+        const key=`${title}|${member}`;
+        if(entryMap[key]){
+          postData[entryMap[key]] = qty;
+        }
+      });
+    });
+
+    // 其他必填欄位
+    const total=document.getElementById("total-price").innerText.replace("$","");
+    postData["entry.1710563416"] = total;
+    postData["entry.27144314"] = emailInput;
+    postData["entry.1706199938"] = name;
+    postData["entry.1960036204"] = amount;
+    postData["entry.1078650259"] = bank;
+    postData["entry.1567910609"] = agree;
+
+    fetch("https://docs.google.com/forms/d/1hWdk8GwrIdYztg6yc1rlULeyOfm8FHpnIiSJJEdY5tE/formResponse",{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body:new URLSearchParams(postData).toString()
+    }).then(()=>{window.location.href="../other/done.html";})
+      .catch(()=>{window.location.href="../other/error.html";});
+  }
+
+  /* 自動帶入 localStorage */
+  window.addEventListener("DOMContentLoaded",()=>{
+    ["email","name","bank"].forEach(id=>{
+      document.getElementById(id).value=localStorage.getItem("saved"+id.charAt(0).toUpperCase()+id.slice(1))||"";
+    });
+  });
+
+
+
+// === 🎁 滿額卡計算 ===
+const krwPriceMap = {
+  "METAL CASE": 20000,
+  "SYMBOL RING": 37000,
+  "SHOULDER BAG SET": 75000,
+  "WDA ver. 隨機卡": 6000,
+  "LEMONADE ver. 隨機卡": 6000,
+  "[WDA ver.] 明信片+閃卡套裝": 10000,
+  "[LEMONADE ver.] 明信片+閃卡套裝": 10000,
+  "PHOTO SET": 12000,
+  "CREATURE KEYRING SET": 22000,
+  "POUCH": 32000,
+  "BEANIE": 38000,
+  "ZIP-UP HOODIE SET": 92000,
+  "CROPPED ZIP-UP HOODIE SET": 92000,
+  "T-SHIRT (WDA ver.)": 45000,
+  "T-SHIRT (LEMONADE ver.)": 49000,
+  "HAND MIRROR SET(易碎不售後)": 30000,
+  "COLOR-CHANGING REUSABLE CUP SET": 17000,
+  "DOLL KEYRING (WDA ver.)": 32000,
+  "DOLL KEYRING (LEMONADE ver.)": 20000,
+  "RANDOM MINI LEMON KEYRING": 9000,
+  "RANDOM MINI ACRYLIC SHAKER KEYRING": 9000,
+  "RANDOM LENTICULAR PIN BUTTON": 6000,
+  "RANDOM MINI CAN KEYRING": 7000,
+  "RANDOM STICKER SET": 4000,
+};
+const clothingKeywords = ["SHOULDER BAG SET", "BEANIE", "ZIP-UP HOODIE SET", "CROPPED ZIP-UP HOODIE SET", "T-SHIRT (WDA ver.)", "T-SHIRT (LEMONADE ver.)"];
+
+function updateBonuses() {
+  window.krwTotal = 0;
+  window.clothingCount = 0;
+
+  document.querySelectorAll(".product-card").forEach(card => {
+    const title = card.querySelector(".product-title")?.innerText.split(" - ")[0].trim();
+    const krw = krwPriceMap[title] || 0;
+    card.querySelectorAll(".member-row").forEach(row => {
+      const qty = parseInt(row.querySelector("input").value);
+      window.krwTotal += qty * krw;
+      if (clothingKeywords.includes(title)) window.clothingCount += qty;
+    });
+  });
+
+  window.generalCardCount = Math.floor(krwTotal / 50000) ;
+  window.clothingCardCount = Math.min(Math.floor(krwTotal / 100000), clothingCount) ;
+
+  let result = "";
+  if (generalCardCount > 0) result += `🎁 一般滿額卡：${generalCardCount} 張（每滿 ₩50,000）<br>`;
+  if (clothingCardCount > 0) result += `👕 服飾滿額卡：${clothingCardCount} 張（含服飾 ${clothingCount} 件）<br>`;
+  document.getElementById("bonus-display").innerHTML = result;
+}
+
+// call on load and rebind in updateQty
+updateBonuses();
+const origUpdateQty = updateQty;
+updateQty = function(btn, delta) {
+  origUpdateQty(btn, delta);
+  updateBonuses();
+};
+</script>
+</body>
+</html>
