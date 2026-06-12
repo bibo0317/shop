@@ -47,29 +47,12 @@ body { font-family: "Noto Sans TC", sans-serif; background: #f3f3f3; margin: 0; 
   <div class="product-card" data-price="1830" data-key="threeSet">
     <img src="../image/jp/3ver.webp" alt="3普版各一">
     <div class="product-title">3普版各一<br>Limited + Poster + KISS N TELL - 1830</div>
-    <p><strong><span class="notice-red">早鳥預約特典：Warner Music Store ver. 一套特典卡共4張</span></strong></p>
+    <p><strong><span class="notice-red">早鳥預約特典：4張交易卡套裝（TOWER RECORDS版）</span></strong></p>
     <p><span class="notice-red">※6/30 23:59 前早期預約限定</span></p>
     <p>含 Limited Edition Ver. 1張</p>
     <p>含 Poster Ver. 1張</p>
     <p>含 KISS N TELL Ver. 1張</p>
-    <p>※無B2海報</p>
-    <div class="member-row" data-member="套裝">
-      <span class="member-name">數量</span>
-      <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
-      <input type="number" class="qty-input" value="0" readonly>
-      <button class="qty-btn" onclick="updateQty(this,1)">+</button>
-    </div>
-  </div>
-  <!-- Warner Music Store Edition -->
-  <div class="product-card" data-price="2670" data-key="warner">
-    <img src="../image/jp/Warner Music Store Edition.webp" alt="Warner Music Store Edition">
-    <div class="product-title">KISS N TELL<br>Warner Music Store Edition - 2670</div>
-    <p><strong><span class="notice-red">購入特典：Unit雙人/小分隊小卡5張</span></strong></p>
-    <p><span class="notice-red">全12種隨機5張，可能重複</span></p>
-    <p>Poster 團體 + 4位單人全5種完整套組</p>
-    <p>Logo貼紙 每本內置1張</p>
-    <p>應募序號 每本內置1張</p>
-    <p>小卡 每本內置1張</p>
+    <p>※無一般特典單人小卡四隨一</p>
     <div class="member-row" data-member="套裝">
       <span class="member-name">數量</span>
       <button class="qty-btn" onclick="updateQty(this,-1)">-</button>
@@ -81,7 +64,7 @@ body { font-family: "Noto Sans TC", sans-serif; background: #f3f3f3; margin: 0; 
   <div class="product-card" data-price="840" data-key="limited">
     <img src="../image/jp/Limited Edition Ver..webp" alt="Limited Edition Ver.">
     <div class="product-title">KISS N TELL<br>Limited Edition Ver. - 840</div>
-    <p><strong><span class="notice-red">Warner購入特典：B2海報 1種</span></strong></p>
+    <p><strong><span class="notice-red">塔店購入特典：單人小卡四隨一</span></strong></p>
     <p>80P寫真集</p>
     <p>明信片</p>
     <p>Logo貼紙</p>
@@ -101,7 +84,7 @@ body { font-family: "Noto Sans TC", sans-serif; background: #f3f3f3; margin: 0; 
   <div class="product-card" data-price="550" data-key="poster">
     <img src="../image/jp/Poster Ver..webp" alt="Poster Ver.">
     <div class="product-title">KISS N TELL<br>Poster Ver. - 550</div>
-    <p><strong><span class="notice-red">Warner購入特典：B2海報 1種</span></strong></p>
+    <p><strong><span class="notice-red">塔店購入特典：單人小卡四隨一</span></strong></p>
     <p>Poster 全5種隨機1張：</p>
     <p>・團體 / 單人4人 隨機</p>
     <p>Logo貼紙</p>
@@ -121,7 +104,7 @@ body { font-family: "Noto Sans TC", sans-serif; background: #f3f3f3; margin: 0; 
   <div class="product-card" data-price="490" data-key="kissntell">
     <img src="../image/jp/KISS N TELL.webp" alt="KISS N TELL Ver.">
     <div class="product-title">KISS N TELL<br>KISS N TELL Ver. - 490</div>
-    <p><strong><span class="notice-red">Warner購入特典：B2海報 1種</span></strong></p>
+    <p><strong><span class="notice-red">塔店購入特典：單人小卡四隨一</span></strong></p>
     <p>12P歌詞本</p>
     <p>Logo貼紙</p>
     <p>應募序號 1張</p>
@@ -309,8 +292,7 @@ function submitOrder() {
     threeSet: 0,
     limited: 0,
     poster: 0,
-    kissntell: 0,
-    warner: 0
+    kissntell: 0
   };
 
   document.querySelectorAll(".product-card").forEach(card => {
@@ -324,18 +306,17 @@ function submitOrder() {
   const total = document.getElementById("total-price").innerText.replace("$", "");
 
 const postData = {
-  "entry.620519080": qtys.threeSet,
-  "entry.1039901247": qtys.warner,
-  "entry.284504611": qtys.limited,
-  "entry.1846439209": qtys.poster,
-  "entry.1179503596": qtys.kissntell,
+  "entry.1705062288": qtys.threeSet,
+  "entry.1821931805": qtys.limited,
+  "entry.332940995": qtys.poster,
+  "entry.2019276529": qtys.kissntell,
 
-  "entry.528861429": total,
-  "entry.1753069261": emailInput,
-  "entry.1660698475": name,
-  "entry.1699185880": amount,
-  "entry.897668637": bank,
-  "entry.507061366": agree
+  "entry.2051340405": total,
+  "entry.1912882667": emailInput,
+  "entry.1602714010": name,
+  "entry.166878609": amount,
+  "entry.1064734092": bank,
+  "entry.1174424681": agree
 };
 
 
@@ -344,7 +325,7 @@ const postData = {
   localStorage.setItem("savedBank", bank);
 
 
-  fetch("https://docs.google.com/forms/d/e/1FAIpQLSfl1C0kbJKRofC1KNGLZD1_HEzu-26w1IbVZQP-iSGvqf0Zdw/formResponse", {
+  fetch("https://docs.google.com/forms/d/1TPdWYx-fYmf2aU4w3mHKyQXJ2Q72C7vNbHZdIOb0JRE/formResponse", {
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
